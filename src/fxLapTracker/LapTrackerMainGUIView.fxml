@@ -126,6 +126,7 @@
                             <MenuItem mnemonicParsing="false" text="Automobilista 2" />
                               <MenuItem mnemonicParsing="false" text="Project Cars 2" />
                               <MenuItem mnemonicParsing="false" text="Gran Turismo Sport" />
+                              <MenuItem mnemonicParsing="false" text="Kaikki" />
                           </items>
                         </SplitMenuButton>
                      </graphic>
