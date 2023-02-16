@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxLapTracker.TietojaSovelluksestaGUIController">
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
@@ -42,7 +42,7 @@
                   <Label text="- Käytetyt ajoavut" GridPane.rowIndex="5" />
                   <Label text="- Rataennätys" GridPane.rowIndex="6" />
                   <Label text="- Omia kommentteja sessiosta" GridPane.rowIndex="7" />
-                  <Button mnemonicParsing="false" text="OK" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                  <Button fx:id="buttonOk" defaultButton="true" mnemonicParsing="false" onAction="#buttonOk" text="OK" GridPane.columnIndex="1" GridPane.rowIndex="7">
                      <padding>
                         <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
                      </padding>

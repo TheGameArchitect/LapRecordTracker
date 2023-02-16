@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxLapTracker.LisaaKilparataGUIController">
    <center>
       <FlowPane prefHeight="100.0" prefWidth="250.0" BorderPane.alignment="CENTER">
          <children>
@@ -17,12 +16,12 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </FlowPane.margin>
             </Label>
-            <TextField promptText="Esim. Nordschleife">
+            <TextField fx:id="textKilparata" promptText="Esim. Nordschleife">
                <FlowPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </FlowPane.margin>
             </TextField>
-            <Button mnemonicParsing="false" text="Tallenna">
+            <Button fx:id="buttonTallenna" defaultButton="true" mnemonicParsing="false" onAction="#buttonTallenna" text="Tallenna">
                <FlowPane.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </FlowPane.margin>
@@ -30,7 +29,7 @@
                   <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                </padding>
             </Button>
-            <Button mnemonicParsing="false" text="Peruuta">
+            <Button fx:id="buttonPeruuta" cancelButton="true" mnemonicParsing="false" onAction="#buttonPeruuta" text="Peruuta">
                <FlowPane.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </FlowPane.margin>
