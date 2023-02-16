@@ -30,10 +30,11 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <Label alignment="CENTER" text="Haku" GridPane.halignment="CENTER" />
-                  <TextField fx:id="textKilparata" promptText="Esim. Nordschleife" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                  <TextField fx:id="textHaku" onKeyReleased="#textHaku" promptText="Esim. Nordschleife" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="3.0" right="3.0" />
                      </GridPane.margin></TextField>
@@ -43,6 +44,7 @@
                         <Insets right="3.0" />
                      </GridPane.margin>
                   </ListChooser>
+                  <Label fx:id="labelVirhe" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
                </children>
             </GridPane>
          </children>
@@ -128,13 +130,13 @@
                 </Menu>
                   <Menu mnemonicParsing="false">
                      <graphic>
-                        <SplitMenuButton fx:id="menuSimuvalinta" mnemonicParsing="false" text="Simulaattorin valinta">
+                        <SplitMenuButton mnemonicParsing="false" text="Simulaattorin valinta">
                           <items>
-                            <MenuItem mnemonicParsing="false" text="Assetto Corsa" />
-                            <MenuItem mnemonicParsing="false" text="Automobilista 2" />
-                              <MenuItem mnemonicParsing="false" text="Project Cars 2" />
-                              <MenuItem mnemonicParsing="false" text="Gran Turismo Sport" />
-                              <MenuItem mnemonicParsing="false" text="Kaikki" />
+                            <MenuItem fx:id="menuSimu1" mnemonicParsing="false" onAction="#menuSimu1" text="Assetto Corsa" />
+                            <MenuItem fx:id="menuSimu2" mnemonicParsing="false" onAction="#menuSimu2" text="Automobilista 2" />
+                              <MenuItem fx:id="menuSimu3" mnemonicParsing="false" onAction="#menuSimu3" text="Project Cars 2" />
+                              <MenuItem fx:id="menuSimu4" mnemonicParsing="false" onAction="#menuSimu4" text="Gran Turismo Sport" />
+                              <MenuItem fx:id="menuSimu5" mnemonicParsing="false" onAction="#menuSimu5" text="Kaikki" />
                           </items>
                         </SplitMenuButton>
                      </graphic>

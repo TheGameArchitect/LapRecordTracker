@@ -6,21 +6,21 @@ import java.util.ResourceBundle;
 import fi.jyu.mit.fxgui.Dialogs;
 import fi.jyu.mit.fxgui.ListChooser;
 import fi.jyu.mit.fxgui.ModalController;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.TextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.SplitMenuButton;
 
 /**
  * Luokka pääikkunan käyttöliittymän tapahtuminen käsittelyä varten.
  * @author Matruusi
- * @version 1.2.2023
+ * @version 17.2.2023
  *
  */
  public class LapTrackerMainGUIController implements Initializable {
-
+     
     @FXML
     private void buttonLisaaRata() {
         ModalController.showModal(LisaaKilparataGUIController.class.getResource("LisaaKilparata.fxml"), "Kilparata", null, "");
@@ -54,10 +54,32 @@ import javafx.scene.control.SplitMenuButton;
     private Menu menuApua;
 
     @FXML
-    private SplitMenuButton menuSimuvalinta;
+    private Menu menuTiedost;
+    
+    @FXML
+    private void menuSimu1() {
+        Dialogs.showMessageDialog("Vielä ei osata vaihtaa simulaattoreita.");
+    }
 
     @FXML
-    private Menu menuTiedost;
+    private void menuSimu2() {
+        Dialogs.showMessageDialog("Vielä ei osata vaihtaa simulaattoreita.");
+    }
+    
+    @FXML
+    private void menuSimu3() {
+        Dialogs.showMessageDialog("Vielä ei osata vaihtaa simulaattoreita.");
+    }
+    
+    @FXML
+    private void menuSimu4() {
+        Dialogs.showMessageDialog("Vielä ei osata vaihtaa simulaattoreita.");
+    }
+    
+    @FXML
+    private void menuSimu5() {
+        Dialogs.showMessageDialog("Vielä ei osata vaihtaa simulaattoreita.");
+    }
     
     @FXML
     private void menuTallenna() {
@@ -91,7 +113,7 @@ import javafx.scene.control.SplitMenuButton;
     private TextField textKierrosaika;
 
     @FXML
-    private TextField textKilparata;
+    private TextField textHaku;
 
     @FXML
     private TextArea textKommentit;
@@ -106,8 +128,36 @@ import javafx.scene.control.SplitMenuButton;
     public void initialize(URL url, ResourceBundle bundle) {
         // 
     }
+    
+    @FXML
+    private Label labelVirhe;
+    
+    @FXML
+    private String virheTeksti = "Haku ei toimi vielä!";
+     
+    @FXML
+    private void textHaku() {
+        String hakuTeksti = textHaku.getText();
+        if (hakuTeksti.isEmpty()) naytaVirhe(null);
+        else naytaVirhe(virheTeksti);
+    }
 
     // ============================================================================
+    
+    /**
+     * Kertoo käyttäjällä, jos annettu hakutermi ei ole oikeanlainen
+     * @param virhe Käyttäjän kirjoittama teksti
+     */
+    private void naytaVirhe(String virhe) {
+        if (virhe == null || virhe.isEmpty()) {
+            labelVirhe.setText("");
+            labelVirhe.getStyleClass().removeAll("virhe");
+            return;
+        }
+        labelVirhe.setText(virhe);
+        labelVirhe.getStyleClass().add("virhe");
+    }
+    
     
     private void tallenna() {
         Dialogs.showMessageDialog("Tallennus ei vielä toimi.");
