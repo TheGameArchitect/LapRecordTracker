@@ -18,7 +18,7 @@ public class LapTrackerMainMain extends Application {
         try {
             final FXMLLoader ldr = new FXMLLoader(getClass().getResource("LapTrackerMainGUIView.fxml"));
             final Pane root = (Pane)ldr.load();
-            //final LapTrackerMainGUIController laptrackermainCtrl = (LapTrackerMainGUIController) ldr.getController();
+            // final LapTrackerMainGUIController laptrackermainCtrl = (LapTrackerMainGUIController) ldr.getController();
             
             final Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("laptrackermain.css").toExternalForm());
