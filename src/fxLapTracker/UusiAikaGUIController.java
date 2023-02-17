@@ -1,5 +1,6 @@
 package fxLapTracker;
 
+import fi.jyu.mit.fxgui.ComboBoxChooser;
 import fi.jyu.mit.fxgui.ModalController;
 import fi.jyu.mit.fxgui.ModalControllerInterface;
 import javafx.fxml.FXML;
@@ -26,7 +27,7 @@ public class UusiAikaGUIController implements ModalControllerInterface<String> {
     private TextField textKeli;
 
     @FXML
-    private TextField textKilparata;
+    private ComboBoxChooser<?> chooserKilparata;
 
     @FXML
     private TextField textKommentit;
