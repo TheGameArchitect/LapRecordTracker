@@ -3,6 +3,7 @@
  */
 package laprecordtracker;
 
+import java.io.OutputStream;
 import java.io.PrintStream;
 
 /**
@@ -21,7 +22,7 @@ public class Kierrosaika {
     private String  kommentit   = "";
     
     /**
-     * Tulostetaan kierrosaika
+     * Tulostetaan kierrosajan tiedot
      * @param out tietovirta johon tulostetaan
      */
     public void tulosta(PrintStream out) {
@@ -31,6 +32,15 @@ public class Kierrosaika {
         out.println("Ajokeli: " + keli);
         out.println("Ajoavut: " + ajoavut);
         out.println("Kommentit: " + kommentit);
+    }
+    
+    
+    /**
+     * Tulostetaan kierrosajan tiedot
+     * @param os tietovirta johon tulostetaan
+     */
+    public void tulosta(OutputStream os) {
+        tulosta(new PrintStream(os));
     }
     
     /**
