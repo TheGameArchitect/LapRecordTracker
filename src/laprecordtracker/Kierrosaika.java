@@ -12,13 +12,25 @@ import java.io.PrintStream;
  */
 public class Kierrosaika {
 
+    private int     tunnusNro   = 0;
+    private String  kierrosaika = "";
+    private String  auto        = "";
+    private String  renkaat     = "";
+    private String  keli        = "";
+    private String  ajoavut     = "";
+    private String  kommentit   = "";
     
     /**
      * Tulostetaan kierrosaika
      * @param out tietovirta johon tulostetaan
      */
     public void tulosta(PrintStream out) {
-        out.println("Zonda, 6.12.412");
+        out.println(String.format("%03d", tunnusNro) + auto);
+        out.println("Kierrosaika: " + kierrosaika);
+        out.println("Renkaat: " + renkaat);
+        out.println("Ajokeli: " + keli);
+        out.println("Ajoavut: " + ajoavut);
+        out.println("Kommentit: " + kommentit);
     }
     
     /**
