@@ -13,16 +13,18 @@ import java.io.PrintStream;
  */
 public class Kierrosaika {
 
-    private int     tunnusNro   = 0;
-    private String  kierrosaika = "";
-    private String  auto        = "";
-    private String  renkaat     = "";
-    private String  keli        = "";
-    private String  ajoavut     = "";
-    private String  kommentit   = "";
+    private int         tunnusNro   = 0;
+    private String      kierrosaika = "";
+    private String      auto        = "";
+    private String      renkaat     = "";
+    private String      keli        = "";
+    private String      ajoavut     = "";
+    private String      kommentit   = "";
+    
+    private static int  seuraavaNro = 1;
     
     /**
-     * Tulostetaan kierrosajan tiedot
+     * Tulostetaan kierrosajan tiedot.
      * @param out tietovirta johon tulostetaan
      */
     public void tulosta(PrintStream out) {
@@ -36,24 +38,54 @@ public class Kierrosaika {
     
     
     /**
-     * Tulostetaan kierrosajan tiedot
+     * Tulostetaan kierrosajan tiedot.
      * @param os tietovirta johon tulostetaan
      */
     public void tulosta(OutputStream os) {
         tulosta(new PrintStream(os));
     }
     
+    
+    /**
+     * Palauttaa kierrosajan tunnusnumeron.
+     * @return kierrosajan tunnusnumero
+     */
+    public int getTunnusNro() {
+        return tunnusNro;
+    }
+    
+    
+    /**
+     * Antaa uudelle kierrosajalle seuraavan rekisterinumeron.
+     * @return kierrosajan uusi tunnusNro
+     * @example
+     * <pre name="test">
+     *  Kierrosaika zonda1 = new Kierrosaika();
+     *  zonda1.getTunnusNro() === 0;
+     *  zonda1.rekisteroi();
+     *  Kierrosaika zonda2 = new Kierrosaika();
+     *  zonda2.rekisteroi();
+     *  int n1 = zonda1.getTunnusNro();
+     *  int n2 = zonda2.getTunnusNro();
+     *  n1 === n2-1;
+     * </pre>
+     */
+    public int rekisteroi() {
+        this.tunnusNro = seuraavaNro;
+        seuraavaNro++;
+        return this.tunnusNro;
+    }
+    
+    
     /**
      * @param args ei kaytossa
      */
     public static void main(String[] args) {
-    // TODO Auto-generated method stub
-        // luento 13 kohdasta 18:00 eteenpäin
         Kierrosaika zonda = new Kierrosaika();
         Kierrosaika zonda2 = new Kierrosaika();
         
-        //zonda.rekisteroi();
-        //zonda2.rekisteroi();
+        zonda.rekisteroi();
+        zonda2.rekisteroi();
         
         zonda.tulosta(System.out);
         
