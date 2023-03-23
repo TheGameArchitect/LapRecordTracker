@@ -28,7 +28,7 @@ public class Kierrosaika {
      * @param out tietovirta johon tulostetaan
      */
     public void tulosta(PrintStream out) {
-        out.println(String.format("%03d", tunnusNro) + auto);
+        out.println(String.format("%03d", tunnusNro) + " " + auto);
         out.println("Kierrosaika: " + kierrosaika);
         out.println("Renkaat: " + renkaat);
         out.println("Ajokeli: " + keli);
@@ -78,6 +78,20 @@ public class Kierrosaika {
     
     
     /**
+     * Apumetodi, jolla saadaan täytettyä testiarvot kierrosajalle.
+     * TODO: poista kun kaikki toimii
+     */
+    public void taytaKierrosajanTiedot() {
+        kierrosaika = "6.37.745";
+        auto = "Pagani Zonda R";
+        renkaat = "Medium";
+        keli = "Puolipilvinen";
+        ajoavut = "ABS";
+        kommentit = "Epävakaa yli 200km/h vauhdissa.";
+    }
+    
+    
+    /**
      * @param args ei kaytossa
      */
     public static void main(String[] args) {
@@ -89,8 +103,8 @@ public class Kierrosaika {
         
         zonda.tulosta(System.out);
         
-        //zonda.vastaaPaganiZonda();
-        //zonda2.vastaaPaganiZonda();
+        zonda.taytaKierrosajanTiedot();
+        zonda2.taytaKierrosajanTiedot();
         
         zonda.tulosta(System.out);
         zonda2.tulosta(System.out);
