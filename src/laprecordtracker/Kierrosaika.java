@@ -6,6 +6,8 @@ package laprecordtracker;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
+import kanta.KierrosaikaTarkistus;
+
 /**
  * @author Matruusi
  * @version 22.3.2023
@@ -82,11 +84,11 @@ public class Kierrosaika {
      * TODO: poista kun kaikki toimii
      */
     public void taytaKierrosajanTiedot() {
-        kierrosaika = "6.37.745";
+        kierrosaika = KierrosaikaTarkistus.arvoKierrosaika();
         auto = "Pagani Zonda R";
         renkaat = "Medium";
         keli = "Puolipilvinen";
-        ajoavut = "ABS";
+        ajoavut = "ABS" + ", " + "TCS: " + KierrosaikaTarkistus.rand(0, 10);
         kommentit = "Epävakaa yli 200km/h vauhdissa.";
     }
     
