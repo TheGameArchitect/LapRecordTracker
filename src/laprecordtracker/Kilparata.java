@@ -9,7 +9,7 @@ import java.io.PrintStream;
 import kanta.KierrosaikaTarkistus;
 
 /**
- * @author Matruusi
+ * @author Matti Savolainen
  * @version 24.3.2023
  *
  */
@@ -69,7 +69,7 @@ public class Kilparata {
      */
     public void taytaKilparataTiedot(int nro) {
         idNro = nro;
-        kilparata = "Nordschleife" + KierrosaikaTarkistus.rand(0, 999);
+        kilparata = "Nordschleife " + KierrosaikaTarkistus.rand(0, 999);
     }
     
     
