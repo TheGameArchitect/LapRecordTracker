@@ -1,7 +1,7 @@
 package kanta;
 
 /**
- * @author Matruusi
+ * @author Matti Savolainen
  * @version 23.3.2023
  *
  */

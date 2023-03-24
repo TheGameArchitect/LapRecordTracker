@@ -5,7 +5,7 @@ package laprecordtracker;
 
 /**
  * Poikkeusluokka tietorakenteesta aiheutuville poikkeuksille.
- * @author Matruusi
+ * @author Matti Savolainen
  * @version 23.3.2023
  *
  */

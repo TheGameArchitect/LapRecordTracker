@@ -9,7 +9,7 @@ import java.io.PrintStream;
 import kanta.KierrosaikaTarkistus;
 
 /**
- * @author Matruusi
+ * @author Matti Savolainen
  * @version 22.3.2023
  *
  */

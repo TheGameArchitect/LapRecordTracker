@@ -9,6 +9,7 @@ import fi.jyu.mit.fxgui.ModalController;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.TextField;
+import laprecordtracker.LapRecordTracker;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
@@ -144,6 +145,9 @@ import javafx.scene.control.TextArea;
 
     // ============================================================================
     
+    private LapRecordTracker laprecordtracker;
+    
+    
     /**
      * Kertoo käyttäjällä, jos annettu hakutermi ei ole oikeanlainen
      * @param virhe Käyttäjän kirjoittama teksti
@@ -161,6 +165,15 @@ import javafx.scene.control.TextArea;
     
     private void tallenna() {
         Dialogs.showMessageDialog("Tallennus ei vielä toimi.");
+    }
+
+    
+    /**
+     * Asetetaan käytettävä laprecordtracker-olio
+     * @param laprecordtracker jota käytetään
+     */
+    public void setLapRecordTracker(LapRecordTracker laprecordtracker) {
+        this.laprecordtracker = laprecordtracker;
     }
     
     

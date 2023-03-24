@@ -3,7 +3,7 @@ package laprecordtracker;
 import java.util.Arrays;
 
 /**
- * @author Matruusi
+ * @author Matti Savolainen
  * @version 23.3.2023
  *
  */
@@ -50,7 +50,7 @@ public class Kierrosajat {
         if (lkm >= alkiot.length) {
             alkiot = Arrays.copyOf(alkiot, alkiot.length+10);
         }
-        if (lkm >= alkiot.length) throw new SailoException("Liikaa alkioita");
+        if (lkm >= alkiot.length) throw new SailoException("Liikaa alkioita, taulukon koon kasvattaminen ei onnistunut");
         alkiot[lkm] = kierrosaika;
         lkm++;
     }

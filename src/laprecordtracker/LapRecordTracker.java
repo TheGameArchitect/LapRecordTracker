@@ -5,7 +5,7 @@ package laprecordtracker;
 
 /**
  * CRC sisällöt tähän
- * @author Matruusi
+ * @author Matti Savolainen
  * @version 24.3.2023
  *
  */
