@@ -2,6 +2,7 @@ package fxLapTracker;
 
 import java.io.PrintStream;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import fi.jyu.mit.fxgui.Dialogs;
@@ -14,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import laprecordtracker.Kierrosaika;
+import laprecordtracker.Kilparata;
 import laprecordtracker.LapRecordTracker;
 import laprecordtracker.SailoException;
 import javafx.fxml.FXML;
@@ -30,8 +32,9 @@ import javafx.scene.control.TextArea;
      
     @FXML
     private void buttonLisaaRata() {
-        ModalController.showModal(LisaaKilparataGUIController.class.getResource("LisaaKilparata.fxml"), "Kilparata", null, "");
-        Dialogs.showMessageDialog("Vielä ei osata lisätä ratoja.");
+        //ModalController.showModal(LisaaKilparataGUIController.class.getResource("LisaaKilparata.fxml"), "Kilparata", null, "");
+        //Dialogs.showMessageDialog("Vielä ei osata lisätä ratoja.");
+        uusiKilparata();
     }
 
     @FXML
@@ -160,6 +163,7 @@ import javafx.scene.control.TextArea;
     
     private void alusta() {
         textKommentit.setFont(new Font("Courier New", 12));
+        
         listKilparadat.clear();
         listKilparadat.addSelectionListener(e -> naytaKierrosaika());
     }
@@ -200,12 +204,12 @@ import javafx.scene.control.TextArea;
      */
     private void hae(int jnro) {
         listKilparadat.clear();
+        
         int index = 0;
         for (int i = 0; i < laprecordtracker.getKierrosaikoja(); i++) {
             Kierrosaika kierrosaika = laprecordtracker.annaKierrosaika(i);
             if (kierrosaika.getTunnusNro() == jnro) index = i;
             listKilparadat.add("" + kierrosaika.getKierrosaika(), kierrosaika);
-            //textKierrosaika.setText(kierrosaika.getKierrosaika());
         }
         listKilparadat.setSelectedIndex(index);
     }
@@ -218,10 +222,25 @@ import javafx.scene.control.TextArea;
         
         textKommentit.setText("");
         try (PrintStream os = TextAreaOutputStream.getTextPrintStream(textKommentit)) {
-            kierrosaikaKohdalla.tulosta(os);
+            tulosta(os, kierrosaikaKohdalla);
         }
     }
 
+    /**
+     * Tulostaa kierrosajan tiedot
+     * @param os tietovirta johon tulostetaan
+     * @param kierrosaika tulostettava kierrosaika
+     */
+    private void tulosta(PrintStream os, final Kierrosaika kierrosaika) {
+        os.println("---------------------------------------------");
+        kierrosaika.tulosta(os);
+        os.println("---------------------------------------------");
+        List<Kilparata> kilparadat = laprecordtracker.annaKilparadat(kierrosaika);
+        for (Kilparata kil : kilparadat)
+            kil.tulosta(os);
+        os.println("---------------------------------------------");
+    }
+    
     
     /**
      * Asetetaan käytettävä laprecordtracker-olio
@@ -229,6 +248,20 @@ import javafx.scene.control.TextArea;
      */
     public void setLapRecordTracker(LapRecordTracker laprecordtracker) {
         this.laprecordtracker = laprecordtracker;
+    }
+    
+    
+    /**
+     * Tekee uuden tyhjän kilparadan editointia varten
+     */
+    public void uusiKilparata() {
+        Kierrosaika kierrosKohdalla = listKilparadat.getSelectedObject();
+        if (kierrosKohdalla == null) return;
+        Kilparata kil = new Kilparata();
+        kil.rekisteroi();
+        kil.taytaKilparataTiedot(kierrosKohdalla.getTunnusNro()); // TODO: korvaa dialogilla
+        laprecordtracker.lisaa(kil);
+        hae(kierrosKohdalla.getTunnusNro());
     }
     
     
