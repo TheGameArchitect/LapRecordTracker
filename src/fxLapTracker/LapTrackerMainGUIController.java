@@ -9,7 +9,9 @@ import fi.jyu.mit.fxgui.ModalController;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.TextField;
+import laprecordtracker.Kierrosaika;
 import laprecordtracker.LapRecordTracker;
+import laprecordtracker.SailoException;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
@@ -41,15 +43,16 @@ import javafx.scene.control.TextArea;
 
     @FXML
     private void buttonUusiAika() {
-        ModalController.showModal(UusiAikaGUIController.class.getResource("UusiAika.fxml"), "Kierrosaika", null, "");
-        Dialogs.showMessageDialog("Vielä ei osata lisätä aikoja.");
+        //ModalController.showModal(UusiAikaGUIController.class.getResource("UusiAika.fxml"), "Kierrosaika", null, "");
+        //Dialogs.showMessageDialog("Vielä ei osata lisätä aikoja.");
+        uusiAika();
     }
 
     @FXML
     private ListChooser<?> listAutot;
 
     @FXML
-    private ListChooser<?> listKilparadat;
+    private ListChooser<Kierrosaika> listKilparadat;
 
     @FXML
     private Menu menuApua;
@@ -127,7 +130,7 @@ import javafx.scene.control.TextArea;
 
     @Override
     public void initialize(URL url, ResourceBundle bundle) {
-        // 
+        alusta();
     }
     
     @FXML
@@ -148,6 +151,11 @@ import javafx.scene.control.TextArea;
     private LapRecordTracker laprecordtracker;
     
     
+    private void alusta() {
+        listKilparadat.clear();
+    }
+    
+    
     /**
      * Kertoo käyttäjällä, jos annettu hakutermi ei ole oikeanlainen
      * @param virhe Käyttäjän kirjoittama teksti
@@ -166,6 +174,31 @@ import javafx.scene.control.TextArea;
     private void tallenna() {
         Dialogs.showMessageDialog("Tallennus ei vielä toimi.");
     }
+    
+    
+    /**
+     * Tarkistetaan, että onko tallennus tehty
+     * @return true jos sovelluksen saa sulkea, false jos ei
+     */
+    public boolean voikoSulkea() {
+        tallenna();
+        return true;
+    }
+    
+    /**
+     * Haetaan kierrosajat uudelleen
+     * @param jnro mikä kierrosaika valitaan aktiiviseksi
+     */
+    private void hae(int jnro) {
+        listKilparadat.clear();
+        int index = 0;
+        for (int i = 0; i < laprecordtracker.getKierrosaikoja(); i++) {
+            Kierrosaika kierrosaika = laprecordtracker.annaKierrosaika(i);
+            if (kierrosaika.getTunnusNro() == jnro) index = i;
+            listKilparadat.add("" + kierrosaika.getKierrosaika(), kierrosaika);
+        }
+        listKilparadat.setSelectedIndex(index);
+    }
 
     
     /**
@@ -176,5 +209,15 @@ import javafx.scene.control.TextArea;
         this.laprecordtracker = laprecordtracker;
     }
     
-    
+    private void uusiAika() {
+        Kierrosaika uusi = new Kierrosaika();
+        uusi.rekisteroi();
+        uusi.taytaKierrosajanTiedot();
+        try {
+            laprecordtracker.lisaa(uusi);
+        } catch (SailoException e) {
+            Dialogs.showMessageDialog("Ongelmia uuden luomisessa " + e.getMessage());
+        }
+        hae(uusi.getTunnusNro());
+    }
 }

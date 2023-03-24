@@ -26,6 +26,7 @@ public class LapTrackerMainMain extends Application {
             primaryStage.setScene(scene);
             primaryStage.setTitle("LapRecordTracker");
             
+            
             primaryStage.setOnCloseRequest((event) -> {
                 if (!laptrackermainCtrl.voikoSulkea()) event.consume();
             });
@@ -35,7 +36,7 @@ public class LapTrackerMainMain extends Application {
             
             
             primaryStage.show();
-            if (!laptrackermainCtrl.avaa()) Platform.exit();
+            // if (!laptrackermainCtrl.avaa()) Platform.exit();
         } catch(Exception e) {
             e.printStackTrace();
         }

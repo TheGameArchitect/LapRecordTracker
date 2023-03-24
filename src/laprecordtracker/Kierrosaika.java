@@ -58,6 +58,14 @@ public class Kierrosaika {
     
     
     /**
+     * @return kierrosaika
+     */
+    public String getKierrosaika() {
+        return this.kierrosaika;
+    }
+    
+    
+    /**
      * Antaa uudelle kierrosajalle seuraavan rekisterinumeron.
      * @return kierrosajan uusi tunnusNro
      * @example
