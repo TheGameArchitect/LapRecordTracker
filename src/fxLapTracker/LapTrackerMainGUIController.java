@@ -1,14 +1,18 @@
 package fxLapTracker;
 
+import java.io.PrintStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import fi.jyu.mit.fxgui.Dialogs;
 import fi.jyu.mit.fxgui.ListChooser;
 import fi.jyu.mit.fxgui.ModalController;
+import fi.jyu.mit.fxgui.TextAreaOutputStream;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
 import laprecordtracker.Kierrosaika;
 import laprecordtracker.LapRecordTracker;
 import laprecordtracker.SailoException;
@@ -53,6 +57,9 @@ import javafx.scene.control.TextArea;
 
     @FXML
     private ListChooser<Kierrosaika> listKilparadat;
+    
+    @FXML
+    private GridPane panelKierrosaika;
 
     @FXML
     private Menu menuApua;
@@ -152,7 +159,9 @@ import javafx.scene.control.TextArea;
     
     
     private void alusta() {
+        textKommentit.setFont(new Font("Courier New", 12));
         listKilparadat.clear();
+        listKilparadat.addSelectionListener(e -> naytaKierrosaika());
     }
     
     
@@ -196,8 +205,21 @@ import javafx.scene.control.TextArea;
             Kierrosaika kierrosaika = laprecordtracker.annaKierrosaika(i);
             if (kierrosaika.getTunnusNro() == jnro) index = i;
             listKilparadat.add("" + kierrosaika.getKierrosaika(), kierrosaika);
+            //textKierrosaika.setText(kierrosaika.getKierrosaika());
         }
         listKilparadat.setSelectedIndex(index);
+    }
+    
+    
+    private void naytaKierrosaika() {
+        Kierrosaika kierrosaikaKohdalla = listKilparadat.getSelectedObject();
+        
+        if (kierrosaikaKohdalla == null) return;
+        
+        textKommentit.setText("");
+        try (PrintStream os = TextAreaOutputStream.getTextPrintStream(textKommentit)) {
+            kierrosaikaKohdalla.tulosta(os);
+        }
     }
 
     
@@ -208,6 +230,7 @@ import javafx.scene.control.TextArea;
     public void setLapRecordTracker(LapRecordTracker laprecordtracker) {
         this.laprecordtracker = laprecordtracker;
     }
+    
     
     private void uusiAika() {
         Kierrosaika uusi = new Kierrosaika();
