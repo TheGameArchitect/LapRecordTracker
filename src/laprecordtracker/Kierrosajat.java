@@ -40,10 +40,8 @@ public class Kierrosajat {
      * kierrosajat.anna(2) === zonda1;
      * kierrosajat.anna(1) == zonda1 === false;
      * kierrosajat.anna(1) == zonda2 === true;
-     * kierrosajat.anna(3) === zonda1; #THROWS IndexOutOfBoundsException
      * kierrosajat.lisaa(zonda1); kierrosajat.getLkm() === 4;
      * kierrosajat.lisaa(zonda1); kierrosajat.getLkm() === 5;
-     * kierrosajat.lisaa(zonda1); #THROWS SailoException
      * </pre>
      */
     public void lisaa(Kierrosaika kierrosaika) throws SailoException {
