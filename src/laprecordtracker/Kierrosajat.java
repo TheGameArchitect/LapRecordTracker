@@ -1,5 +1,9 @@
 package laprecordtracker;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.Arrays;
 
 /**
@@ -77,6 +81,30 @@ public class Kierrosajat {
     
     
     /**
+     * Tallentaa kierrosajan tiedostoon.
+     * Tiedoston muoto:
+     * <pre>
+     * 1|1|6.37.745|Pagani Zonda R|Medium|Puolipilvinen|ABS|1|Epävakaa yli 200km/h vauhdissa|
+     * 2|2|1.58.534|Ferrari 458 GT3|Soft|Aurinkoinen|ABS|3||
+     * 3|3|1.33.424|Mitsubishi Lancer Evo|Wet|Kaatosade|ABS, TCS2|4||
+     * <pre>
+     * @param hakemisto tallennettavan tiedoston hakemisto
+     * @throws SailoException jos tallennus epäonnistuu
+     */
+    public void tallenna(String hakemisto) throws SailoException {
+        File ftied = new File(hakemisto + "/kierrosajat.dat");
+        try (PrintStream fo = new PrintStream(new FileOutputStream(ftied, false))) {
+            for (int i = 0; i < this.getLkm(); i++) {
+                Kierrosaika kierrosaika = this.anna(i);
+                fo.println(kierrosaika.toString());
+            }
+        } catch (FileNotFoundException e) {
+            throw new SailoException("Tiedosto " + ftied.getAbsolutePath() + " ei aukea");
+        }
+    }
+    
+    
+    /**
      * @param args ei käytössä
      */
     public static void main(String[] args) {
@@ -119,6 +147,12 @@ public class Kierrosajat {
             Kierrosaika zonda = kierrosajat.anna(i);
             System.out.println("Kierrosaika indeksi: " + i);
             zonda.tulosta(System.out);
+        }
+        
+        try {
+            kierrosajat.tallenna("kierrosajat");
+        }   catch (SailoException e) {
+            System.err.println(e.getMessage());
         }
     }
 

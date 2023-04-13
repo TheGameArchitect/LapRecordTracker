@@ -15,6 +15,16 @@ public class LapRecordTracker {
     
     private final Kierrosajat kierrosajat = new Kierrosajat();
     private final Kilparadat kilparadat = new Kilparadat();
+    private final Pelit pelit = new Pelit();
+    
+    /**
+     * Lisätään uusi peli
+     * @param peli lisättävä peli
+     * @throws SailoException jos lisääminen ei onnistu
+     */
+    public void lisaa(Peli peli) throws SailoException {
+        pelit.lisaa(peli);
+    }
     
     
     /**
@@ -41,6 +51,16 @@ public class LapRecordTracker {
      */
     public int getKierrosaikoja() {
         return kierrosajat.getLkm();
+    }
+    
+    
+    /**
+     * Antaa pelien i:n pelin
+     * @param i monesko peli
+     * @return peli paikasta i
+     */
+    public Peli annaPeli(int i) {
+        return pelit.anna(i);
     }
     
     
@@ -97,15 +117,20 @@ public class LapRecordTracker {
         LapRecordTracker laprecordtracker = new LapRecordTracker();
         
         Kierrosaika zonda = new Kierrosaika();
-        Kierrosaika zonda2 = new Kierrosaika();
+        Kierrosaika zonda2 = new Kierrosaika();        
         zonda.rekisteroi();
         zonda.taytaKierrosajanTiedot();
         zonda2.rekisteroi();
         zonda2.taytaKierrosajanTiedot();
+
+        Peli acorsa = new Peli();
+        acorsa.rekisteroi();
+        acorsa.taytaPeliTiedot(3);
         
         try {
             laprecordtracker.lisaa(zonda);
             laprecordtracker.lisaa(zonda2);
+            laprecordtracker.lisaa(acorsa);
         } catch (SailoException e) {
             System.err.println(e.getMessage());
         }
@@ -113,6 +138,7 @@ public class LapRecordTracker {
         for (int i = 0; i < laprecordtracker.getKierrosaikoja(); i++) {
             Kierrosaika kierrosaika = laprecordtracker.annaKierrosaika(i);
             kierrosaika.tulosta(System.out);
+            System.out.println("-------------------------------------------------");
         }
     }
 

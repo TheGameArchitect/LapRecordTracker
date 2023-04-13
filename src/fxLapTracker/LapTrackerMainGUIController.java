@@ -17,6 +17,7 @@ import javafx.scene.text.Font;
 import laprecordtracker.Kierrosaika;
 import laprecordtracker.Kilparata;
 import laprecordtracker.LapRecordTracker;
+import laprecordtracker.Peli;
 import laprecordtracker.SailoException;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -53,6 +54,7 @@ import javafx.scene.control.TextArea;
         //ModalController.showModal(UusiAikaGUIController.class.getResource("UusiAika.fxml"), "Kierrosaika", null, "");
         //Dialogs.showMessageDialog("Vielä ei osata lisätä aikoja.");
         uusiAika();
+        uusiPeli();
     }
 
     @FXML
@@ -224,6 +226,7 @@ import javafx.scene.control.TextArea;
         try (PrintStream os = TextAreaOutputStream.getTextPrintStream(textKommentit)) {
             tulosta(os, kierrosaikaKohdalla);
         }
+        textSimulaattori.setText("yeet");
     }
 
     /**
@@ -275,5 +278,18 @@ import javafx.scene.control.TextArea;
             Dialogs.showMessageDialog("Ongelmia uuden luomisessa " + e.getMessage());
         }
         hae(uusi.getTunnusNro());
+    }
+    
+    
+    private void uusiPeli() {
+        Peli pCars2 = new Peli();
+        pCars2.rekisteroi();
+        pCars2.taytaPeliTiedot(1);
+        try {
+            laprecordtracker.lisaa(pCars2);
+        } catch (SailoException e) {
+            Dialogs.showMessageDialog("Ongelmia uuden luomisessa " + e.getMessage());
+        }
+        hae(pCars2.getTunnusNro());
     }
 }

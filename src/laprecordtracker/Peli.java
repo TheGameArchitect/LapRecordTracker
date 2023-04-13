@@ -18,9 +18,25 @@ public class Peli {
     private String      testiLukema = "";
     
     private int         tunnusNro   = 0;
+    private int         idNro;
     private String      peli        = "";
     
     private static int  seuraavaNro = 1;
+    
+    
+    /** */
+    public Peli() {
+        // ei tehdä mitään
+    }
+    
+    
+    /**
+     * Alustetaan tietyn kierrosajan peli.
+     * @param idNro kierrosajan viitenumero
+     */
+    public Peli(int idNro) {
+        this.idNro = idNro;
+    }
     
     
     /**
@@ -60,6 +76,15 @@ public class Peli {
     
     
     /**
+     * Palautetaan mihin kierrosaikaan peli kuuluu
+     * @return pelin id
+     */
+    public int getPeliNro() {
+        return idNro;
+    }
+    
+    
+    /**
      * Antaa uudelle pelille seuraavan rekisterinumeron.
      * @return pelin uusi tunnusNro
      * @example
@@ -84,8 +109,10 @@ public class Peli {
     /**
      * Apumetodi, jolla saadaan täytettyä testiarvot pelille.
      * TODO: poista kun kaikki toimii
+     * @param nro viite kierrosaikaan, jonka pelistä on kyse
      */
-    public void taytaPeliTiedot() {
+    public void taytaPeliTiedot(int nro) {
+        idNro = nro;
         testiLukema = KierrosaikaTarkistus.arvoKierrosaika();
         peli = "Assetto Corsa " + testiLukema;
     }
@@ -103,8 +130,8 @@ public class Peli {
         
         acorsa.tulosta(System.out);
         
-        acorsa.taytaPeliTiedot();
-        automobilista.taytaPeliTiedot();
+        acorsa.taytaPeliTiedot(1);
+        automobilista.taytaPeliTiedot(2);
         
         acorsa.tulosta(System.out);
         automobilista.tulosta(System.out);

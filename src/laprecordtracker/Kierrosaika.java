@@ -36,6 +36,7 @@ public class Kierrosaika {
         out.println("Ajokeli: " + keli);
         out.println("Ajoavut: " + ajoavut);
         out.println("Kommentit: " + kommentit);
+        //out.println("Simulaattori: ");
     }
     
     
@@ -62,6 +63,28 @@ public class Kierrosaika {
      */
     public String getKierrosaika() {
         return this.kierrosaika;
+    }
+    
+    /**
+     * Palauttaa kierrosajan tiedot merkkijonona jonka voi tallentaa tiedostoon.
+     * @return kierrosaika tolppaeroteltuna merkkijonona
+     * @example
+     * <pre name="test">
+     *  Kierrosaika kierrosaika = new Kierrosaika();
+     *  kierrosaika.parse("    2  |   Ford Escort    | 2.43.523");
+     *  kierrosaika.toString().startsWith("2|Ford Escort|2.43.523") === true;
+     * </pre>
+     */
+    @Override
+    public String toString() {
+        return "" +
+                getTunnusNro() + "|" +
+                auto + "|" +
+                kierrosaika + "|" +
+                renkaat + "|" +
+                keli + "|" +
+                ajoavut + "|" +
+                kommentit + "|";
     }
     
     
@@ -97,7 +120,7 @@ public class Kierrosaika {
         renkaat = "Medium";
         keli = "Puolipilvinen";
         ajoavut = "ABS" + ", " + "TCS: " + KierrosaikaTarkistus.rand(0, 10);
-        kommentit = "Epävakaa yli 200km/h vauhdissa.";
+        kommentit = "Epavakaa yli 200km/h vauhdissa.";
     }
     
     

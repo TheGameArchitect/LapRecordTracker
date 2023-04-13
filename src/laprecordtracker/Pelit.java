@@ -29,7 +29,6 @@ public class Pelit {
      * Lisää uuden pelin tietorakenteeseen. Ottaa pelin omistukseensa.
      * @param peli lisättävän pelin viite. 
      * @throws SailoException jos tietorakenne on täynnä
-     * TESTIT EI TOIMI NYT KOSKA SailoExceptionia EI TULE SILLÄ TAULUKON KOKOA KASVATETAAN, JOS SE KÄY PIENEKSI
      * @example
      * <pre name="test">
      * #THROWS SailoException
@@ -89,9 +88,9 @@ public class Pelit {
         Peli automobilista = new Peli();
         
         acorsa.rekisteroi();
-        acorsa.taytaPeliTiedot();
+        acorsa.taytaPeliTiedot(1);
         automobilista.rekisteroi();
-        automobilista.taytaPeliTiedot();
+        automobilista.taytaPeliTiedot(2);
         
         try {
             pelit.lisaa(acorsa);
