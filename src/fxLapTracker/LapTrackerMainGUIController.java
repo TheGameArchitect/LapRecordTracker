@@ -102,7 +102,7 @@ public class LapTrackerMainGUIController implements Initializable {
     
     @FXML
     private void menuAvaa() {
-        ModalController.showModal(AvaaVirheGUIController.class.getResource("AvaaVirhe.fxml"), "", null, "");
+        avaa();
     }
     
     @FXML
@@ -185,6 +185,18 @@ public class LapTrackerMainGUIController implements Initializable {
     
     
     /**
+     * Kysytään tiedoston nimi ja luetaan se
+     * @return true jos onnistui, false jos ei
+     */
+    public boolean avaa() {
+        String uusinimi = AvaaKyselyGUIController.kysyNimi(null, laprecordtrackerNimi);
+        if (uusinimi == null) return false;
+        lueTiedosto(uusinimi);
+        return true;
+    }
+    
+    
+    /**
      * Alustaa laprecordtrackerin lukemalla sen valitun nimisestä tiedostosta
      * @param nimi tiedosto josta kierrosaikojen tiedot luetaan
      */
@@ -248,7 +260,6 @@ public class LapTrackerMainGUIController implements Initializable {
         try (PrintStream os = TextAreaOutputStream.getTextPrintStream(textKommentit)) {
             tulosta(os, kierrosaikaKohdalla);
         }
-        textSimulaattori.setText("yeet");
     }
 
     /**
