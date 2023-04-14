@@ -6,6 +6,7 @@ package laprecordtracker;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
+import fi.jyu.mit.ohj2.Mjonot;
 import kanta.KierrosaikaTarkistus;
 
 /**
@@ -81,6 +82,55 @@ public class Peli {
      */
     public int getPeliNro() {
         return idNro;
+    }
+    
+    
+    private void setTunnusNro(int nr) {
+        tunnusNro = nr;
+        if (tunnusNro >= seuraavaNro) seuraavaNro = tunnusNro + 1;
+    }
+    
+    
+    /**
+     * Palauttaa pelin tiedot merkkijonona jonka voi tallentaa tiedostoon.
+     * @return peli tolppaeroteltuna merkkijonona
+     * @example
+     * <pre name="test">
+     * Peli peli = new Peli();
+     * peli.parse("    5 |    1   |    Assetto Corsa  ");
+     * peli.toString() === "5|1|Assetto Corsa";
+     * </pre>
+     */
+    @Override
+    public String toString() {
+        return "" + getTunnusNro() + "|" + idNro + "|" + peli;
+    }
+    
+    
+    /**
+     * Selvittää pelin tiedot | erotellusta merkkijonosta.
+     * Pitää huolen että seuraavaNro on suurempi kuin tuleva tunnusNro.
+     * @param rivi josta pelin tiedot otetaan
+     * @example
+     * <pre name="test">
+     * Peli peli = new Peli();
+     * peli.parse("    5 |    1   |    Assetto Corsa  ");
+     * peli.getPeliNro() === 1;
+     * peli.toString() === "5|1|Assetto Corsa";
+     * 
+     * peli.rekisteroi();
+     * int n = peli.getTunnusNro();
+     * peli.parse(""+(n+20));
+     * peli.rekisteroi();
+     * peli.getTunnusNro() === n+20+1;
+     * peli.toString() === "" + (n+20+1) + "|1|Assetto Corsa";
+     * </pre>
+     */
+    public void parse(String rivi) {
+        StringBuffer sb = new StringBuffer(rivi);
+        setTunnusNro(Mjonot.erota(sb, '|', getTunnusNro()));
+        idNro = Mjonot.erota(sb, '|', idNro);
+        peli = Mjonot.erota(sb, '|', peli);
     }
     
     

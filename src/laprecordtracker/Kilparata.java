@@ -6,6 +6,7 @@ package laprecordtracker;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
+import fi.jyu.mit.ohj2.Mjonot;
 import kanta.KierrosaikaTarkistus;
 
 /**
@@ -36,6 +37,54 @@ public class Kilparata {
      */
     public Kilparata(int idNro) {
         this.idNro = idNro;
+    }
+    
+    
+    private void setTunnusNro(int nr) {
+        tunnusNro = nr;
+        if (tunnusNro >= seuraavaNro) seuraavaNro = tunnusNro + 1;
+    }
+    
+    /**
+     * Palauttaa kilparadan tiedot merkkijonona jonka voi tallentaa tiedostoon.
+     * @return kilparata tolppaeroteltuna merkkijonona
+     * @example
+     * <pre name="test">
+     * Kilparata kilparata = new Kilparata();
+     * kilparata.parse("    5 |    1   |    Nordschleife  ");
+     * kilparata.toString() === "5|1|Nordschleife";
+     * </pre>
+     */
+    @Override
+    public String toString() {
+        return "" + getTunnusNro() + "|" + idNro + "|" + kilparata;
+    }
+    
+    
+    /**
+     * Selvittää kilparadan tiedot | erotellusta merkkijonosta
+     * Pitää huolen että seuraavaNro on suurempi kuin tuleva tunnusNro;
+     * @param rivi josta kilparadan tiedot otetaan
+     * @example
+     * <pre name="test">
+     * Kilparata kilparata = new Kilparata();
+     * kilparata.parse("    5 |    1   |    Nordschleife  ");
+     * kilparata.getKierrosaikaNro() === 1;
+     * kilparata.toString() === "5|1|Nordschleife";
+     * 
+     * kilparata.rekisteroi();
+     * int n = kilparata.getTunnusNro();
+     * kilparata.parse(""+(n+20));
+     * kilparata.rekisteroi();
+     * kilparata.getTunnusNro() === n+20+1;
+     * kilparata.toString() === "" + (n+20+1) + "|1|Nordschleife";
+     * </pre>
+     */
+    public void parse(String rivi) {
+        StringBuffer sb = new StringBuffer(rivi);
+        setTunnusNro(Mjonot.erota(sb, '|', getTunnusNro()));
+        idNro = Mjonot.erota(sb, '|', idNro);
+        kilparata = Mjonot.erota(sb, '|', kilparata);
     }
     
     

@@ -3,7 +3,13 @@
  */
 package laprecordtracker;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.Arrays;
+import java.util.Scanner;
 
 /**
  * @author Matruusi
@@ -16,6 +22,7 @@ public class Pelit {
     
     int lkm = 0;
     private Peli[] alkiot;
+    private String               tiedostonNimi    = "";
     
     /**
      * Luodaan alustava taulukko
@@ -80,10 +87,74 @@ public class Pelit {
     
     
     /**
+     * Lukee pelit tiedostosta.
+     * @param hakemisto tiedoston hakemisto
+     * @throws SailoException jos lukeminen epäonnistuu
+     */
+    public void lueTiedostosta(String hakemisto) throws SailoException {
+        tiedostonNimi = hakemisto + "/pelit.dat";
+        String nimi = tiedostonNimi;
+        File ftied = new File(nimi);
+        
+        try (Scanner fi = new Scanner(new FileInputStream(ftied))) {
+            while (fi.hasNext()) {
+                String s = fi.nextLine();
+                if (s == null || "".equals(s) || s.charAt(0) == ';') continue;
+                Peli peli = new Peli();
+                peli.parse(s);
+                lisaa(peli);
+            }
+        } catch (FileNotFoundException e) {
+            throw new SailoException("Ei saa luettua tiedostoa " + nimi);
+        }
+    }
+    
+    
+    /**
+     * @throws SailoException jos tallennus epäonnistuu
+     */
+    public void tallenna() throws SailoException {
+        tallenna(tiedostonNimi);
+    }
+    
+    
+    /**
+     * Tallentaa pelit tiedostoon.
+     * Tiedoston muoto:
+     * <pre>
+     * 1|Assetto Corsa
+     * 2|Automobilista 2
+     * 3|Project Cars 2
+     * 4|Gran Turismo Sport
+     * <pre>
+     * @param hakemisto tallennettavan tiedoston hakemisto
+     * @throws SailoException jos tallentaminen epäonnistuu
+     */
+    public void tallenna(String hakemisto) throws SailoException {
+        File ftied = new File(hakemisto + "/pelit.dat");
+        try (PrintStream fo = new PrintStream(new FileOutputStream(ftied, false))) {
+            for (int i = 0; i < this.getLkm(); i++) {
+                Peli peli = this.anna(i);
+                fo.println(peli.toString());
+            }
+        }   catch (FileNotFoundException e) {
+            throw new SailoException("Tiedosto " + ftied.getAbsolutePath() + " ei aukea");
+        }
+    }
+    
+    
+    /**
      * @param args ei kaytossa
      */
     public static void main(String[] args) {
         Pelit pelit = new Pelit();
+        
+        try {
+            pelit.lueTiedostosta("kierrosajat");
+        }   catch (SailoException ex) {
+            System.err.println(ex.getMessage());
+        }
+        
         Peli acorsa = new Peli();
         Peli automobilista = new Peli();
         
@@ -97,6 +168,12 @@ public class Pelit {
             pelit.lisaa(automobilista);
         } catch (SailoException e) {
             // e.printStackTrace();
+            System.err.println(e.getMessage());
+        }
+        
+        try {
+            pelit.tallenna("kierrosajat");
+        }   catch (SailoException e) {
             System.err.println(e.getMessage());
         }
         

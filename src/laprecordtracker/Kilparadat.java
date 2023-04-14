@@ -3,10 +3,16 @@
  */
 package laprecordtracker;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * @author Matti Savolainen
@@ -40,21 +46,79 @@ public class Kilparadat implements Iterable<Kilparata> {
     
     /**
      * Lukee kierrosajat tiedostosta.
-     * @param hakemisto tiedoston hakemisto
+     * @param hakemisto tiedoston nimen alkuosa
      * @throws SailoException jos lukeminen epäonnistuu
+     * @example
+     * <pre name="test">
+     * #THROWS SailoException
+     * #import java.io.File;
+     * Kilparadat kilparadat = new Kilparadat();
+     * Kilparata ahven21 = new Kilparata(); ahven21.taytaKilparataTiedot(2);
+     * Kilparata ahven11 = new Kilparata(); ahven11.taytaKilparataTiedot(1);
+     * Kilparata ahven22 = new Kilparata(); ahven22.taytaKilparataTiedot(2);
+     * Kilparata ahven12 = new Kilparata(); ahven12.taytaKilparataTiedot(1);
+     * Kilparata ahven23 = new Kilparata(); ahven23.taytaKilparataTiedot(2);
+     * String tiedNimi = "testiRadat";
+     * File ftied = new File(tiedNimi + "/kilparadat.dat");
+     * ftied.delete();
+     * kilparadat.lueTiedostosta(tiedNimi); #THROWS SailoException
+     * kilparadat.lisaa(ahven21);
+     * kilparadat.lisaa(ahven11);
+     * kilparadat.lisaa(ahven22);
+     * kilparadat.lisaa(ahven12);
+     * kilparadat.lisaa(ahven23);
+     * kilparadat.tallenna(tiedNimi);
+     * kilparadat = new Kilparadat();
+     * kilparadat.lueTiedostosta(tiedNimi);
+     * Iterator<Kilparata> i = kilparadat.iterator();
+     * i.next().toString() === ahven21.toString();
+     * i.next().toString() === ahven11.toString();
+     * i.next().toString() === ahven22.toString();
+     * i.next().toString() === ahven12.toString();
+     * i.next().toString() === ahven23.toString();
+     * i.hasNext() === false;
+     * kilparadat.lisaa(ahven23);
+     * kilparadat.tallenna(tiedNimi);
+     * ftied.delete() === true;
+     * </pre>
      */
     public void lueTiedostosta(String hakemisto) throws SailoException {
-        tiedostonNimi = hakemisto + ".har";
-        throw new SailoException("Ei osata vielä lukea tiedostoa " + tiedostonNimi);
+        tiedostonNimi = hakemisto + "/kilparadat.dat";
+        File ftied = new File(tiedostonNimi);
+        try (Scanner fi = new Scanner(new FileInputStream(ftied))) {
+            while (fi.hasNext()) {
+                String s = fi.nextLine().trim();
+                if ("".equals(s) || s.charAt(0) == ';') continue;
+                Kilparata kil = new Kilparata();
+                kil.parse(s);
+                lisaa(kil);
+            }
+        }   catch (FileNotFoundException e) {
+            throw new SailoException("Ei saa luettua tiedostoa " + tiedostonNimi);
+        }
     }
     
     /**
      * Tallentaa kierrosajat tiedostoon.
-     * TODO kesken
-     * @throws SailoException jos talletus epäonnistuu
+     * Tiedoston muoto:
+     * <pre>
+     * 1|Nordschleife
+     * 2|Imola
+     * 3|Silvestone GP
+     * 4|Spa Francorchamps
+     * <pre>
+     * @param hakemisto tallennettavan tiedoston hakemisto
+     * @throws SailoException jos tallentaminen epäonnistuu
      */
-    public void talleta() throws SailoException {
-        throw new SailoException("Ei osata vielä tallettaa tiedostoa " + tiedostonNimi);
+    public void tallenna(String hakemisto) throws SailoException {
+        File ftied = new File(hakemisto + "/kilparadat.dat");
+        try (PrintStream fo = new PrintStream(new FileOutputStream(ftied, false))) {
+            for (var har : alkiot) {
+                fo.println(har.toString());
+            }
+        }   catch (FileNotFoundException ex) {
+            throw new SailoException("Tiedosto " + ftied.getAbsolutePath() + " ei aukea");
+        }
     }
     
     
@@ -149,6 +213,14 @@ public class Kilparadat implements Iterable<Kilparata> {
      */
     public static void main(String[] args) {
         Kilparadat kilparadat = new Kilparadat();
+        
+        try {
+            kilparadat.lueTiedostosta("kierrosajat");
+        }   catch (SailoException ex) {
+            System.err.println(ex.getMessage());
+        }
+        
+        
         Kilparata kilpa1 = new Kilparata();
         kilpa1.taytaKilparataTiedot(2);
         Kilparata kilpa2 = new Kilparata();
@@ -167,11 +239,17 @@ public class Kilparadat implements Iterable<Kilparata> {
         
         System.out.println("=================== Kilparadat testi =========================");
         
-        List<Kilparata> kilparadat2 = kilparadat.annaKilparadat(1);
+        List<Kilparata> kilparadat2 = kilparadat.annaKilparadat(2);
         
         for (Kilparata kil : kilparadat2) {
             System.out.print(kil.getKierrosaikaNro() + " ");
             kil.tulosta(System.out);
+        }
+        
+        try {
+            kilparadat.tallenna("kierrosajat");
+        }   catch (SailoException e) {
+            e.printStackTrace();
         }
     }
 

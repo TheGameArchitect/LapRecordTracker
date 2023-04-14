@@ -3,6 +3,7 @@
  */
 package laprecordtracker;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -13,9 +14,11 @@ import java.util.List;
  */
 public class LapRecordTracker {
     
-    private final Kierrosajat kierrosajat = new Kierrosajat();
-    private final Kilparadat kilparadat = new Kilparadat();
-    private final Pelit pelit = new Pelit();
+    private Kierrosajat kierrosajat = new Kierrosajat();
+    private Kilparadat kilparadat = new Kilparadat();
+    private Pelit pelit = new Pelit();
+    
+    private String hakemisto = "kierrosajat";
     
     /**
      * Lisätään uusi peli
@@ -109,6 +112,53 @@ public class LapRecordTracker {
         return kilparadat.annaKilparadat(kierrosaika.getTunnusNro());
     }
     
+    
+    /**
+     * Lukee laprecordtrackerin tiedot tiedostosta
+     * @param nimi jota käytetään lukemisessa
+     * @throws SailoException jos lukeminen epäonnistuu
+     * TODO: testit ?
+     */
+    public void lueTiedostosta(String nimi) throws SailoException {
+        File dir = new File(nimi);
+        dir.mkdir();
+        kierrosajat = new Kierrosajat();
+        kilparadat = new Kilparadat();
+        pelit = new Pelit();
+        
+        hakemisto = nimi;
+        kierrosajat.lueTiedostosta(nimi);
+        kilparadat.lueTiedostosta(nimi);
+        pelit.lueTiedostosta(nimi);
+    }
+    
+    
+    /**
+     * Tallentaa laprecordtrackerin tiedot tiedostoon
+     * @throws SailoException jos tallentaminen epäonnistuu
+     */
+    public void tallenna() throws SailoException {
+        String virhe = "";
+        try {
+            kierrosajat.tallenna(hakemisto);
+        }   catch (SailoException ex) {
+            virhe = ex.getMessage();
+        }
+        
+        try {
+            kilparadat.tallenna(hakemisto);
+        }   catch (SailoException ex) {
+            virhe += ex.getMessage();
+        }
+        
+        try {
+            pelit.tallenna(hakemisto);
+        }   catch (SailoException ex) {
+            virhe += ex.getMessage();
+        }
+        if (!"".equals(virhe)) throw new SailoException(virhe);
+    }
+    
 
     /**
      * @param args ei kaytossa
@@ -116,13 +166,33 @@ public class LapRecordTracker {
     public static void main(String[] args) {
         LapRecordTracker laprecordtracker = new LapRecordTracker();
         
+        try {
+            laprecordtracker.lueTiedostosta("testiRadat");
+        }   catch (SailoException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
         Kierrosaika zonda = new Kierrosaika();
         Kierrosaika zonda2 = new Kierrosaika();        
         zonda.rekisteroi();
         zonda.taytaKierrosajanTiedot();
         zonda2.rekisteroi();
         zonda2.taytaKierrosajanTiedot();
-
+        
+        try {
+            laprecordtracker.lisaa(zonda);
+            laprecordtracker.lisaa(zonda2);
+            
+            for (int i = 0; i < laprecordtracker.getKierrosaikoja(); i++) {
+                Kierrosaika kierrosaika = laprecordtracker.annaKierrosaika(i);
+                kierrosaika.tulosta(System.out);
+            }
+            
+            laprecordtracker.tallenna();
+        } catch (SailoException e) {
+            System.err.println(e.getMessage());
+        }
+        
         Peli acorsa = new Peli();
         acorsa.rekisteroi();
         acorsa.taytaPeliTiedot(3);
