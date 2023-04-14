@@ -6,6 +6,7 @@ package laprecordtracker;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
+import fi.jyu.mit.ohj2.Mjonot;
 import kanta.KierrosaikaTarkistus;
 
 /**
@@ -64,6 +65,48 @@ public class Kierrosaika {
     public String getKierrosaika() {
         return this.kierrosaika;
     }
+    
+    
+    /**
+     * Asettaa tunnusnumeron ja samalla varmistaa että seuraava numero on aina
+     * suurempi kuin tähän mennessä suurin
+     * @param nr asetettava tunnusnumero
+     */
+    private void setTunnusNro(int nr) {
+        tunnusNro = nr;
+        if (tunnusNro >= seuraavaNro) seuraavaNro = tunnusNro + 1;
+    }
+    
+    
+    /**
+     * Selvittää kierrosajan tiedot | erotellusta merkkijonosta.
+     * Pitää huolen että seuraavaNro on suurempi kuin tuleva tunnusNro.
+     * @param rivi josta kierrosajan tiedot otetaan
+     * @example
+     * <pre name="test">
+     * Kierrosaika kierrosaika = new Kierrosaika();
+     * kierrosaika.parse("    4 |  Nissan GT-R     | 02.25.733 ");
+     * kierrosaika.getTunnusNro() === 4;
+     * kierrosaika.toString().startsWith("4|Nissan GT-R|02.25.733|") === true;
+     * 
+     * kierrosaika.rekisteroi();
+     * int n = kierrosaika.getTunnusNro();
+     * kierrosaika.parse(""+(n+20));
+     * kierrosaika.rekisteroi();
+     * kierrosaika.getTunnusNro() === n+20+1;
+     * </pre>
+     */
+    public void parse(String rivi) {
+        var sb = new StringBuilder(rivi);
+        setTunnusNro(Mjonot.erota(sb, '|', getTunnusNro()));
+        auto = Mjonot.erota(sb, '|', auto);
+        kierrosaika = Mjonot.erota(sb, '|', kierrosaika);
+        renkaat = Mjonot.erota(sb, '|', renkaat);
+        keli = Mjonot.erota(sb, '|', keli);
+        ajoavut = Mjonot.erota(sb, '|', ajoavut);
+        kommentit = Mjonot.erota(sb, '|', kommentit);
+    }
+    
     
     /**
      * Palauttaa kierrosajan tiedot merkkijonona jonka voi tallentaa tiedostoon.
@@ -142,5 +185,4 @@ public class Kierrosaika {
         zonda.tulosta(System.out);
         zonda2.tulosta(System.out);
     }
-
 }

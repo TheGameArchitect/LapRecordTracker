@@ -1,10 +1,12 @@
 package laprecordtracker;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.Arrays;
+import java.util.Scanner;
 
 /**
  * @author Matti Savolainen
@@ -17,6 +19,7 @@ public class Kierrosajat {
     
     int lkm = 0;
     private Kierrosaika[] alkiot;
+    private String tiedostonNimi = "";
     
     /**
      * Luodaan alustava taulukko
@@ -105,16 +108,55 @@ public class Kierrosajat {
     
     
     /**
+     * @throws SailoException jos tallentaminen epäonnistuu
+     * 
+     */
+    public void tallenna() throws SailoException {
+        tallenna(tiedostonNimi);
+    }
+    
+    
+    /**
+     * Lukee kierrosajat tiedostosta.
+     * @param hakemisto tiedoston hakemisto
+     * @throws SailoException jos lukeminen epäonnistuu
+     */
+    public void lueTiedostosta(String hakemisto) throws SailoException {
+        tiedostonNimi = hakemisto + "/kierrosajat.dat";
+        String nimi = tiedostonNimi;
+        File ftied = new File(nimi);
+        
+        try (Scanner fi = new Scanner(new FileInputStream(ftied))) {
+            while (fi.hasNext()) {
+                String s = fi.nextLine();
+                if (s == null || "".equals(s) || s.charAt(0) == ';') continue;
+                Kierrosaika kierrosaika = new Kierrosaika();
+                kierrosaika.parse(s);
+                lisaa(kierrosaika);
+            }
+        } catch (FileNotFoundException e) {
+            throw new SailoException("Ei saa luettua tiedostoa " + nimi);
+        //} catch (IOException e) {
+        //    throw new SailoException("Ongelmia tiedoston kanssa: " + e.getMessage());
+        }
+    }
+    
+    
+    /**
      * @param args ei käytössä
      */
     public static void main(String[] args) {
         Kierrosajat kierrosajat = new Kierrosajat();
+        
+        try {
+            kierrosajat.lueTiedostosta("kierrosajat");
+        }   catch (SailoException ex) {
+            System.err.println(ex.getMessage());
+        }
+        
         Kierrosaika zonda1 = new Kierrosaika();
         Kierrosaika zonda2 = new Kierrosaika();
         Kierrosaika zonda3 = new Kierrosaika();
-        Kierrosaika zonda4 = new Kierrosaika();
-        Kierrosaika zonda5 = new Kierrosaika();
-        Kierrosaika zonda6 = new Kierrosaika();
         
         zonda1.rekisteroi();
         zonda1.taytaKierrosajanTiedot();
@@ -122,20 +164,11 @@ public class Kierrosajat {
         zonda2.taytaKierrosajanTiedot();
         zonda3.rekisteroi();
         zonda3.taytaKierrosajanTiedot();
-        zonda4.rekisteroi();
-        zonda4.taytaKierrosajanTiedot();
-        zonda5.rekisteroi();
-        zonda5.taytaKierrosajanTiedot();
-        zonda6.rekisteroi();
-        zonda6.taytaKierrosajanTiedot();
         
         try {
             kierrosajat.lisaa(zonda1);
             kierrosajat.lisaa(zonda2);
             kierrosajat.lisaa(zonda3);
-            kierrosajat.lisaa(zonda4);
-            kierrosajat.lisaa(zonda5);
-            kierrosajat.lisaa(zonda6);
         } catch (SailoException e) {
             // e.printStackTrace();
             System.err.println(e.getMessage());
