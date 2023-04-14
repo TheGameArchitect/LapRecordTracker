@@ -29,8 +29,8 @@ import javafx.scene.control.TextArea;
  * @version 17.2.2023
  *
  */
- public class LapTrackerMainGUIController implements Initializable {
-     
+public class LapTrackerMainGUIController implements Initializable {
+    
     @FXML
     private void buttonLisaaRata() {
         //ModalController.showModal(LisaaKilparataGUIController.class.getResource("LisaaKilparata.fxml"), "Kilparata", null, "");
@@ -59,18 +59,16 @@ import javafx.scene.control.TextArea;
 
     @FXML
     private ListChooser<?> listAutot;
-
     @FXML
     private ListChooser<Kierrosaika> listKilparadat;
-    
     @FXML
     private GridPane panelKierrosaika;
-
     @FXML
     private Menu menuApua;
-
     @FXML
     private Menu menuTiedost;
+    
+    
     
     @FXML
     private void menuSimu1() {
@@ -121,22 +119,16 @@ import javafx.scene.control.TextArea;
 
     @FXML
     private TextField textAjoavut;
-
     @FXML
     private TextField textKeli;
-
     @FXML
     private TextField textKierrosaika;
-
     @FXML
     private TextField textHaku;
-
     @FXML
     private TextArea textKommentit;
-
     @FXML
     private TextField textRenkaat;
-
     @FXML
     private TextField textSimulaattori;
 
@@ -161,6 +153,7 @@ import javafx.scene.control.TextArea;
     // ============================================================================
     
     private LapRecordTracker laprecordtracker;
+    private String laprecordtrackerNimi = "kierrosajat";
     
     
     private void alusta() {
@@ -168,6 +161,11 @@ import javafx.scene.control.TextArea;
         
         listKilparadat.clear();
         listKilparadat.addSelectionListener(e -> naytaKierrosaika());
+    }
+    
+    
+    private void setTitle(String title) {
+        ModalController.getStage(textHaku).setTitle(title);
     }
     
     
@@ -186,8 +184,32 @@ import javafx.scene.control.TextArea;
     }
     
     
+    /**
+     * Alustaa laprecordtrackerin lukemalla sen valitun nimisestä tiedostosta
+     * @param nimi tiedosto josta kierrosaikojen tiedot luetaan
+     */
+    protected void lueTiedosto(String nimi) {
+        laprecordtrackerNimi = nimi;
+        setTitle("LapRecordTracker - " + laprecordtrackerNimi);
+        
+        try {
+            laprecordtracker.lueTiedostosta(nimi);
+            hae(0);
+        } catch (SailoException e) {
+            Dialogs.showMessageDialog(e.getMessage());
+        }
+    }
+    
+    
+    /**
+     * Tietojen tallennus
+     */
     private void tallenna() {
-        Dialogs.showMessageDialog("Tallennus ei vielä toimi.");
+        try {
+            laprecordtracker.tallenna();
+        } catch (SailoException e) {
+            Dialogs.showMessageDialog(e.getMessage());
+        }
     }
     
     

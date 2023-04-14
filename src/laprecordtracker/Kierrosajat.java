@@ -20,6 +20,8 @@ public class Kierrosajat {
     int lkm = 0;
     private Kierrosaika[] alkiot;
     private String tiedostonNimi = "";
+    private boolean muutettu = false;
+    
     
     /**
      * Luodaan alustava taulukko
@@ -58,6 +60,7 @@ public class Kierrosajat {
         if (lkm >= alkiot.length) throw new SailoException("Liikaa alkioita, taulukon koon kasvattaminen ei onnistunut");
         alkiot[lkm] = kierrosaika;
         lkm++;
+        muutettu = true;
     }
     
     
@@ -95,12 +98,14 @@ public class Kierrosajat {
      * @throws SailoException jos tallennus epäonnistuu
      */
     public void tallenna(String hakemisto) throws SailoException {
+        if (!muutettu) return;
         File ftied = new File(hakemisto + "/kierrosajat.dat");
         try (PrintStream fo = new PrintStream(new FileOutputStream(ftied, false))) {
             for (int i = 0; i < this.getLkm(); i++) {
                 Kierrosaika kierrosaika = this.anna(i);
                 fo.println(kierrosaika.toString());
             }
+            muutettu = false;
         } catch (FileNotFoundException e) {
             throw new SailoException("Tiedosto " + ftied.getAbsolutePath() + " ei aukea");
         }
@@ -134,6 +139,7 @@ public class Kierrosajat {
                 kierrosaika.parse(s);
                 lisaa(kierrosaika);
             }
+            muutettu = false;
         } catch (FileNotFoundException e) {
             throw new SailoException("Ei saa luettua tiedostoa " + nimi);
         //} catch (IOException e) {
