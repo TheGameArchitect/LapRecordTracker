@@ -25,7 +25,7 @@ import javafx.scene.control.TextArea;
 
 /**
  * Luokka pääikkunan käyttöliittymän tapahtuminen käsittelyä varten.
- * @author Matruusi
+ * @author Matti Savolainen
  * @version 17.2.2023
  *
  */

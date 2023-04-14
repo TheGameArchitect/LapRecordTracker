@@ -117,7 +117,6 @@ public class LapRecordTracker {
      * Lukee laprecordtrackerin tiedot tiedostosta
      * @param nimi jota käytetään lukemisessa
      * @throws SailoException jos lukeminen epäonnistuu
-     * TODO: testit ?
      */
     public void lueTiedostosta(String nimi) throws SailoException {
         File dir = new File(nimi);

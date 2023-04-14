@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 /**
- * @author Matruusi
+ * @author Matti Savolainen
  * @version 13.4.2023
  *
  */
