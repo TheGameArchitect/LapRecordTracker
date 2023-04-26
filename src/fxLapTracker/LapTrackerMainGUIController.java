@@ -40,8 +40,9 @@ public class LapTrackerMainGUIController implements Initializable {
 
     @FXML
     private void buttonMuokAika() {
-        ModalController.showModal(MuokkaaAikaaGUIController.class.getResource("MuokkaaAikaa.fxml"), "Kierrosaika", null, "");
-        Dialogs.showMessageDialog("Vielä ei osata muokata aikoja.");
+        //ModalController.showModal(MuokkaaAikaaGUIController.class.getResource("MuokkaaAikaa.fxml"), "Kierrosaika", null, "");
+        //Dialogs.showMessageDialog("Vielä ei osata muokata aikoja.");
+        muokkaa();
     }
 
     @FXML
@@ -261,6 +262,14 @@ public class LapTrackerMainGUIController implements Initializable {
             tulosta(os, kierrosaikaKohdalla);
         }
     }
+    
+    
+    private void muokkaa() {
+        Kierrosaika kierrosaikaKohdalla = listKilparadat.getSelectedObject();
+        //ModalController.showModal(MuokkaaAikaaGUIController.class.getResource("MuokkaaAikaa.fxml"), "Kierrosaika", null, kierrosaikaKohdalla);
+        MuokkaaAikaaGUIController.kysyKierrosaika(null, kierrosaikaKohdalla);
+    }
+    
 
     /**
      * Tulostaa kierrosajan tiedot

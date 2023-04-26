@@ -8,11 +8,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 /**
+ * Kierrosajalle oma kontrolleri
  * @author Matruusi
  * @version 16.2.2023
  *
  */
-public class UusiAikaGUIController implements ModalControllerInterface<String> {
+public class UusiAikaGUIController implements ModalControllerInterface<String> { //<String>, Initializable 
 
     @FXML
     private TextField textAika;
@@ -57,6 +58,7 @@ public class UusiAikaGUIController implements ModalControllerInterface<String> {
         ModalController.closeStage(textAika);
     }
 
+    
     @Override
     public String getResult() {
         return oletusVastaus;
@@ -69,8 +71,7 @@ public class UusiAikaGUIController implements ModalControllerInterface<String> {
 
     @Override
     public void setDefault(String oletus) {
-        textAika.setText(oletus);   
+        // TODO Auto-generated method stub
+        
     }
-    
-
 }

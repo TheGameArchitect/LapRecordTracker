@@ -1,17 +1,23 @@
 package fxLapTracker;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import fi.jyu.mit.fxgui.ComboBoxChooser;
 import fi.jyu.mit.fxgui.ModalController;
 import fi.jyu.mit.fxgui.ModalControllerInterface;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import laprecordtracker.Kierrosaika;
 
 /**
  * @author Matruusi
  * @version 16.2.2023
  *
  */
-public class MuokkaaAikaaGUIController implements ModalControllerInterface<String> {
+public class MuokkaaAikaaGUIController implements ModalControllerInterface<Kierrosaika>, Initializable {
 
     @FXML
     private TextField textAika;
@@ -37,22 +43,23 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<Strin
     @FXML
     private TextField textSimu;
     
-    private String oletusVastaus = null;
+    //private String oletusVastaus = null;
 
     @FXML
-    void buttonCancel() {
+    private void buttonCancel() {
         ModalController.closeStage(textAika);
     }
 
     @FXML
-    void buttonTallenna() {
-        oletusVastaus = textAika.getText();
+    private void buttonTallenna() {
+        //oletusVastaus = textAika.getText();
         ModalController.closeStage(textAika);
     }
 
     @Override
-    public String getResult() {
-        return oletusVastaus;
+    public Kierrosaika getResult() {
+        return null;
+        //return oletusVastaus;
     }
 
     @Override
@@ -60,9 +67,33 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<Strin
         textAika.requestFocus();
     }
 
-    @Override
+    /**
+     * @param oletus e
+     */
     public void setDefault(String oletus) {
         textAika.setText(oletus);
     }
 
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void setDefault(Kierrosaika oletus) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    /**
+     * Luodaan kierrosajan kysymisdialogi ja palautetaan sama tietue muutettuna tai null
+     * @param modalityStage mille ollaan modaalisia, null = sovellukselle
+     * @param oletus mitä dataa näytetään oletuksena
+     * @return null jos painetaan Cancel, muuten täytetty tietue
+     */
+    public static Kierrosaika kysyKierrosaika(Stage modalityStage, Kierrosaika oletus) {
+        return ModalController.showModal(MuokkaaAikaaGUIController.class.getResource("MuokkaaAikaa.fxml"),
+                                                                    "Kierrosaika", modalityStage, oletus);
+    }
 }
