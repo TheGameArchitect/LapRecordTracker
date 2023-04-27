@@ -96,6 +96,9 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<Kierr
     private void naytaKierrosaika(Kierrosaika kierrosaika) {
         if (kierrosaika == null) return;
         textAika.setText(kierrosaika.getKierrosaika());
+        textAjoavut.setText(kierrosaika.getAjoavut());
+        textAuto.setText(kierrosaika.getAuto());
+        textKeli.setText(kierrosaika.getKeli());
     }
     
     

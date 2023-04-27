@@ -68,6 +68,30 @@ public class Kierrosaika {
     
     
     /**
+     * @return kierrosajan ajoavut
+     */
+    public String getAjoavut() {
+        return this.ajoavut;
+    }
+
+
+    /**
+     * @return kierrosajan auto
+     */
+    public String getAuto() {
+        return this.auto;
+    }
+
+
+    /**
+     * @return kierrosajan keli
+     */
+    public String getKeli() {
+        return this.keli;
+    }
+    
+    
+    /**
      * Asettaa tunnusnumeron ja samalla varmistaa että seuraava numero on aina
      * suurempi kuin tähän mennessä suurin
      * @param nr asetettava tunnusnumero
