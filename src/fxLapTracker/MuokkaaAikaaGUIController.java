@@ -70,9 +70,10 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<Kierr
     /**
      * @param oletus e
      */
+    /**
     public void setDefault(String oletus) {
         textAika.setText(oletus);
-    }
+    }**/
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -82,10 +83,22 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<Kierr
 
     @Override
     public void setDefault(Kierrosaika oletus) {
-        // TODO Auto-generated method stub
-        
+        kierrosaikaKohdalla = oletus;
+        naytaKierrosaika(kierrosaikaKohdalla);
     }
-
+    
+    
+    // ====================================================================================
+    
+    private Kierrosaika kierrosaikaKohdalla;
+    
+    
+    private void naytaKierrosaika(Kierrosaika kierrosaika) {
+        if (kierrosaika == null) return;
+        textAika.setText(kierrosaika.getKierrosaika());
+    }
+    
+    
     /**
      * Luodaan kierrosajan kysymisdialogi ja palautetaan sama tietue muutettuna tai null
      * @param modalityStage mille ollaan modaalisia, null = sovellukselle
