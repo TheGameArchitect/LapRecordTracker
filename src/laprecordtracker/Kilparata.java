@@ -111,6 +111,14 @@ public class Kilparata {
     
     
     /**
+     * @return kierrosajan kilparata
+     */
+    public String getKilparata() {
+        return this.kilparata;
+    }
+    
+    
+    /**
      * Apumetodi, jolla täytetään testiarvot Kilparadalle.
      * Arvotaan satunnainen luku radan perään, jotta ei olisi samoja tietoja usealla
      * eri kierrosajalla.

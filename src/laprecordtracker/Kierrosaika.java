@@ -92,6 +92,22 @@ public class Kierrosaika {
     
     
     /**
+     * @return kierrosajan kommentit
+     */
+    public String getKommentit() {
+        return this.kommentit;
+    }
+
+
+    /**
+     * @return kierrosajan renkaat
+     */
+    public String getRenkaat() {
+        return this.renkaat;
+    }
+    
+    
+    /**
      * Asettaa tunnusnumeron ja samalla varmistaa että seuraava numero on aina
      * suurempi kuin tähän mennessä suurin
      * @param nr asetettava tunnusnumero

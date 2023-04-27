@@ -19,29 +19,14 @@ import laprecordtracker.Kierrosaika;
  */
 public class MuokkaaAikaaGUIController implements ModalControllerInterface<Kierrosaika>, Initializable {
 
-    @FXML
-    private TextField textAika;
-
-    @FXML
-    private TextField textAjoavut;
-
-    @FXML
-    private TextField textAuto;
-
-    @FXML
-    private TextField textKeli;
-
-    @FXML
-    private ComboBoxChooser<?> chooserKilparata;
-
-    @FXML
-    private TextField textKommentit;
-
-    @FXML
-    private TextField textRenkaat;
-
-    @FXML
-    private TextField textSimu;
+    @FXML private TextField textAika;
+    @FXML private TextField textAjoavut;
+    @FXML private TextField textAuto;
+    @FXML private TextField textKeli;
+    @FXML private ComboBoxChooser<?> chooserKilparata;
+    @FXML private TextField textKommentit;
+    @FXML private TextField textRenkaat;
+    @FXML private TextField textSimu;
     
     //private String oletusVastaus = null;
 
@@ -77,28 +62,41 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<Kierr
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        // TODO Auto-generated method stub
-        
+        alusta();
     }
-
+    
+    
     @Override
     public void setDefault(Kierrosaika oletus) {
         kierrosaikaKohdalla = oletus;
-        naytaKierrosaika(kierrosaikaKohdalla);
+        naytaKierrosaika(edits, kierrosaikaKohdalla);
     }
     
     
     // ====================================================================================
     
     private Kierrosaika kierrosaikaKohdalla;
+    private TextField[] edits;
     
     
-    private void naytaKierrosaika(Kierrosaika kierrosaika) {
+    private void alusta() {
+        edits = new TextField[] {textAika, textAjoavut, textKeli, textRenkaat};
+    }
+    
+    
+    /**
+     * Laitetaan kierrosajan tietoja TextField komponentteihin
+     * @param edits taulukko jossa tekstikenttiä
+     * @param kierrosaika näytettävä kierrosaika
+     */
+    public static void naytaKierrosaika(TextField[] edits, Kierrosaika kierrosaika) {
         if (kierrosaika == null) return;
-        textAika.setText(kierrosaika.getKierrosaika());
-        textAjoavut.setText(kierrosaika.getAjoavut());
-        textAuto.setText(kierrosaika.getAuto());
-        textKeli.setText(kierrosaika.getKeli());
+        edits[0].setText(kierrosaika.getKierrosaika());
+        edits[1].setText(kierrosaika.getAjoavut());
+        //edits[2].setText(kierrosaika.getAuto());
+        edits[2].setText(kierrosaika.getKeli());
+        //edits[4].setText(kierrosaika.getKommentit());
+        edits[3].setText(kierrosaika.getRenkaat());
     }
     
     

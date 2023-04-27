@@ -1,14 +1,13 @@
 package fxLapTracker;
 
-import java.io.PrintStream;
+//import java.io.PrintStream;
 import java.net.URL;
-import java.util.List;
+//import java.util.List;
 import java.util.ResourceBundle;
 
 import fi.jyu.mit.fxgui.Dialogs;
 import fi.jyu.mit.fxgui.ListChooser;
 import fi.jyu.mit.fxgui.ModalController;
-import fi.jyu.mit.fxgui.TextAreaOutputStream;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.TextField;
@@ -155,6 +154,7 @@ public class LapTrackerMainGUIController implements Initializable {
     
     private LapRecordTracker laprecordtracker;
     private String laprecordtrackerNimi = "kierrosajat";
+    private TextField[] edits;
     
     
     private void alusta() {
@@ -162,6 +162,8 @@ public class LapTrackerMainGUIController implements Initializable {
         
         listKilparadat.clear();
         listKilparadat.addSelectionListener(e -> naytaKierrosaika());
+        
+        edits = new TextField[] {textKierrosaika, textAjoavut, textKeli, textRenkaat};
     }
     
     
@@ -254,13 +256,22 @@ public class LapTrackerMainGUIController implements Initializable {
     
     private void naytaKierrosaika() {
         Kierrosaika kierrosaikaKohdalla = listKilparadat.getSelectedObject();
-        
         if (kierrosaikaKohdalla == null) return;
         
+        /**
+        listAutot.clear();
+        listAutot.addSelectionListener(e -> kierrosaikaKohdalla.getAuto());
+        textKierrosaika.setText(kierrosaikaKohdalla.getKierrosaika());
+        textAjoavut.setText(kierrosaikaKohdalla.getAjoavut());
+        textKeli.setText(kierrosaikaKohdalla.getKeli());
+        **/
+        MuokkaaAikaaGUIController.naytaKierrosaika(edits, kierrosaikaKohdalla);
+        
+        /**
         textKommentit.setText("");
         try (PrintStream os = TextAreaOutputStream.getTextPrintStream(textKommentit)) {
             tulosta(os, kierrosaikaKohdalla);
-        }
+        }**/
     }
     
     
@@ -276,6 +287,7 @@ public class LapTrackerMainGUIController implements Initializable {
      * @param os tietovirta johon tulostetaan
      * @param kierrosaika tulostettava kierrosaika
      */
+    /**
     private void tulosta(PrintStream os, final Kierrosaika kierrosaika) {
         os.println("---------------------------------------------");
         kierrosaika.tulosta(os);
@@ -284,7 +296,7 @@ public class LapTrackerMainGUIController implements Initializable {
         for (Kilparata kil : kilparadat)
             kil.tulosta(os);
         os.println("---------------------------------------------");
-    }
+    }**/
     
     
     /**
