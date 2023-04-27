@@ -8,6 +8,7 @@ import fi.jyu.mit.fxgui.ModalController;
 import fi.jyu.mit.fxgui.ModalControllerInterface;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import laprecordtracker.Kierrosaika;
@@ -27,19 +28,36 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<Kierr
     @FXML private TextField textKommentit;
     @FXML private TextField textRenkaat;
     @FXML private TextField textSimu;
+    @FXML private Label labelVirhe;
     
     //private String oletusVastaus = null;
 
     @FXML
     private void buttonCancel() {
+        kierrosaikaKohdalla = null;
         ModalController.closeStage(textAika);
     }
 
     @FXML
     private void buttonTallenna() {
-        //oletusVastaus = textAika.getText();
+        if (kierrosaikaKohdalla != null && kierrosaikaKohdalla.getKierrosaika().trim().equals("")) {
+            naytaVirhe("Kierrosaika ei saa olla tyhjä");
+            return;
+        }
         ModalController.closeStage(textAika);
     }
+    
+    
+    private void naytaVirhe(String virhe) {
+        if (virhe == null || virhe.isEmpty()) {
+            labelVirhe.setText("");
+            labelVirhe.getStyleClass().removeAll("virhe");
+            return;
+        }
+        labelVirhe.setText(virhe);
+        labelVirhe.getStyleClass().add("virhe");
+    }
+    
 
     @Override
     public Kierrosaika getResult() {
@@ -70,6 +88,7 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<Kierr
     public void setDefault(Kierrosaika oletus) {
         kierrosaikaKohdalla = oletus;
         naytaKierrosaika(edits, kierrosaikaKohdalla);
+        naytaKommentitJaAuto(kierrosaikaKohdalla);
     }
     
     
@@ -81,6 +100,20 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<Kierr
     
     private void alusta() {
         edits = new TextField[] {textAika, textAjoavut, textKeli, textRenkaat};
+        textAika.setOnKeyReleased(e -> kasitteleMuutosKierrosaikaan(textAika));
+    }
+    
+    
+    private void kasitteleMuutosKierrosaikaan(TextField edit) {
+        if (kierrosaikaKohdalla == null) return;
+        String s = edit.getText();
+        String virhe = null;
+        virhe = kierrosaikaKohdalla.setKierrosaika(s);
+        if (virhe == null) {
+            naytaVirhe(virhe);
+        } else {
+            naytaVirhe(virhe);
+        }
     }
     
     
@@ -97,6 +130,13 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<Kierr
         edits[2].setText(kierrosaika.getKeli());
         //edits[4].setText(kierrosaika.getKommentit());
         edits[3].setText(kierrosaika.getRenkaat());
+    }
+    
+    
+    private void naytaKommentitJaAuto(Kierrosaika kierrosaika) {
+        if (kierrosaika == null) return;
+        textKommentit.setText(kierrosaika.getKommentit());
+        textAuto.setText(kierrosaika.getAuto());
     }
     
     

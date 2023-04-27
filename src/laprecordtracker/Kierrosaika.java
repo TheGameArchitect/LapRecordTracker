@@ -108,6 +108,17 @@ public class Kierrosaika {
     
     
     /**
+     * asettaa kierrosajan
+     * @param s uusi kierrosaika
+     * @return virheteksti jos huono
+     */
+    public String setKierrosaika(String s) {
+        kierrosaika = s;
+        return null;
+    }
+    
+    
+    /**
      * Asettaa tunnusnumeron ja samalla varmistaa että seuraava numero on aina
      * suurempi kuin tähän mennessä suurin
      * @param nr asetettava tunnusnumero

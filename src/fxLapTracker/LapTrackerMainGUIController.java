@@ -56,19 +56,6 @@ public class LapTrackerMainGUIController implements Initializable {
         uusiAika();
         uusiPeli();
     }
-
-    @FXML
-    private ListChooser<?> listAutot;
-    @FXML
-    private ListChooser<Kierrosaika> listKilparadat;
-    @FXML
-    private GridPane panelKierrosaika;
-    @FXML
-    private Menu menuApua;
-    @FXML
-    private Menu menuTiedost;
-    
-    
     
     @FXML
     private void menuSimu1() {
@@ -131,6 +118,18 @@ public class LapTrackerMainGUIController implements Initializable {
     private TextField textRenkaat;
     @FXML
     private TextField textSimulaattori;
+    
+    @FXML
+    private ListChooser<Kierrosaika> listAutot;
+    @FXML
+    private ListChooser<Kierrosaika> listKilparadat;
+    @FXML
+    private GridPane panelKierrosaika;
+    @FXML
+    private Menu menuApua;
+    @FXML
+    private Menu menuTiedost;
+    
 
     @Override
     public void initialize(URL url, ResourceBundle bundle) {
@@ -258,6 +257,8 @@ public class LapTrackerMainGUIController implements Initializable {
         Kierrosaika kierrosaikaKohdalla = listKilparadat.getSelectedObject();
         if (kierrosaikaKohdalla == null) return;
         
+        MuokkaaAikaaGUIController.naytaKierrosaika(edits, kierrosaikaKohdalla);
+        naytaSimulaattori(kierrosaikaKohdalla);
         /**
         listAutot.clear();
         listAutot.addSelectionListener(e -> kierrosaikaKohdalla.getAuto());
@@ -265,7 +266,6 @@ public class LapTrackerMainGUIController implements Initializable {
         textAjoavut.setText(kierrosaikaKohdalla.getAjoavut());
         textKeli.setText(kierrosaikaKohdalla.getKeli());
         **/
-        MuokkaaAikaaGUIController.naytaKierrosaika(edits, kierrosaikaKohdalla);
         
         /**
         textKommentit.setText("");
@@ -275,10 +275,20 @@ public class LapTrackerMainGUIController implements Initializable {
     }
     
     
+    private void naytaSimulaattori(Kierrosaika kierrosaika) {
+        textSimulaattori.clear();
+        if (kierrosaika == null) return;
+        Peli peli = laprecordtracker.annaPeli(kierrosaika);
+        if (peli == null) return;
+        textSimulaattori.setText(peli.toString());
+    }
+    
+    
     private void muokkaa() {
         Kierrosaika kierrosaikaKohdalla = listKilparadat.getSelectedObject();
         //ModalController.showModal(MuokkaaAikaaGUIController.class.getResource("MuokkaaAikaa.fxml"), "Kierrosaika", null, kierrosaikaKohdalla);
-        MuokkaaAikaaGUIController.kysyKierrosaika(null, kierrosaikaKohdalla);
+        if (MuokkaaAikaaGUIController.kysyKierrosaika(null, kierrosaikaKohdalla) == null) return;
+        hae(kierrosaikaKohdalla.getTunnusNro());
     }
     
 

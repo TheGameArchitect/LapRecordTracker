@@ -59,11 +59,13 @@ public class LapRecordTracker {
     
     /**
      * Antaa pelien i:n pelin
-     * @param i monesko peli
+     * @param kierrosaika monesko peli
      * @return peli paikasta i
      */
-    public Peli annaPeli(int i) {
-        return pelit.anna(i);
+    public Peli annaPeli(Kierrosaika kierrosaika) {
+        int tunnusNro = kierrosaika.getTunnusNro();
+        tunnusNro -= 1;
+        return pelit.anna(tunnusNro); //TODO: indeksi on väärin jossain kohtaa sillä heittää IndexOutOfBoundsExc
     }
     
     
