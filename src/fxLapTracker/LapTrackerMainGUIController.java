@@ -247,7 +247,10 @@ public class LapTrackerMainGUIController implements Initializable {
         for (int i = 0; i < laprecordtracker.getKierrosaikoja(); i++) {
             Kierrosaika kierrosaika = laprecordtracker.annaKierrosaika(i);
             if (kierrosaika.getTunnusNro() == jnro) index = i;
-            listKilparadat.add("" + kierrosaika.getKierrosaika(), kierrosaika);
+            //Kilparata rata = new Kilparata();
+            //rata = laprecordtracker.annaKilparadat(kierrosaika);
+            listKilparadat.add("" + laprecordtracker.annaKilparataNimi(kierrosaika.getTunnusNro()), kierrosaika);
+            //listKilparadat.add("" + i, kierrosaika);
         }
         listKilparadat.setSelectedIndex(index);
     }

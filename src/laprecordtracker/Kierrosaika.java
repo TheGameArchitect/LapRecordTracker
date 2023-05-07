@@ -23,6 +23,7 @@ public class Kierrosaika {
     private String      keli        = "";
     private String      ajoavut     = "";
     private String      kommentit   = "";
+    private String      kilparata   = "";
     
     private static int  seuraavaNro = 1;
     
@@ -37,6 +38,7 @@ public class Kierrosaika {
         out.println("Ajokeli: " + keli);
         out.println("Ajoavut: " + ajoavut);
         out.println("Kommentit: " + kommentit);
+        out.println("Kilparata: " + kilparata);
         //out.println("Simulaattori: ");
     }
     
@@ -108,6 +110,14 @@ public class Kierrosaika {
     
     
     /**
+     * @return kierrosajan kilparata
+     */
+    public String getKilparata() {
+        return this.kilparata;
+    }
+    
+    
+    /**
      * asettaa kierrosajan
      * @param s uusi kierrosaika
      * @return virheteksti jos huono
@@ -156,6 +166,7 @@ public class Kierrosaika {
         keli = Mjonot.erota(sb, '|', keli);
         ajoavut = Mjonot.erota(sb, '|', ajoavut);
         kommentit = Mjonot.erota(sb, '|', kommentit);
+        kilparata = Mjonot.erota(sb, '|', kilparata);
     }
     
     
@@ -178,7 +189,8 @@ public class Kierrosaika {
                 renkaat + "|" +
                 keli + "|" +
                 ajoavut + "|" +
-                kommentit + "|";
+                kommentit + "|" +
+                kilparata + "|";
     }
     
     
@@ -215,6 +227,7 @@ public class Kierrosaika {
         keli = "Puolipilvinen";
         ajoavut = "ABS" + ", " + "TCS: " + KierrosaikaTarkistus.rand(0, 10);
         kommentit = "Epavakaa yli 200km/h vauhdissa.";
+        kilparata = "Kilparata";
     }
     
     

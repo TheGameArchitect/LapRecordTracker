@@ -208,6 +208,28 @@ public class Kilparadat implements Iterable<Kilparata> {
     
     
     /**
+     * Etsitään kierrosajan ensimmäinen kilparata
+     * @param tunnusnro käsiteltävä kierrosaika
+     * @return kierrosajan ensimmäinen kilparata
+     * TODO: Testaa
+     */
+    public String annaKilparataNimi(int tunnusnro) {
+        for (Kilparata rata : alkiot) {
+            if (rata.getTunnusNro() == tunnusnro) return rata.getKilparata();
+        }
+        return "Radan nimeä ei löydy";
+        /**
+        List<Kilparata> radat = new ArrayList<Kilparata>();
+        for (Kilparata rata : alkiot)
+            if (rata.getKierrosaikaNro() == tunnusnro) radat.add(rata);
+        Kilparata kilparata = new Kilparata();
+        kilparata = radat.get(0);
+        return kilparata;
+        **/
+    }
+    
+    
+    /**
      * Testiohjelma kilparadoille
      * @param args ei kaytossa
      */

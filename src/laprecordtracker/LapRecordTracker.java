@@ -87,7 +87,7 @@ public class LapRecordTracker {
      * <pre name="test">
      * #import java.util.*;
      * 
-     * LapRecordTracker laprecordtracker = new LapRecordTracker();
+     *LapRecordTracker laprecordtracker = new LapRecordTracker();
      * Kierrosaika zonda1 = new Kierrosaika(), zonda2 = new Kierrosaika(), zonda3 = new Kierrosaika();
      * zonda1.rekisteroi(); zonda2.rekisteroi(); zonda3.rekisteroi();
      * int id1 = zonda1.getTunnusNro();
@@ -110,9 +110,33 @@ public class LapRecordTracker {
      * loytyneet.get(0) == kilpa21 === true;
      * </pre>
      */
-    public List<Kilparata> annaKilparadat(Kierrosaika kierrosaika){
+    public List<Kilparata> annaKilparadat(Kierrosaika kierrosaika) {
+        /**
+        Kilparata kilparata = new Kilparata();
+        kilparata = kilparadat.annaKilparata(kierrosaika.getTunnusNro());
+        return kilparata;**/
+        /**
+        List<Kilparata> radat = new ArrayList<Kilparata>();
+        for (Kilparata rata : kilparadat) {
+            //rata.parse()
+            radat.add(rata);
+        }**/
+        //kilparata = kilparadat.annaKilparadat(kierrosaika.getTunnusNro());
         return kilparadat.annaKilparadat(kierrosaika.getTunnusNro());
     }
+    
+    
+    /**
+     * Etsitään kierrosajan ensimmäinen kilparata
+     * @param tunnusNro minkä kierrosajan kilparata etsitään
+     * @return kierrosajan ensimmäinen kilparata
+     */
+    public String annaKilparataNimi(int tunnusNro) {
+        String rata = new String();
+        rata = kilparadat.annaKilparataNimi(tunnusNro);
+        return rata;
+    }
+
     
     
     /**
@@ -212,5 +236,4 @@ public class LapRecordTracker {
             System.out.println("-------------------------------------------------");
         }
     }
-
 }
