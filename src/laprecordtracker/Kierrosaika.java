@@ -14,7 +14,7 @@ import kanta.KierrosaikaTarkistus;
  * @version 22.3.2023
  *
  */
-public class Kierrosaika {
+public class Kierrosaika implements Cloneable {
 
     private int         tunnusNro   = 0;
     private String      kierrosaika = "";
@@ -201,6 +201,28 @@ public class Kierrosaika {
         this.tunnusNro = seuraavaNro;
         seuraavaNro++;
         return this.tunnusNro;
+    }
+    
+    
+    /**
+     * Tehdään identtinen klooni kierrosajasta
+     * @return Object kloonattu kierrosaika
+     * @example
+     * <pre name="test">
+     * #THROWS CloneNotSupportedException
+     *  Kierrosaika kAika = new Kierrosaika();
+     *  kAika.parse("     2   |     23.13.124 |  Zonda R");
+     *  Kierrosaika kopio = kAika.clone();
+     *  kopio.toString() === kAika.toString();
+     *  kAika.parse("    5   |  54.34.752   |   CLS");
+     *  kopio.toString().equals(kAika.toString()) === false;
+     * </pre>
+     */
+    @Override
+    public Kierrosaika clone() throws CloneNotSupportedException{
+        Kierrosaika uusi;
+        uusi = (Kierrosaika)super.clone();
+        return uusi;
     }
     
     

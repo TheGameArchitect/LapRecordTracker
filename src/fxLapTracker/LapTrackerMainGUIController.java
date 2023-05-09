@@ -2,9 +2,7 @@ package fxLapTracker;
 
 //import java.io.PrintStream;
 import java.net.URL;
-//import java.util.List;
 import java.util.ResourceBundle;
-
 import fi.jyu.mit.fxgui.Dialogs;
 import fi.jyu.mit.fxgui.ListChooser;
 import fi.jyu.mit.fxgui.ModalController;
@@ -51,7 +49,7 @@ public class LapTrackerMainGUIController implements Initializable {
 
     @FXML
     private void buttonUusiAika() {
-        //ModalController.showModal(UusiAikaGUIController.class.getResource("UusiAika.fxml"), "Kierrosaika", null, "");
+        ModalController.showModal(UusiAikaGUIController.class.getResource("UusiAika.fxml"), "Kierrosaika", null, "");
         //Dialogs.showMessageDialog("Vielä ei osata lisätä aikoja.");
         uusiAika();
         uusiPeli();
@@ -160,7 +158,7 @@ public class LapTrackerMainGUIController implements Initializable {
         textKommentit.setFont(new Font("Courier New", 12));
         
         listKilparadat.clear();
-        listKilparadat.addSelectionListener(e -> naytaKierrosaika());
+        listKilparadat.addSelectionListener(e -> naytaKierrosaika());   // naytaKierrosaika
         
         edits = new TextField[] {textKierrosaika, textAjoavut, textKeli, textRenkaat};
     }
@@ -249,8 +247,22 @@ public class LapTrackerMainGUIController implements Initializable {
             if (kierrosaika.getTunnusNro() == jnro) index = i;
             listKilparadat.add("" + kierrosaika.getKierrosaika(), kierrosaika);
         }
+        /**
+        for (int i = 0; i < laprecordtracker.getKierrosaikoja(); i++) {
+            Kierrosaika kierrosaika = laprecordtracker.annaKierrosaika(i);
+            List<Kilparata> kilparata = laprecordtracker.annaKilparadat(kierrosaika);
+            Kilparata kil = kilparata.get(i);
+            if (kierrosaika.getTunnusNro() == jnro) index = i;
+            listKilparadat.add("" + kil.getKierrosaikaNro(), kil);
+        }**/
+        
         listKilparadat.setSelectedIndex(index);
     }
+    
+    /**
+    private void naytaKilparata() {
+        Kilparata kilparataKohdalla = listKilparadat.getSelectedObject();
+    }**/
     
     
     private void naytaKierrosaika() {
@@ -258,7 +270,9 @@ public class LapTrackerMainGUIController implements Initializable {
         if (kierrosaikaKohdalla == null) return;
         
         MuokkaaAikaaGUIController.naytaKierrosaika(edits, kierrosaikaKohdalla);
-        naytaSimulaattori(kierrosaikaKohdalla);
+        //naytaSimulaattori(kierrosaikaKohdalla);
+        
+        
         /**
         listAutot.clear();
         listAutot.addSelectionListener(e -> kierrosaikaKohdalla.getAuto());
@@ -274,21 +288,35 @@ public class LapTrackerMainGUIController implements Initializable {
         }**/
     }
     
-    
+    /**
     private void naytaSimulaattori(Kierrosaika kierrosaika) {
         textSimulaattori.clear();
         if (kierrosaika == null) return;
         Peli peli = laprecordtracker.annaPeli(kierrosaika);
         if (peli == null) return;
         textSimulaattori.setText(peli.toString());
-    }
+    }**/
     
     
     private void muokkaa() {
         Kierrosaika kierrosaikaKohdalla = listKilparadat.getSelectedObject();
-        //ModalController.showModal(MuokkaaAikaaGUIController.class.getResource("MuokkaaAikaa.fxml"), "Kierrosaika", null, kierrosaikaKohdalla);
-        if (MuokkaaAikaaGUIController.kysyKierrosaika(null, kierrosaikaKohdalla) == null) return;
+        if (kierrosaikaKohdalla == null) return;
+        try {
+            kierrosaikaKohdalla = kierrosaikaKohdalla.clone();
+        } catch (CloneNotSupportedException e) {
+            // Ei voi tapahtua
+        }
+        kierrosaikaKohdalla = MuokkaaAikaaGUIController.kysyKierrosaika(null, kierrosaikaKohdalla);
+        if (kierrosaikaKohdalla == null) return;
+        
+        try {
+            laprecordtracker.korvaaTaiLisaa(kierrosaikaKohdalla);
+        } catch (SailoException e) {
+            // TODO: näytä dialogi virheestä
+        
+        }
         hae(kierrosaikaKohdalla.getTunnusNro());
+      //ModalController.showModal(MuokkaaAikaaGUIController.class.getResource("MuokkaaAikaa.fxml"), "Kierrosaika", null, kierrosaikaKohdalla);
     }
     
 
