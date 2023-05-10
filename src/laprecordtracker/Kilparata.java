@@ -117,6 +117,17 @@ public class Kilparata {
         return this.kilparata;
     }
     
+
+    /**
+     * Luo uuden kilparadan käyttäjän antamalla nimellä
+     * @param rataNimi Käyttäjän antama nimi uudelle radalla
+     */
+    public void luoUusiRata(String rataNimi) {
+        Kilparata uusi = new Kilparata();
+        uusi.rekisteroi();
+        uusi.kilparata = rataNimi;
+    }
+    
     
     /**
      * Apumetodi, jolla täytetään testiarvot Kilparadalle.
@@ -174,5 +185,4 @@ public class Kilparata {
         kil.taytaKilparataTiedot(2);
         kil.tulosta(System.out);
     }
-
 }

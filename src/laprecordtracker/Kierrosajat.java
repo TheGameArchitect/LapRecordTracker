@@ -78,6 +78,19 @@ public class Kierrosajat {
     
     
     /**
+     * Etsii halutun kierrosajan auton nimen
+     * @param tunnusNro minkä kierrosajan auto haetaan
+     * @return kierrosajan auto
+     */
+    public String annaAuto(int tunnusNro) {
+        for (Kierrosaika aika : alkiot) {
+            if (aika.getTunnusNro() == tunnusNro) return aika.getAuto();
+        }
+        return "Auton nimeä ei löydy";
+    }
+    
+    
+    /**
      * Palauttaa Kierrosaika-taulukon kierrosaikojen lukumäärän.
      * @return kierrosaikojen lukumäärä
      */
@@ -194,5 +207,4 @@ public class Kierrosajat {
             System.err.println(e.getMessage());
         }
     }
-
 }

@@ -136,7 +136,18 @@ public class LapRecordTracker {
         rata = kilparadat.annaKilparataNimi(tunnusNro);
         return rata;
     }
-
+    
+    
+    /**
+     * Haetaan halutun kierrosajan auton nimi
+     * @param tunnusNro minkä kierrosajan autoa etsitään
+     * @return kierrosajan auton nimi
+     */
+    public String annaAuto(int tunnusNro) {
+        String auto = new String();
+        auto = kierrosajat.annaAuto(tunnusNro);
+        return auto;
+    }
     
     
     /**
