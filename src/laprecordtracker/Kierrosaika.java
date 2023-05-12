@@ -38,6 +38,7 @@ public class Kierrosaika implements Cloneable {
         out.println("Ajokeli: " + keli);
         out.println("Ajoavut: " + ajoavut);
         out.println("Kommentit: " + kommentit);
+        out.println("Rata ID:" + rataId);
         //out.println("Simulaattori: ");
     }
     
