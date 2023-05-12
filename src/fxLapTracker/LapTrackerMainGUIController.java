@@ -243,7 +243,7 @@ public class LapTrackerMainGUIController implements Initializable {
         listKilparadat.clear();
         int index = 0;
         for (int i = 0; i < laprecordtracker.getKilparatoja(); i++) {
-            Kilparata kilparata = laprecordtracker.annaKilparata(i);
+            Kilparata kilparata = laprecordtracker.annaKilparata(jnro);
             listKilparadat.add("" + laprecordtracker.annaKilparataNimi(kilparata.getTunnusNro()), kilparata);
             if (kilparata.getTunnusNro() == jnro) index = i;
         }
@@ -258,8 +258,9 @@ public class LapTrackerMainGUIController implements Initializable {
     private void haeKierrosaikaListaan(int jnro) {
         listAutot.clear();
         int index = 0;
-        for (int i = 0; i < laprecordtracker.getKilparatoja(); i++) {
+        for (int i = 0; i < laprecordtracker.getKierrosaikoja(); i++) {
             Kierrosaika kierrosaika = laprecordtracker.annaKierrosaika(i);
+            listAutot.add("" + kierrosaika.getAuto(), kierrosaika);
             if (kierrosaika.getTunnusNro() == jnro) index = i;
         }
         listAutot.setSelectedIndex(index);
