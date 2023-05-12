@@ -118,6 +118,9 @@ public class Kierrosaika implements Cloneable {
     }
     
     
+    private KierrosaikaTarkistus tarkistaja = new KierrosaikaTarkistus();
+    
+    
     /**
      * asettaa kierrosajan
      * @param k mihin kenttään laitetaan
@@ -125,16 +128,16 @@ public class Kierrosaika implements Cloneable {
      * @return virheteksti jos huono
      */
     public String aseta(int k, String s) {
+        String jono = s.trim();
         switch (k) {
-            case 1: auto = s; break; 
-            case 2: renkaat = s; break;
-            case 3: ajoavut = s; break;
-            case 4: keli = s; break;
+            case 1: auto = jono; break; 
+            case 2: renkaat = jono; break;
+            case 3: ajoavut = jono; break;
+            case 4: keli = jono; break;
             case 5:
-                KierrosaikaTarkistus tarkistaja = new KierrosaikaTarkistus();
-                String virhe = tarkistaja.tarkista(s);
+                String virhe = tarkistaja.tarkista(jono);
                 if (virhe != null) return virhe;
-                kierrosaika = s;
+                kierrosaika = jono;
                 return null;
             default: //
         }
