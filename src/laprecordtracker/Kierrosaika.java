@@ -113,6 +113,9 @@ public class Kierrosaika implements Cloneable {
      * @return virheteksti jos huono
      */
     public String setKierrosaika(String s) {
+        KierrosaikaTarkistus tarkistaja = new KierrosaikaTarkistus();
+        String virhe = tarkistaja.tarkista(s);
+        if (virhe != null) return virhe;
         kierrosaika = s;
         return null;
     }

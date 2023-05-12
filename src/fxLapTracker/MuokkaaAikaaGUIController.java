@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import fi.jyu.mit.fxgui.ComboBoxChooser;
+import fi.jyu.mit.fxgui.Dialogs;
 import fi.jyu.mit.fxgui.ModalController;
 import fi.jyu.mit.fxgui.ModalControllerInterface;
 import javafx.fxml.FXML;
@@ -168,9 +169,13 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<Kierr
         String virhe = null;
         virhe = kierrosaikaKohdalla.setKierrosaika(s);
         if (virhe == null) {
+            Dialogs.setToolTipText(edit, "");
             naytaVirhe(virhe);
+            edit.getStyleClass().add("normaali");
         } else {
+            Dialogs.setToolTipText(edit, virhe);
             naytaVirhe(virhe);
+            edit.getStyleClass().add("virhe");
         }
     }
     
