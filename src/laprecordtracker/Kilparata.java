@@ -17,7 +17,7 @@ import kanta.KierrosaikaTarkistus;
 public class Kilparata {
     
     private int tunnusNro;
-    private int idNro;
+    private int peliId;
     private String kilparata;
     
     private static int seuraavaNro = 1;
@@ -36,7 +36,7 @@ public class Kilparata {
      * @param idNro kierrosajan viitenumero
      */
     public Kilparata(int idNro) {
-        this.idNro = idNro;
+        this.peliId = idNro;
     }
     
     
@@ -57,7 +57,7 @@ public class Kilparata {
      */
     @Override
     public String toString() {
-        return "" + getTunnusNro() + "|" + idNro + "|" + kilparata;
+        return "" + getTunnusNro() + "|" + peliId + "|" + kilparata;
     }
     
     
@@ -83,7 +83,7 @@ public class Kilparata {
     public void parse(String rivi) {
         StringBuffer sb = new StringBuffer(rivi);
         setTunnusNro(Mjonot.erota(sb, '|', getTunnusNro()));
-        idNro = Mjonot.erota(sb, '|', idNro);
+        peliId = Mjonot.erota(sb, '|', peliId);
         kilparata = Mjonot.erota(sb, '|', kilparata);
     }
     
@@ -117,6 +117,17 @@ public class Kilparata {
         return this.kilparata;
     }
     
+    
+    /**
+     * asettaa kilparadan nimen
+     * @param s uuden kilparadan nimi
+     * @return virheteksti jos huono
+     */
+    public String setKilparata(String s) {
+        kilparata = s;
+        return null;
+    }
+    
 
     /**
      * Luo uuden kilparadan käyttäjän antamalla nimellä
@@ -136,7 +147,7 @@ public class Kilparata {
      * @param nro viite kierrosaikaan, jonka kilparadasta on kyse
      */
     public void taytaKilparataTiedot(int nro) {
-        idNro = nro;
+        peliId = nro;
         kilparata = "Nordschleife " + KierrosaikaTarkistus.rand(0, 999);
     }
     
@@ -169,11 +180,11 @@ public class Kilparata {
     
     
     /**
-     * Palautetaan mihin kierrosaikaan kilparata kuuluu
-     * @return kierrosajan id
+     * Palautetaan mihin peliin kilparata kuuluu
+     * @return pelin id
      */
-    public int getKierrosaikaNro() {
-        return idNro;
+    public int getPeliNro() {
+        return peliId;
     }
     
     

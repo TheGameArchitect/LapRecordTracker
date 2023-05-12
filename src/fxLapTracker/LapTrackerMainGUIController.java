@@ -33,14 +33,12 @@ public class LapTrackerMainGUIController implements Initializable {
     @FXML
     private void buttonLisaaRata() {
         //ModalController.showModal(LisaaKilparataGUIController.class.getResource("LisaaKilparata.fxml"), "Kilparata", null, "");
-        //Dialogs.showMessageDialog("Vielä ei osata lisätä ratoja.");
         uusiKilparata();
     }
 
     @FXML
     private void buttonMuokAika() {
         //ModalController.showModal(MuokkaaAikaaGUIController.class.getResource("MuokkaaAikaa.fxml"), "Kierrosaika", null, "");
-        //Dialogs.showMessageDialog("Vielä ei osata muokata aikoja.");
         muokkaa();
     }
 
@@ -51,8 +49,7 @@ public class LapTrackerMainGUIController implements Initializable {
 
     @FXML
     private void buttonUusiAika() {
-        ModalController.showModal(UusiAikaGUIController.class.getResource("UusiAika.fxml"), "Kierrosaika", null, "");
-        //Dialogs.showMessageDialog("Vielä ei osata lisätä aikoja.");
+        //ModalController.showModal(UusiAikaGUIController.class.getResource("UusiAika.fxml"), "Kierrosaika", null, "");
         uusiAika();
         uusiPeli();
     }
@@ -122,7 +119,7 @@ public class LapTrackerMainGUIController implements Initializable {
     @FXML
     private ListChooser<Kierrosaika> listAutot;
     @FXML
-    private ListChooser<Kierrosaika> listKilparadat;
+    private ListChooser<Kilparata> listKilparadat;
     @FXML
     private GridPane panelKierrosaika;
     @FXML
@@ -160,9 +157,9 @@ public class LapTrackerMainGUIController implements Initializable {
         textKommentit.setFont(new Font("Courier New", 12));
         
         listKilparadat.clear();
-        listKilparadat.addSelectionListener(e -> naytaKierrosaika());
+        listKilparadat.addSelectionListener(e -> naytaKilparata());
         listAutot.clear();
-        listAutot.addSelectionListener(e -> naytaKilparata());
+        listAutot.addSelectionListener(e -> naytaKierrosaika());
         
         edits = new TextField[] {textKierrosaika, textAjoavut, textKeli, textRenkaat};
     }
@@ -210,7 +207,7 @@ public class LapTrackerMainGUIController implements Initializable {
         
         try {
             laprecordtracker.lueTiedostosta(nimi);
-            hae(0);
+            haeKierrosaikaListaan(0);
         } catch (SailoException e) {
             Dialogs.showMessageDialog(e.getMessage());
         }
@@ -239,24 +236,32 @@ public class LapTrackerMainGUIController implements Initializable {
     }
     
     /**
-     * Haetaan kierrosajat uudelleen
-     * @param jnro mikä kierrosaika valitaan aktiiviseksi
+     * Haetaan kilparadat oikeaan listaan
+     * @param jnro mikä kilparata valitaan aktiiviseksi
      */
-    private void hae(int jnro) {
+    private void haeRataListaan(int jnro) {
         listKilparadat.clear();
-        listAutot.clear();
-        
         int index = 0;
-        for (int i = 0; i < laprecordtracker.getKierrosaikoja(); i++) {
-            Kierrosaika kierrosaika = laprecordtracker.annaKierrosaika(i);
-            if (kierrosaika.getTunnusNro() == jnro) index = i;
-            //Kilparata rata = new Kilparata();
-            //rata = laprecordtracker.annaKilparadat(kierrosaika);
-            listKilparadat.add("" + laprecordtracker.annaKilparataNimi(kierrosaika.getTunnusNro()), kierrosaika);
-            //listKilparadat.add("" + i, kierrosaika);
-            listAutot.add("" + laprecordtracker.annaAuto(kierrosaika.getTunnusNro()), kierrosaika);
+        for (int i = 0; i < laprecordtracker.getKilparatoja(); i++) {
+            Kilparata kilparata = laprecordtracker.annaKilparata(i);
+            listKilparadat.add("" + laprecordtracker.annaKilparataNimi(kilparata.getTunnusNro()), kilparata);
+            if (kilparata.getTunnusNro() == jnro) index = i;
         }
         listKilparadat.setSelectedIndex(index);
+    }
+    
+    
+    /**
+     * Haetaan kierrosajat oikeaan listaan
+     * @param jnro mikä kierrosaika valitaan aktiiviseksi
+     */
+    private void haeKierrosaikaListaan(int jnro) {
+        listAutot.clear();
+        int index = 0;
+        for (int i = 0; i < laprecordtracker.getKilparatoja(); i++) {
+            Kierrosaika kierrosaika = laprecordtracker.annaKierrosaika(i);
+            if (kierrosaika.getTunnusNro() == jnro) index = i;
+        }
         listAutot.setSelectedIndex(index);
     }
     
@@ -269,7 +274,7 @@ public class LapTrackerMainGUIController implements Initializable {
     
     
     private void naytaKierrosaika() {
-        Kierrosaika kierrosaikaKohdalla = listKilparadat.getSelectedObject();
+        Kierrosaika kierrosaikaKohdalla = listAutot.getSelectedObject();
         if (kierrosaikaKohdalla == null) return;
         
         MuokkaaAikaaGUIController.naytaKierrosaika(edits, textKommentit, kierrosaikaKohdalla);
@@ -300,7 +305,7 @@ public class LapTrackerMainGUIController implements Initializable {
     
     
     private void muokkaa() {
-        Kierrosaika valittuAika = listKilparadat.getSelectedObject();
+        Kierrosaika valittuAika = listAutot.getSelectedObject();
         if (valittuAika == null) return;
         try {
             valittuAika = valittuAika.clone();
@@ -314,9 +319,89 @@ public class LapTrackerMainGUIController implements Initializable {
         } catch (SailoException e) {
             // TODO: näytä dialogi virheestä
         }
-        hae(valittuAika.getTunnusNro());
+        haeKierrosaikaListaan(valittuAika.getTunnusNro());
         //ModalController.showModal(MuokkaaAikaaGUIController.class.getResource("MuokkaaAikaa.fxml"), "Kierrosaika", null, kierrosaikaKohdalla);
     }
+    
+    
+    /**
+     * Asetetaan käytettävä laprecordtracker-olio
+     * @param laprecordtracker jota käytetään
+     */
+    public void setLapRecordTracker(LapRecordTracker laprecordtracker) {
+        this.laprecordtracker = laprecordtracker;
+    }
+    
+    
+    /**
+     * Tekee uuden tyhjän kilparadan editointia varten
+     */
+    public void uusiKilparata() {
+        Kilparata uusi = new Kilparata();
+        Kierrosaika aikaKohdalla = listAutot.getSelectedObject();
+        uusi = LisaaKilparataGUIController.kysyRata(null, uusi);
+        if (uusi == null) return;
+        uusi.rekisteroi();
+        laprecordtracker.lisaa(uusi);
+        if (aikaKohdalla != null) {
+            try {
+                aikaKohdalla.setRataId(uusi.getTunnusNro());
+            } catch (Exception e) {
+                Dialogs.showMessageDialog("Kierrosaikoja ei ole valittuna" + e);
+            }
+        }
+        haeRataListaan(uusi.getTunnusNro());
+               
+        /*
+        try {
+            Kilparata uusi = new Kilparata();
+            uusi = LisaaKilparataGUIController.kysyRata(null, uusi);
+            if (uusi == null) return;
+            uusi.rekisteroi();
+            laprecordtracker.lisaa(uusi);
+            hae(uusi.getTunnusNro());
+        } catch (Exception e) {
+            Dialogs.showMessageDialog("Ongelmia uuden luomisessa " + e.getMessage());
+        }*/
+        
+        /*
+        ModalController.showModal(LisaaKilparataGUIController.class.getResource("LisaaKilparata.fxml"), "Kilparata", null, "");
+        
+        Kierrosaika kierrosKohdalla = listKilparadat.getSelectedObject();
+        if (kierrosKohdalla == null) return;
+        Kilparata kil = new Kilparata();
+        kil.rekisteroi();
+        kil.taytaKilparataTiedot(kierrosKohdalla.getTunnusNro()); // TODO: korvaa dialogilla
+        laprecordtracker.lisaa(kil);
+        hae(kierrosKohdalla.getTunnusNro());    */
+    }
+    
+    
+    private void uusiAika() {
+        Kierrosaika uusi = new Kierrosaika();
+        uusi = MuokkaaAikaaGUIController.kysyKierrosaika(null, uusi);
+        if (uusi == null) return;
+        uusi.rekisteroi();
+        try {
+            laprecordtracker.lisaa(uusi);
+        } catch (SailoException e) {
+            Dialogs.showMessageDialog("Ongelmia uuden luomisessa " + e.getMessage());
+        }
+        haeKierrosaikaListaan(uusi.getTunnusNro());
+    }
+    
+    
+    private void uusiPeli() {
+        Peli peli = new Peli();
+        peli.rekisteroi();
+        try {
+            laprecordtracker.lisaa(peli);
+        } catch (SailoException e) {
+            Dialogs.showMessageDialog("Ongelmia uuden luomisessa " + e.getMessage());
+        }
+        //hae(pCars2.getTunnusNro());
+    }
+    
     
 
     /**
@@ -334,65 +419,4 @@ public class LapTrackerMainGUIController implements Initializable {
             kil.tulosta(os);
         os.println("---------------------------------------------");
     }**/
-    
-    
-    /**
-     * Asetetaan käytettävä laprecordtracker-olio
-     * @param laprecordtracker jota käytetään
-     */
-    public void setLapRecordTracker(LapRecordTracker laprecordtracker) {
-        this.laprecordtracker = laprecordtracker;
-    }
-    
-    
-    /**
-     * Tekee uuden tyhjän kilparadan editointia varten
-     */
-    public void uusiKilparata() {
-        try {
-            Kilparata uusi = new Kilparata();
-            uusi = LisaaKilparataGUIController.kysyRata(null, uusi);
-            if (uusi == null) return;
-            uusi.rekisteroi();
-            laprecordtracker.lisaa(uusi);
-            hae(uusi.getTunnusNro());
-        } catch (Exception e) {
-            Dialogs.showMessageDialog("Ongelmia uuden luomisessa " + e.getMessage());
-        }
-        /**
-        ModalController.showModal(LisaaKilparataGUIController.class.getResource("LisaaKilparata.fxml"), "Kilparata", null, "");
-        
-        Kierrosaika kierrosKohdalla = listKilparadat.getSelectedObject();
-        if (kierrosKohdalla == null) return;
-        Kilparata kil = new Kilparata();
-        kil.rekisteroi();
-        kil.taytaKilparataTiedot(kierrosKohdalla.getTunnusNro()); // TODO: korvaa dialogilla
-        laprecordtracker.lisaa(kil);
-        hae(kierrosKohdalla.getTunnusNro());    **/
-    }
-    
-    
-    private void uusiAika() {
-        Kierrosaika uusi = new Kierrosaika();
-        uusi.rekisteroi();
-        uusi.taytaKierrosajanTiedot();
-        try {
-            laprecordtracker.lisaa(uusi);
-        } catch (SailoException e) {
-            Dialogs.showMessageDialog("Ongelmia uuden luomisessa " + e.getMessage());
-        }
-        hae(uusi.getTunnusNro());
-    }
-    
-    
-    private void uusiPeli() {
-        Peli peli = new Peli();
-        peli.rekisteroi();
-        try {
-            laprecordtracker.lisaa(peli);
-        } catch (SailoException e) {
-            Dialogs.showMessageDialog("Ongelmia uuden luomisessa " + e.getMessage());
-        }
-        //hae(pCars2.getTunnusNro());
-    }
 }

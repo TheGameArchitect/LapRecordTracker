@@ -99,6 +99,16 @@ public class LapRecordTracker {
     
     
     /**
+     * Antaa kilparatojen i:n kilparadan
+     * @param i monesko rata haetaan
+     * @return i:nes kilparata
+     */
+    public Kilparata annaKilparata(int i) {
+        return kilparadat.annaRata(i);
+    }
+    
+    
+    /**
      * Haetaan kierrosajan kilparata
      * @param kierrosaika kierrosaika jolle kilparata haetaan
      * @return tietorakenne jossa viitteet löydettyihin kilparatoihin
@@ -130,17 +140,6 @@ public class LapRecordTracker {
      * </pre>
      */
     public List<Kilparata> annaKilparadat(Kierrosaika kierrosaika) {
-        /**
-        Kilparata kilparata = new Kilparata();
-        kilparata = kilparadat.annaKilparata(kierrosaika.getTunnusNro());
-        return kilparata;**/
-        /**
-        List<Kilparata> radat = new ArrayList<Kilparata>();
-        for (Kilparata rata : kilparadat) {
-            //rata.parse()
-            radat.add(rata);
-        }**/
-        //kilparata = kilparadat.annaKilparadat(kierrosaika.getTunnusNro());
         return kilparadat.annaKilparadat(kierrosaika.getTunnusNro());
     }
     

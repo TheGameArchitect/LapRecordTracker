@@ -17,6 +17,7 @@ import kanta.KierrosaikaTarkistus;
 public class Kierrosaika implements Cloneable {
 
     private int         tunnusNro   = 0;
+    private int         rataId      = 0;
     private String      kierrosaika = "";
     private String      auto        = "";
     private String      renkaat     = "";
@@ -56,6 +57,15 @@ public class Kierrosaika implements Cloneable {
      */
     public int getTunnusNro() {
         return tunnusNro;
+    }
+    
+    
+    /**
+     * Palauttaa tiettyyn kilparataan viittaavan id-numeron
+     * @return kilparadan id, jossa kierrosaika on ajettu
+     */
+    public int getRataId() {
+        return rataId;
     }
     
     
@@ -190,6 +200,17 @@ public class Kierrosaika implements Cloneable {
     
     
     /**
+     * asettaa kierrosaikaan kilparadan tunnusnumeron
+     * @param idNro kilparadan tunnusnro
+     * @return virheteksti jos huono
+     */
+    public Integer setRataId(int idNro) {
+        rataId = idNro;
+        return null;
+    }
+    
+    
+    /**
      * Asettaa tunnusnumeron ja samalla varmistaa että seuraava numero on aina
      * suurempi kuin tähän mennessä suurin
      * @param nr asetettava tunnusnumero
@@ -227,6 +248,7 @@ public class Kierrosaika implements Cloneable {
         keli = Mjonot.erota(sb, '|', keli);
         ajoavut = Mjonot.erota(sb, '|', ajoavut);
         kommentit = Mjonot.erota(sb, '|', kommentit);
+        rataId = Mjonot.erota(sb,  '|', rataId);
     }
     
     
@@ -249,7 +271,8 @@ public class Kierrosaika implements Cloneable {
                 renkaat + "|" +
                 keli + "|" +
                 ajoavut + "|" +
-                kommentit + "|";
+                kommentit + "|" +
+                rataId + "|";
     }
     
     

@@ -158,7 +158,7 @@ public class Kilparadat implements Iterable<Kilparata> {
      * int jnrot[] = {2,1,2,1,2};
      * 
      * for (Kilparata kil : kilparadat) {
-     *     kil.getKierrosaikaNro() === jnrot[n]; n++;
+     *     kil.getPeliNro() === jnrot[n]; n++;
      * }
      * 
      * n === 5;
@@ -202,8 +202,23 @@ public class Kilparadat implements Iterable<Kilparata> {
     public List<Kilparata> annaKilparadat(int tunnusnro) {
         List<Kilparata> loydetyt = new ArrayList<Kilparata>();
         for (Kilparata kil : alkiot)
-            if (kil.getKierrosaikaNro() == tunnusnro) loydetyt.add(kil);
+            if (kil.getPeliNro() == tunnusnro) loydetyt.add(kil);
         return loydetyt;
+    }
+    
+    
+    /**
+     * Haetaan i:nes kilparata
+     * @param i mikä kilparata palautetaan
+     * @return i:nen kilparadan
+     */
+    public Kilparata annaRata(int i) {
+        List<Kilparata> loydetyt = new ArrayList<Kilparata>();
+        for (Kilparata rata : alkiot) {
+            if (rata.getTunnusNro() == i) loydetyt.add(rata);
+        }
+        Kilparata rata = loydetyt.get(0);
+        return rata;
     }
     
     
@@ -218,14 +233,6 @@ public class Kilparadat implements Iterable<Kilparata> {
             if (rata.getTunnusNro() == tunnusnro) return rata.getKilparata();
         }
         return "Radan nimeä ei löydy";
-        /**
-        List<Kilparata> radat = new ArrayList<Kilparata>();
-        for (Kilparata rata : alkiot)
-            if (rata.getKierrosaikaNro() == tunnusnro) radat.add(rata);
-        Kilparata kilparata = new Kilparata();
-        kilparata = radat.get(0);
-        return kilparata;
-        **/
     }
     
     
@@ -264,7 +271,7 @@ public class Kilparadat implements Iterable<Kilparata> {
         List<Kilparata> kilparadat2 = kilparadat.annaKilparadat(2);
         
         for (Kilparata kil : kilparadat2) {
-            System.out.print(kil.getKierrosaikaNro() + " ");
+            System.out.print(kil.getPeliNro() + " ");
             kil.tulosta(System.out);
         }
         

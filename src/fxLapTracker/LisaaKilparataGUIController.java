@@ -31,10 +31,10 @@ public class LisaaKilparataGUIController implements ModalControllerInterface<Kil
     @FXML
     private Label labelVirhe;
     
-    private Kilparata oletusVastaus = null;
 
     @FXML
     void buttonPeruuta() {
+        oletusRata = null;
         ModalController.closeStage(textKilparata);
     }
 
@@ -44,9 +44,7 @@ public class LisaaKilparataGUIController implements ModalControllerInterface<Kil
             naytaVirhe("Tekstikenttä ei saa olla tyhjä");
             return;
         }
-        // String rata = new String();
-        // rata = textKilparata.getText();
-        //luoUusiKilparata(rata);
+        ModalController.closeStage(textKilparata);
     }
     
     
@@ -63,7 +61,7 @@ public class LisaaKilparataGUIController implements ModalControllerInterface<Kil
     
     @Override
     public Kilparata getResult() {
-        return oletusVastaus;
+        return oletusRata;
     }
 
     @Override
@@ -80,12 +78,12 @@ public class LisaaKilparataGUIController implements ModalControllerInterface<Kil
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        // TODO Auto-generated method stub
-        
+        alusta();
     }
 
     @Override
-    public void setDefault(Kilparata arg0) {
+    public void setDefault(Kilparata oletus) {
+        oletusRata = oletus;
         textKilparata.clear();
     }
 
@@ -93,6 +91,24 @@ public class LisaaKilparataGUIController implements ModalControllerInterface<Kil
     // ================================================================
     
     // private LapRecordTracker laprecordtracker;
+    private Kilparata oletusRata;
+    
+    private void alusta() {
+        textKilparata.setOnKeyReleased(e -> kasitteleMuutosKilparataan(textKilparata));
+    }
+    
+    
+    private void kasitteleMuutosKilparataan(TextField textRata) {
+        String s = textRata.getText();
+        String virhe = null;
+        virhe = oletusRata.setKilparata(s);
+        if (virhe == null) {
+            naytaVirhe(virhe);
+        } else {
+            naytaVirhe(virhe);
+        }
+    }
+    
     
     /**
      * @param modalityStage mille ollaan modaalisia, null = sovellukselle
@@ -104,13 +120,4 @@ public class LisaaKilparataGUIController implements ModalControllerInterface<Kil
                                 "LapRecordTracker",
                                 modalityStage, uusi);
     }
-    
-    
-    /**
-    private void luoUusiKilparata(String rataNimi) {
-        Kilparata rata = new Kilparata();
-        rata.rekisteroi();
-        rata.luoUusiRata(rataNimi);
-        LapRecordTracker.lisaa(rata);
-    }**/
 }

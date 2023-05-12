@@ -31,7 +31,7 @@ public class KilparataTest {
   public void testParse69() {    // Kilparata: 69
     Kilparata kilparata = new Kilparata(); 
     kilparata.parse("    5 |    1   |    Nordschleife  "); 
-    assertEquals("From: Kilparata line: 72", 1, kilparata.getKierrosaikaNro()); 
+    assertEquals("From: Kilparata line: 72", 1, kilparata.getPeliNro()); 
     assertEquals("From: Kilparata line: 73", "5|1|Nordschleife", kilparata.toString()); 
     kilparata.rekisteroi(); 
     int n = kilparata.getTunnusNro(); 
