@@ -158,7 +158,9 @@ public class LapTrackerMainGUIController implements Initializable {
         textKommentit.setFont(new Font("Courier New", 12));
         
         listKilparadat.clear();
-        listKilparadat.addSelectionListener(e -> naytaKierrosaika());   // naytaKierrosaika
+        listKilparadat.addSelectionListener(e -> naytaKierrosaika());
+        listAutot.clear();
+        listAutot.addSelectionListener(e -> naytaKilparata());
         
         edits = new TextField[] {textKierrosaika, textAjoavut, textKeli, textRenkaat};
     }
@@ -240,6 +242,7 @@ public class LapTrackerMainGUIController implements Initializable {
      */
     private void hae(int jnro) {
         listKilparadat.clear();
+        listAutot.clear();
         
         int index = 0;
         for (int i = 0; i < laprecordtracker.getKierrosaikoja(); i++) {
@@ -249,6 +252,7 @@ public class LapTrackerMainGUIController implements Initializable {
             //rata = laprecordtracker.annaKilparadat(kierrosaika);
             
             //listKilparadat.add("" + i, kierrosaika);
+            listAutot.add("" + laprecordtracker.annaAuto(kierrosaika.getTunnusNro()), kierrosaika);
         }
         /**
         for (int i = 0; i < laprecordtracker.getKierrosaikoja(); i++) {
@@ -260,6 +264,13 @@ public class LapTrackerMainGUIController implements Initializable {
         }**/
         
         listKilparadat.setSelectedIndex(index);
+        listAutot.setSelectedIndex(index);
+    }
+    
+    
+    private void naytaKilparata() {
+        Kierrosaika aikaKohdalla = listAutot.getSelectedObject();
+        if (aikaKohdalla == null) return;
     }
     
     /**
@@ -353,13 +364,26 @@ public class LapTrackerMainGUIController implements Initializable {
      * Tekee uuden tyhjän kilparadan editointia varten
      */
     public void uusiKilparata() {
+        try {
+            Kilparata uusi = new Kilparata();
+            uusi = LisaaKilparataGUIController.kysyRata(null, uusi);
+            if (uusi == null) return;
+            uusi.rekisteroi();
+            laprecordtracker.lisaa(uusi);
+            hae(uusi.getTunnusNro());
+        } catch (Exception e) {
+            Dialogs.showMessageDialog("Ongelmia uuden luomisessa " + e.getMessage());
+        }
+        /**
+        ModalController.showModal(LisaaKilparataGUIController.class.getResource("LisaaKilparata.fxml"), "Kilparata", null, "");
+        
         Kierrosaika kierrosKohdalla = listKilparadat.getSelectedObject();
         if (kierrosKohdalla == null) return;
         Kilparata kil = new Kilparata();
         kil.rekisteroi();
         kil.taytaKilparataTiedot(kierrosKohdalla.getTunnusNro()); // TODO: korvaa dialogilla
         laprecordtracker.lisaa(kil);
-        hae(kierrosKohdalla.getTunnusNro());
+        hae(kierrosKohdalla.getTunnusNro());    **/
     }
     
     
@@ -385,6 +409,6 @@ public class LapTrackerMainGUIController implements Initializable {
         } catch (SailoException e) {
             Dialogs.showMessageDialog("Ongelmia uuden luomisessa " + e.getMessage());
         }
-        hae(pCars2.getTunnusNro());
+        //hae(pCars2.getTunnusNro());
     }
 }

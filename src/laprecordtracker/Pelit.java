@@ -71,7 +71,7 @@ public class Pelit {
      * @throws IndexOutOfBoundsException jos i ei ole sallitulla alueella
      */
     public Peli anna(int i) throws IndexOutOfBoundsException {
-        if (i < 0 || this.lkm <= i)
+        if (i < 0 || i > alkiot.length)
             throw new IndexOutOfBoundsException("Laiton indeksi: " + i);
         return alkiot[i];
     }
