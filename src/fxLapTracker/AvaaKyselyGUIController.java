@@ -1,8 +1,12 @@
 package fxLapTracker;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import fi.jyu.mit.fxgui.ModalController;
 import fi.jyu.mit.fxgui.ModalControllerInterface;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -12,7 +16,7 @@ import javafx.stage.Stage;
  * @version 14.4.2023
  *
  */
-public class AvaaKyselyGUIController implements ModalControllerInterface<String> {
+public class AvaaKyselyGUIController implements ModalControllerInterface<String>, Initializable {
 
     @FXML private TextField textVastaus;
     private String vastaus = null;
@@ -52,6 +56,11 @@ public class AvaaKyselyGUIController implements ModalControllerInterface<String>
         textVastaus.setText(oletus);
     }
     
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+        // TODO Auto-generated method stub    
+    }
+    
     // =============================================================================
     
     /**
@@ -66,5 +75,4 @@ public class AvaaKyselyGUIController implements ModalControllerInterface<String>
                 "LapRecordTracker",
                 modalityStage, oletus);
     }
-
 }

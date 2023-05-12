@@ -65,6 +65,36 @@ public class Kierrosajat {
     
     
     /**
+     * Etsitään samalla tunnusnumerolla oleva kierrosaika. Jos ei löydy,
+     * niin lisätään uutena kierrosaikana.
+     * @param valittuAika lisättävän kierrosajan viite. Huom tietorakenne muuttuu omistajaksi
+     * @throws SailoException jos tietorakenne on jo täynnä
+     * @example
+     * <pre name="test">
+     * #THROWS SailoException, CloneNotSupportedException
+     * #PACKAGEIMPORT
+     * Kierrosajat kierrosajat = new Kierrosajat();
+     * Kierrosaika aika1 = new Kierrosaika(), aika2 = new Kierrosaika();
+     * aika1.rekisteroi(); aika2.rekisteroi();
+     * kierrosajat.getLkm() === 0;
+     * kierrosajat.korvaaTaiLisaa(aika1); kierrosajat.getLkm() === 1;
+     * kierrosajat.korvaaTaiLisaa(aika2); kierrosajat.getLkm() === 2;
+     * </pre>
+     */
+    public void korvaaTaiLisaa(Kierrosaika valittuAika) throws SailoException {
+        int id = valittuAika.getTunnusNro();
+        for (int i = 0; i < lkm; i++) {
+            if (alkiot[i].getTunnusNro() == id) {
+                alkiot[i] = valittuAika;
+                muutettu = true;
+                return;
+            }
+        }
+        lisaa(valittuAika);
+    }
+    
+    
+    /**
      * Palauttaa viitteen i:teen kierrosaikaan.
      * @param i minkä kierrosajan viite halutaan
      * @return viite kierrosaikaan, jonka indeksi on i

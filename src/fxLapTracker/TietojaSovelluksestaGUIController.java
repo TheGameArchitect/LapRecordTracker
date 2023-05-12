@@ -1,9 +1,13 @@
 package fxLapTracker;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import fi.jyu.mit.fxgui.ModalController;
 import fi.jyu.mit.fxgui.ModalControllerInterface;
 //import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
 /**
@@ -11,7 +15,7 @@ import javafx.scene.control.Button;
  * @version 16.2.2023
  *
  */
-public class TietojaSovelluksestaGUIController implements ModalControllerInterface<String> {
+public class TietojaSovelluksestaGUIController implements ModalControllerInterface<String>, Initializable {
 
     @FXML
     private Button buttonOk;
@@ -34,5 +38,11 @@ public class TietojaSovelluksestaGUIController implements ModalControllerInterfa
     @Override
     public void setDefault(String oletus) {
         //
+    }
+
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+        // TODO Auto-generated method stub
+        
     }
 }

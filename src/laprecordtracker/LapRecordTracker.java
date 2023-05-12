@@ -26,6 +26,7 @@ public class LapRecordTracker {
      * @throws SailoException jos lisääminen ei onnistu
      */
     public void lisaa(Peli peli) throws SailoException {
+        peli.taytaPeliTiedot(getKilparatoja());
         pelit.lisaa(peli);
     }
     
@@ -41,11 +42,21 @@ public class LapRecordTracker {
     
     
     /**
-     * Lisätään uusi kilparata laprecordtrackeriin
-     * @param kil lisättävä kilparata
+     * Korvaa kierrosajan, jolla sama id
+     * @param valittuAika millä korvataan
+     * @throws SailoException jos joku menee pieleen
      */
-    public void lisaa(Kilparata kil) {
-        kilparadat.lisaa(kil);
+    public void korvaaTailisaa(Kierrosaika valittuAika) throws SailoException {
+        kierrosajat.korvaaTaiLisaa(valittuAika);
+    }
+    
+    
+    /**
+     * Lisätään uusi kilparata laprecordtrackeriin
+     * @param rata lisättävä kilparata
+     */
+    public void lisaa(Kilparata rata) {
+        kilparadat.lisaa(rata);
     }
     
     
@@ -54,6 +65,14 @@ public class LapRecordTracker {
      */
     public int getKierrosaikoja() {
         return kierrosajat.getLkm();
+    }
+    
+    
+    /**
+     * @return kilparatojen lukumäärä
+     */
+    public int getKilparatoja() {
+        return kilparadat.getLkm();
     }
     
     

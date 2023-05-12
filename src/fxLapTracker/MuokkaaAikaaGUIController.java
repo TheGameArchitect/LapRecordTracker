@@ -61,7 +61,7 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<Kierr
 
     @Override
     public Kierrosaika getResult() {
-        return null;
+        return kierrosaikaKohdalla;
         //return oletusVastaus;
     }
 

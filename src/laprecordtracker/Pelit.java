@@ -18,7 +18,7 @@ import java.util.Scanner;
  */
 public class Pelit {
 
-    private static final int MAX_PELEJA = 5;
+    private static final int MAX_PELEJA = 20;
     
     int lkm = 0;
     private Peli[] alkiot;

@@ -299,10 +299,22 @@ public class LapTrackerMainGUIController implements Initializable {
     
     
     private void muokkaa() {
-        Kierrosaika kierrosaikaKohdalla = listKilparadat.getSelectedObject();
+        Kierrosaika valittuAika = listKilparadat.getSelectedObject();
+        if (valittuAika == null) return;
+        try {
+            valittuAika = valittuAika.clone();
+        } catch (CloneNotSupportedException e) {
+            // Ei voi tapahtua
+        }
+        valittuAika = MuokkaaAikaaGUIController.kysyKierrosaika(null, valittuAika);
+        if (valittuAika == null) return;
+        try {
+            laprecordtracker.korvaaTailisaa(valittuAika);
+        } catch (SailoException e) {
+            // TODO: näytä dialogi virheestä
+        }
+        hae(valittuAika.getTunnusNro());
         //ModalController.showModal(MuokkaaAikaaGUIController.class.getResource("MuokkaaAikaa.fxml"), "Kierrosaika", null, kierrosaikaKohdalla);
-        if (MuokkaaAikaaGUIController.kysyKierrosaika(null, kierrosaikaKohdalla) == null) return;
-        hae(kierrosaikaKohdalla.getTunnusNro());
     }
     
 
@@ -373,11 +385,10 @@ public class LapTrackerMainGUIController implements Initializable {
     
     
     private void uusiPeli() {
-        Peli pCars2 = new Peli();
-        pCars2.rekisteroi();
-        pCars2.taytaPeliTiedot(1);
+        Peli peli = new Peli();
+        peli.rekisteroi();
         try {
-            laprecordtracker.lisaa(pCars2);
+            laprecordtracker.lisaa(peli);
         } catch (SailoException e) {
             Dialogs.showMessageDialog("Ongelmia uuden luomisessa " + e.getMessage());
         }

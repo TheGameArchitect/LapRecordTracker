@@ -14,7 +14,7 @@ import kanta.KierrosaikaTarkistus;
  * @version 22.3.2023
  *
  */
-public class Kierrosaika {
+public class Kierrosaika implements Cloneable {
 
     private int         tunnusNro   = 0;
     private String      kierrosaika = "";
@@ -23,7 +23,6 @@ public class Kierrosaika {
     private String      keli        = "";
     private String      ajoavut     = "";
     private String      kommentit   = "";
-    private String      kilparata   = "";
     
     private static int  seuraavaNro = 1;
     
@@ -38,7 +37,6 @@ public class Kierrosaika {
         out.println("Ajokeli: " + keli);
         out.println("Ajoavut: " + ajoavut);
         out.println("Kommentit: " + kommentit);
-        out.println("Kilparata: " + kilparata);
         //out.println("Simulaattori: ");
     }
     
@@ -110,14 +108,6 @@ public class Kierrosaika {
     
     
     /**
-     * @return kierrosajan kilparata
-     */
-    public String getKilparata() {
-        return this.kilparata;
-    }
-    
-    
-    /**
      * asettaa kierrosajan
      * @param s uusi kierrosaika
      * @return virheteksti jos huono
@@ -166,7 +156,6 @@ public class Kierrosaika {
         keli = Mjonot.erota(sb, '|', keli);
         ajoavut = Mjonot.erota(sb, '|', ajoavut);
         kommentit = Mjonot.erota(sb, '|', kommentit);
-        kilparata = Mjonot.erota(sb, '|', kilparata);
     }
     
     
@@ -189,8 +178,7 @@ public class Kierrosaika {
                 renkaat + "|" +
                 keli + "|" +
                 ajoavut + "|" +
-                kommentit + "|" +
-                kilparata + "|";
+                kommentit + "|";
     }
     
     
@@ -217,6 +205,27 @@ public class Kierrosaika {
     
     
     /**
+     * @return Object kloonattu kierrosaika
+     * @example
+     * <pre name="test">
+     * #THROWS CloneNotSupportedException
+     *    Kierrosaika aika = new Kierrosaika();
+     *    aika.parse("    3   |   10.32.142  | 123");
+     *    Kierrosaika kopio = aika.clone();
+     *    kopio.toString() === aika.toString();
+     *    aika.parse("    5  |   42.33.612  | 523");
+     *    kopio.toString().equals(aika.toString()) === false;
+     * </pre> 
+     */
+    @Override
+    public Kierrosaika clone() throws CloneNotSupportedException {
+        Kierrosaika uusi;
+        uusi = (Kierrosaika)super.clone();
+        return uusi;
+    }
+    
+    
+    /**
      * Apumetodi, jolla saadaan täytettyä testiarvot kierrosajalle.
      * TODO: poista kun kaikki toimii
      */
@@ -227,7 +236,6 @@ public class Kierrosaika {
         keli = "Puolipilvinen";
         ajoavut = "ABS" + ", " + "TCS: " + KierrosaikaTarkistus.rand(0, 10);
         kommentit = "Epavakaa yli 200km/h vauhdissa.";
-        kilparata = "Kilparata";
     }
     
     
