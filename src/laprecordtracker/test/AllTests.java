@@ -3,6 +3,8 @@ package laprecordtracker.test;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 
+import laprecordtracker.LapRecordTracker;
+
 /**
  * @author Matti Savolainen
  * @version 24.3.2023
@@ -10,7 +12,7 @@ import org.junit.platform.suite.api.Suite;
  */
 @Suite
 @SelectClasses({ KierrosaikaTest.class, KierrosajatTest.class,
-        KilparadatTest.class, KilparataTest.class, LapRecordTrackerTest.class })
+        KilparadatTest.class, KilparataTest.class, LapRecordTracker.class})
 public class AllTests {
     // Ajetaan kaikki testit
 }
