@@ -2,9 +2,7 @@ package fxLapTracker;
 
 //import java.io.PrintStream;
 import java.net.URL;
-//import java.util.List;
 import java.util.ResourceBundle;
-
 import fi.jyu.mit.fxgui.Dialogs;
 import fi.jyu.mit.fxgui.ListChooser;
 import fi.jyu.mit.fxgui.ModalController;
@@ -252,10 +250,19 @@ public class LapTrackerMainGUIController implements Initializable {
             if (kierrosaika.getTunnusNro() == jnro) index = i;
             //Kilparata rata = new Kilparata();
             //rata = laprecordtracker.annaKilparadat(kierrosaika);
-            listKilparadat.add("" + laprecordtracker.annaKilparataNimi(kierrosaika.getTunnusNro()), kierrosaika);
+            
             //listKilparadat.add("" + i, kierrosaika);
             listAutot.add("" + laprecordtracker.annaAuto(kierrosaika.getTunnusNro()), kierrosaika);
         }
+        /**
+        for (int i = 0; i < laprecordtracker.getKierrosaikoja(); i++) {
+            Kierrosaika kierrosaika = laprecordtracker.annaKierrosaika(i);
+            List<Kilparata> kilparata = laprecordtracker.annaKilparadat(kierrosaika);
+            Kilparata kil = kilparata.get(i);
+            if (kierrosaika.getTunnusNro() == jnro) index = i;
+            listKilparadat.add("" + kil.getKierrosaikaNro(), kil);
+        }**/
+        
         listKilparadat.setSelectedIndex(index);
         listAutot.setSelectedIndex(index);
     }
@@ -266,13 +273,20 @@ public class LapTrackerMainGUIController implements Initializable {
         if (aikaKohdalla == null) return;
     }
     
+    /**
+    private void naytaKilparata() {
+        Kilparata kilparataKohdalla = listKilparadat.getSelectedObject();
+    }**/
+    
     
     private void naytaKierrosaika() {
         Kierrosaika kierrosaikaKohdalla = listKilparadat.getSelectedObject();
         if (kierrosaikaKohdalla == null) return;
         
         MuokkaaAikaaGUIController.naytaKierrosaika(edits, kierrosaikaKohdalla);
-        naytaSimulaattori(kierrosaikaKohdalla);
+        //naytaSimulaattori(kierrosaikaKohdalla);
+        
+        
         /**
         listAutot.clear();
         listAutot.addSelectionListener(e -> kierrosaikaKohdalla.getAuto());
@@ -288,21 +302,35 @@ public class LapTrackerMainGUIController implements Initializable {
         }**/
     }
     
-    
+    /**
     private void naytaSimulaattori(Kierrosaika kierrosaika) {
         textSimulaattori.clear();
         if (kierrosaika == null) return;
         Peli peli = laprecordtracker.annaPeli(kierrosaika);
         if (peli == null) return;
         textSimulaattori.setText(peli.toString());
-    }
+    }**/
     
     
     private void muokkaa() {
         Kierrosaika kierrosaikaKohdalla = listKilparadat.getSelectedObject();
-        //ModalController.showModal(MuokkaaAikaaGUIController.class.getResource("MuokkaaAikaa.fxml"), "Kierrosaika", null, kierrosaikaKohdalla);
-        if (MuokkaaAikaaGUIController.kysyKierrosaika(null, kierrosaikaKohdalla) == null) return;
+        if (kierrosaikaKohdalla == null) return;
+        try {
+            kierrosaikaKohdalla = kierrosaikaKohdalla.clone();
+        } catch (CloneNotSupportedException e) {
+            // Ei voi tapahtua
+        }
+        kierrosaikaKohdalla = MuokkaaAikaaGUIController.kysyKierrosaika(null, kierrosaikaKohdalla);
+        if (kierrosaikaKohdalla == null) return;
+        
+        try {
+            laprecordtracker.korvaaTaiLisaa(kierrosaikaKohdalla);
+        } catch (SailoException e) {
+            // TODO: näytä dialogi virheestä
+        
+        }
         hae(kierrosaikaKohdalla.getTunnusNro());
+      //ModalController.showModal(MuokkaaAikaaGUIController.class.getResource("MuokkaaAikaa.fxml"), "Kierrosaika", null, kierrosaikaKohdalla);
     }
     
 
