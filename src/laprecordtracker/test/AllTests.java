@@ -12,7 +12,8 @@ import laprecordtracker.LapRecordTracker;
  */
 @Suite
 @SelectClasses({ KierrosaikaTest.class, KierrosajatTest.class,
-        KilparadatTest.class, KilparataTest.class, LapRecordTracker.class})
+        KilparadatTest.class, KilparataTest.class, LapRecordTracker.class, 
+        PeliTest.class, PelitTest.class})
 public class AllTests {
     // Ajetaan kaikki testit
 }

@@ -108,15 +108,36 @@ public class Kierrosaika implements Cloneable {
     
     
     /**
+     * asettaa auton
+     * @param s uusi auto
+     * @return virheteksti jos huono
+     */
+    public String setAuto(String s) {
+        auto = s;
+        return null;
+    }
+    
+    
+    /**
      * asettaa kierrosajan
+     * @param k mihin kenttään laitetaan
      * @param s uusi kierrosaika
      * @return virheteksti jos huono
      */
-    public String setKierrosaika(String s) {
-        KierrosaikaTarkistus tarkistaja = new KierrosaikaTarkistus();
-        String virhe = tarkistaja.tarkista(s);
-        if (virhe != null) return virhe;
-        kierrosaika = s;
+    public String aseta(int k, String s) {
+        switch (k) {
+            case 1: auto = s; break; 
+            case 2: renkaat = s; break;
+            case 3: ajoavut = s; break;
+            case 4: keli = s; break;
+            case 5:
+                KierrosaikaTarkistus tarkistaja = new KierrosaikaTarkistus();
+                String virhe = tarkistaja.tarkista(s);
+                if (virhe != null) return virhe;
+                kierrosaika = s;
+                return null;
+            default: //
+        }
         return null;
     }
     

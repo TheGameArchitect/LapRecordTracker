@@ -102,11 +102,34 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<Kierr
     
     private void alusta() {
         edits = new TextField[] {textAika, textAjoavut, textKeli, textRenkaat};
-        textAika.setOnKeyReleased(e -> kasitteleMuutosKierrosaikaan(textAika));
-        textAjoavut.setOnKeyReleased(e -> kasitteleMuutosAjoapuihin(textAjoavut));
-        textKeli.setOnKeyReleased(e -> kasitteleMuutosKeliin(textKeli));
-        textRenkaat.setOnKeyReleased(e -> kasitteleMuutosRenkaisiin(textRenkaat));
+        textAuto.setOnKeyReleased(e -> kasitteleMuutosKierrosaikaan(1, textAuto));
+        textRenkaat.setOnKeyReleased(e -> kasitteleMuutosKierrosaikaan(2, textRenkaat));
+        textAjoavut.setOnKeyReleased(e -> kasitteleMuutosKierrosaikaan(3, textAjoavut));
+        textKeli.setOnKeyReleased(e -> kasitteleMuutosKierrosaikaan(4, textKeli));
+        textAika.setOnKeyReleased(e -> kasitteleMuutosKierrosaikaan(5, textAika));
         textKommentit.setOnKeyReleased(e -> kasitteleMuutosKommentteihin(textKommentit));
+    }
+    
+    
+    /**
+     * Käsitellään kierrosaikaan tulleet muutokset
+     * @param k kenttä johon sijoitetaan
+     * @param edit muuttunut kenttä
+     */
+    private void kasitteleMuutosKierrosaikaan(int k, TextField edit) {
+        if (kierrosaikaKohdalla == null) return;
+        String s = edit.getText();
+        String virhe = null;
+        virhe = kierrosaikaKohdalla.aseta(k, s);
+        if (virhe == null) {
+            Dialogs.setToolTipText(edit, "");
+            naytaVirhe(virhe);
+            edit.getStyleClass().add("normaali");
+        } else {
+            Dialogs.setToolTipText(edit, virhe);
+            naytaVirhe(virhe);
+            edit.getStyleClass().add("virhe");
+        }
     }
     
     
@@ -119,63 +142,6 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<Kierr
             naytaVirhe(virhe);
         } else {
             naytaVirhe(virhe);
-        }
-    }
-    
-    
-    private void kasitteleMuutosRenkaisiin(TextField edit) {
-        if (kierrosaikaKohdalla == null) return;
-        String s = edit.getText();
-        String virhe = null;
-        virhe = kierrosaikaKohdalla.setRenkaat(s);
-        if (virhe == null) {
-            naytaVirhe(virhe);
-        } else {
-            naytaVirhe(virhe);
-        }
-    }
-    
-    
-    private void kasitteleMuutosKeliin(TextField edit) {
-        if (kierrosaikaKohdalla == null) return;
-        String s = edit.getText();
-        String virhe = null;
-        virhe = kierrosaikaKohdalla.setKeli(s);
-        if (virhe == null) {
-            naytaVirhe(virhe);
-        } else {
-            naytaVirhe(virhe);
-        }
-    }
-    
-    
-    private void kasitteleMuutosAjoapuihin(TextField edit) {
-        if (kierrosaikaKohdalla == null) return;
-        String s = edit.getText();
-        String virhe = null;
-        virhe = kierrosaikaKohdalla.setAjoavut(s);
-        if (virhe == null) {
-            naytaVirhe(virhe);
-        } else {
-            naytaVirhe(virhe);
-        }
-    }
-    
-    
-    // Tätä kopiomalla saa muutokset kaikkiin kenttiin
-    private void kasitteleMuutosKierrosaikaan(TextField edit) {
-        if (kierrosaikaKohdalla == null) return;
-        String s = edit.getText();
-        String virhe = null;
-        virhe = kierrosaikaKohdalla.setKierrosaika(s);
-        if (virhe == null) {
-            Dialogs.setToolTipText(edit, "");
-            naytaVirhe(virhe);
-            edit.getStyleClass().add("normaali");
-        } else {
-            Dialogs.setToolTipText(edit, virhe);
-            naytaVirhe(virhe);
-            edit.getStyleClass().add("virhe");
         }
     }
     
