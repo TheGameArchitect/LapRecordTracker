@@ -12,7 +12,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import laprecordtracker.Kierrosaika;
-import laprecordtracker.Kilparata;
 
 /**
  * @author Matruusi
@@ -25,7 +24,7 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<Kierr
     @FXML private TextField textAjoavut;
     @FXML private TextField textAuto;
     @FXML private TextField textKeli;
-    @FXML private static ComboBoxChooser<Kilparata> chooserKilparata;
+    @FXML private ComboBoxChooser<?> chooserKilparata;
     @FXML private TextField textKommentit;
     @FXML private TextField textRenkaat;
     @FXML private TextField textSimu;
@@ -131,17 +130,6 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<Kierr
         edits[2].setText(kierrosaika.getKeli());
         //edits[4].setText(kierrosaika.getKommentit());
         edits[3].setText(kierrosaika.getRenkaat());
-    }
-    
-    
-    /**
-     * Laitetaan kilparadan tieto oikeaan komponenttiin
-     * @param kilparata näytettävä kilparata
-     */
-    public static void naytaKilparata(Kilparata kilparata) {
-        if (kilparata == null) return;
-        String rata = kilparata.toString();
-        chooserKilparata.setRivit(rata);
     }
     
     

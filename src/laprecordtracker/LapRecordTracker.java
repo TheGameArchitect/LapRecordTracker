@@ -48,16 +48,6 @@ public class LapRecordTracker {
         kilparadat.lisaa(kil);
     }
     
-
-    /**
-     * Korvaa kierrosajan jolla sama id
-     * @param kierrosaika millä korvataan
-     * @throws SailoException jos joku menee pieleen
-     */
-    public void korvaaTaiLisaa(Kierrosaika kierrosaika) throws SailoException {
-        kierrosajat.korvaaTaiLisaa(kierrosaika);
-    }
-
     
     /**
      * @return kierrosaikojen lukumäärä
