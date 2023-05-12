@@ -119,6 +119,50 @@ public class Kierrosaika implements Cloneable {
     
     
     /**
+     * asettaa ajoavut
+     * @param s uudet ajoavut
+     * @return virheteksti jos huono
+     */
+    public String setAjoavut(String s) {
+        ajoavut = s;
+        return null;
+    }
+    
+    
+    /**
+     * asettaa kelin
+     * @param s uusi keli
+     * @return virheteksti jos huono
+     */
+    public String setKeli(String s) {
+        keli = s;
+        return null;
+    }
+    
+    
+    /**
+     * asettaa renkaat
+     * @param s uusi rengas-tyyppi
+     * @return virheteksti jos huono
+     */
+    public String setRenkaat(String s) {
+        renkaat = s;
+        return null;
+    }
+    
+    
+    /**
+     * asettaa kommentin
+     * @param s uusi kommentti
+     * @return virheteksti jos huono
+     */
+    public String setKommentit(String s) {
+        kommentit = s;
+        return null;
+    }
+    
+    
+    /**
      * Asettaa tunnusnumeron ja samalla varmistaa että seuraava numero on aina
      * suurempi kuin tähän mennessä suurin
      * @param nr asetettava tunnusnumero

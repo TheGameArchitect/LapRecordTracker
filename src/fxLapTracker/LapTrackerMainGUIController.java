@@ -263,6 +263,7 @@ public class LapTrackerMainGUIController implements Initializable {
     
     private void naytaKilparata() {
         Kierrosaika aikaKohdalla = listAutot.getSelectedObject();
+        //naytaSimulaattori(aikaKohdalla);
         if (aikaKohdalla == null) return;
     }
     
@@ -271,7 +272,7 @@ public class LapTrackerMainGUIController implements Initializable {
         Kierrosaika kierrosaikaKohdalla = listKilparadat.getSelectedObject();
         if (kierrosaikaKohdalla == null) return;
         
-        MuokkaaAikaaGUIController.naytaKierrosaika(edits, kierrosaikaKohdalla);
+        MuokkaaAikaaGUIController.naytaKierrosaika(edits, textKommentit, kierrosaikaKohdalla);
         naytaSimulaattori(kierrosaikaKohdalla);
         /**
         listAutot.clear();
