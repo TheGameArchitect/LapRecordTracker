@@ -208,7 +208,7 @@ public class LapTrackerMainGUIController implements Initializable {
         try {
             laprecordtracker.lueTiedostosta(nimi);
             haeKierrosaikaListaan(0);
-            haeRataListaan(1);
+            haeRataListaan(0);
         } catch (SailoException e) {
             Dialogs.showMessageDialog(e.getMessage());
         }
@@ -242,11 +242,13 @@ public class LapTrackerMainGUIController implements Initializable {
      */
     private void haeRataListaan(int jnro) {
         listKilparadat.clear();
+        int rataIndeksi = 1;
         int index = 0;
         for (int i = 0; i < laprecordtracker.getKilparatoja(); i++) {
-            Kilparata kilparata = laprecordtracker.annaKilparata(jnro);
+            Kilparata kilparata = laprecordtracker.annaKilparata(rataIndeksi);
             listKilparadat.add("" + kilparata.getKilparata(), kilparata);
             if (kilparata.getTunnusNro() == jnro) index = i;
+            rataIndeksi++;
         }
         listKilparadat.setSelectedIndex(index);
     }
@@ -281,19 +283,6 @@ public class LapTrackerMainGUIController implements Initializable {
         
         MuokkaaAikaaGUIController.naytaKierrosaika(edits, textKommentit, kierrosaikaKohdalla);
         naytaSimulaattori(kierrosaikaKohdalla);
-        /**
-        listAutot.clear();
-        listAutot.addSelectionListener(e -> kierrosaikaKohdalla.getAuto());
-        textKierrosaika.setText(kierrosaikaKohdalla.getKierrosaika());
-        textAjoavut.setText(kierrosaikaKohdalla.getAjoavut());
-        textKeli.setText(kierrosaikaKohdalla.getKeli());
-        **/
-        
-        /**
-        textKommentit.setText("");
-        try (PrintStream os = TextAreaOutputStream.getTextPrintStream(textKommentit)) {
-            tulosta(os, kierrosaikaKohdalla);
-        }**/
     }
     
     
