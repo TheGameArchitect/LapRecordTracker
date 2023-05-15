@@ -14,19 +14,21 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import laprecordtracker.Kierrosaika;
+import laprecordtracker.Kilparata;
+import laprecordtracker.LapRecordTracker;
 
 /**
- * @author Matruusi
+ * @author Matti Savolainen
  * @version 16.2.2023
  *
  */
-public class MuokkaaAikaaGUIController implements ModalControllerInterface<Kierrosaika>, Initializable {
+public class MuokkaaAikaaGUIController implements ModalControllerInterface<LapRecordTracker>, Initializable {
 
     @FXML private TextField textAika;
     @FXML private TextField textAjoavut;
     @FXML private TextField textAuto;
     @FXML private TextField textKeli;
-    @FXML private ComboBoxChooser<?> chooserKilparata;
+    @FXML private ComboBoxChooser<Kilparata> chooserKilparata;
     @FXML private TextArea textKommentit;
     @FXML private TextField textRenkaat;
     @FXML private TextField textSimu;
@@ -36,13 +38,13 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<Kierr
 
     @FXML
     private void buttonCancel() {
-        kierrosaikaKohdalla = null;
+        laprecordtracker.setKierrosaikaKohdalla(null);
         ModalController.closeStage(textAika);
     }
 
     @FXML
     private void buttonTallenna() {
-        if (kierrosaikaKohdalla != null && kierrosaikaKohdalla.getKierrosaika().trim().equals("")) {
+        if (laprecordtracker.getKierrosaikaKohdalla() != null && laprecordtracker.getKierrosaikaKohdalla().getKierrosaika().trim().equals("")) {
             naytaVirhe("Kierrosaika ei saa olla tyhjä");
             return;
         }
@@ -62,41 +64,38 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<Kierr
     
 
     @Override
-    public Kierrosaika getResult() {
-        return kierrosaikaKohdalla;
+    public LapRecordTracker getResult() {
+        return laprecordtracker;
         //return oletusVastaus;
     }
 
     @Override
     public void handleShown() {
-        textAika.requestFocus();
+        textRenkaat.requestFocus();
+        //alusta();
     }
 
-    /**
-     * @param oletus e
-     */
-    /**
-    public void setDefault(String oletus) {
-        textAika.setText(oletus);
-    }**/
-
+    
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        alusta();
+        //alusta();
     }
     
     
     @Override
-    public void setDefault(Kierrosaika oletus) {
-        kierrosaikaKohdalla = oletus;
-        naytaKierrosaika(edits, textKommentit, kierrosaikaKohdalla);
-        naytaKommentitJaAuto(kierrosaikaKohdalla);
+    public void setDefault(LapRecordTracker oletus) {
+        laprecordtracker = oletus;
+        alusta();
+        //kierrosaikaKohdalla = oletus;
+        naytaKierrosaika(edits, textKommentit, laprecordtracker.getKierrosaikaKohdalla());
+        naytaKommentitJaAuto(laprecordtracker.getKierrosaikaKohdalla());
     }
     
     
     // ====================================================================================
     
-    private Kierrosaika kierrosaikaKohdalla;
+    private LapRecordTracker laprecordtracker;
+    //private Kierrosaika valittuKierrosaika;
     private TextField[] edits;
     
     
@@ -108,7 +107,20 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<Kierr
         textKeli.setOnKeyReleased(e -> kasitteleMuutosKierrosaikaan(4, textKeli));
         textAika.setOnKeyReleased(e -> kasitteleMuutosKierrosaikaan(5, textAika));
         textKommentit.setOnKeyReleased(e -> kasitteleMuutosKommentteihin(textKommentit));
+        
+        int rataIndeksi = 1;
+        for (int i = 0; i < laprecordtracker.getKilparatoja(); i++) {
+            Kilparata rata = laprecordtracker.annaKilparata(rataIndeksi);
+            chooserKilparata.add(rata.getKilparata(), rata);
+            rataIndeksi++;
+        }
+        //chooserKilparata.setOnKeyReleased(e -> kasitteleMuutosKilparataan(chooserKilparata));
     }
+    
+    /*
+    private void kasitteleMuutosKilparataan(ComboBoxChooser<Kilparata> edit) {
+        
+    }*/
     
     
     /**
@@ -117,10 +129,10 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<Kierr
      * @param edit muuttunut kenttä
      */
     private void kasitteleMuutosKierrosaikaan(int k, TextField edit) {
-        if (kierrosaikaKohdalla == null) return;
+        if (laprecordtracker.getKierrosaikaKohdalla() == null) return;
         String s = edit.getText();
         String virhe = null;
-        virhe = kierrosaikaKohdalla.aseta(k, s);
+        virhe = laprecordtracker.getKierrosaikaKohdalla().aseta(k, s);
         if (virhe == null) {
             Dialogs.setToolTipText(edit, "");
             naytaVirhe(virhe);
@@ -134,10 +146,10 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<Kierr
     
     
     private void kasitteleMuutosKommentteihin(TextArea edit) {
-        if (kierrosaikaKohdalla == null) return;
+        if (laprecordtracker.getKierrosaikaKohdalla() == null) return;
         String s = edit.getText();
         String virhe = null;
-        virhe = kierrosaikaKohdalla.setKommentit(s);
+        virhe = laprecordtracker.getKierrosaikaKohdalla().setKommentit(s);
         if (virhe == null) {
             naytaVirhe(virhe);
         } else {
@@ -177,7 +189,7 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<Kierr
      * @param oletus mitä dataa näytetään oletuksena
      * @return null jos painetaan Cancel, muuten täytetty tietue
      */
-    public static Kierrosaika kysyKierrosaika(Stage modalityStage, Kierrosaika oletus) {
+    public static LapRecordTracker kysyKierrosaika(Stage modalityStage, LapRecordTracker oletus) {
         return ModalController.showModal(MuokkaaAikaaGUIController.class.getResource("MuokkaaAikaa.fxml"),
                                                                     "Kierrosaika", modalityStage, oletus);
     }

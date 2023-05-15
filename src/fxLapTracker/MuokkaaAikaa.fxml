@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane stylesheets="@laptrackermain.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxLapTracker.MuokkaaAikaaGUIController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" stylesheets="@laptrackermain.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxLapTracker.MuokkaaAikaaGUIController">
    <center>
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -100,7 +100,7 @@
                   <Insets right="5.0" />
                </GridPane.margin>
             </TextField>
-            <ComboBoxChooser fx:id="chooserKilparata" rivit="Nordschleife" GridPane.columnIndex="1" />
+            <ComboBoxChooser fx:id="chooserKilparata" rivit="Valitse rata" GridPane.columnIndex="1" />
             <TextArea fx:id="textKommentit" prefHeight="200.0" prefWidth="200.0" promptText="Erityisiä huomioita" GridPane.columnIndex="1" GridPane.rowIndex="7" />
          </children>
          <BorderPane.margin>

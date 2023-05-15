@@ -17,7 +17,7 @@ import kanta.KierrosaikaTarkistus;
 public class Kierrosaika implements Cloneable {
 
     private int         tunnusNro   = 0;
-    private int         rataId      = 0;
+    private int         rataId      = 1;
     private String      kierrosaika = "";
     private String      auto        = "";
     private String      renkaat     = "";

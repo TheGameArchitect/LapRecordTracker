@@ -146,8 +146,9 @@ public class LapTrackerMainGUIController implements Initializable {
         else naytaVirhe(virheTeksti);
     }
 
+
     // ============================================================================
-    
+        
     private LapRecordTracker laprecordtracker;
     private String laprecordtrackerNimi = "kierrosajat";
     private TextField[] edits;
@@ -207,8 +208,8 @@ public class LapTrackerMainGUIController implements Initializable {
         
         try {
             laprecordtracker.lueTiedostosta(nimi);
-            haeKierrosaikaListaan(0);
             haeRataListaan(0);
+            haeKierrosaikaListaan(0);
         } catch (SailoException e) {
             Dialogs.showMessageDialog(e.getMessage());
         }
@@ -259,11 +260,14 @@ public class LapTrackerMainGUIController implements Initializable {
      * @param jnro mikä kierrosaika valitaan aktiiviseksi
      */
     private void haeKierrosaikaListaan(int jnro) {
+        Kilparata valittuRata = listKilparadat.getSelectedObject();
+        int rataId = valittuRata.getTunnusNro();
         listAutot.clear();
         int index = 0;
         for (int i = 0; i < laprecordtracker.getKierrosaikoja(); i++) {
             Kierrosaika kierrosaika = laprecordtracker.annaKierrosaika(i);
-            listAutot.add("" + kierrosaika.getAuto(), kierrosaika);
+            if (rataId == kierrosaika.getRataId())
+                listAutot.add("" + kierrosaika.getAuto(), kierrosaika);
             if (kierrosaika.getTunnusNro() == jnro) index = i;
         }
         listAutot.setSelectedIndex(index);
@@ -271,9 +275,11 @@ public class LapTrackerMainGUIController implements Initializable {
     
     
     private void naytaKilparata() {
+        Kilparata valittuRata = listKilparadat.getSelectedObject();
         Kierrosaika aikaKohdalla = listAutot.getSelectedObject();
-        //naytaSimulaattori(aikaKohdalla);
-        if (aikaKohdalla == null) return;
+        naytaKierrosaika();
+        haeKierrosaikaListaan(0);
+        if (aikaKohdalla == null || valittuRata == null) return;
     }
     
     
@@ -296,22 +302,27 @@ public class LapTrackerMainGUIController implements Initializable {
     
     
     private void muokkaa() {
-        Kierrosaika valittuAika = listAutot.getSelectedObject();
+        laprecordtracker.setKierrosaikaKohdalla(listAutot.getSelectedObject());
+        Kierrosaika valittuAika = laprecordtracker.getKierrosaikaKohdalla();
+        //LapRecordTracker muokattuTracker = new LapRecordTracker();
+        //muokattuTracker = laprecordtracker;
         if (valittuAika == null) return;
         try {
             valittuAika = valittuAika.clone();
         } catch (CloneNotSupportedException e) {
             // Ei voi tapahtua
         }
-        valittuAika = MuokkaaAikaaGUIController.kysyKierrosaika(null, valittuAika);
+        MuokkaaAikaaGUIController.kysyKierrosaika(null, laprecordtracker);
+        valittuAika = laprecordtracker.getKierrosaikaKohdalla();
         if (valittuAika == null) return;
+        laprecordtracker.setKierrosaikaKohdalla(valittuAika);
         try {
-            laprecordtracker.korvaaTailisaa(valittuAika);
+            laprecordtracker.korvaaTailisaa(laprecordtracker.getKierrosaikaKohdalla());
         } catch (SailoException e) {
             Dialogs.showMessageDialog("Tietorakenne täynnä tai kloonaus ei onnistunut " + e);
         }
-        naytaSimulaattori(valittuAika);
-        haeKierrosaikaListaan(valittuAika.getTunnusNro());
+        naytaSimulaattori(laprecordtracker.getKierrosaikaKohdalla());
+        haeKierrosaikaListaan(laprecordtracker.getKierrosaikaKohdalla().getTunnusNro());
     }
     
     
@@ -347,7 +358,9 @@ public class LapTrackerMainGUIController implements Initializable {
     
     private void uusiAika() {
         Kierrosaika uusi = new Kierrosaika();
-        uusi = MuokkaaAikaaGUIController.kysyKierrosaika(null, uusi);
+        laprecordtracker.setKierrosaikaKohdalla(uusi);
+        MuokkaaAikaaGUIController.kysyKierrosaika(null, laprecordtracker);
+        uusi = laprecordtracker.getKierrosaikaKohdalla();
         if (uusi == null) return;
         uusi.rekisteroi();
         try {
