@@ -18,6 +18,7 @@ public class LapRecordTracker {
     private Kilparadat kilparadat = new Kilparadat();
     private Pelit pelit = new Pelit();
     
+    private Kierrosaika kierrosaikaKohdalla;    
     private String hakemisto = "kierrosajat";
     
     /**
@@ -73,6 +74,24 @@ public class LapRecordTracker {
      */
     public int getKilparatoja() {
         return kilparadat.getLkm();
+    }
+    
+    
+    /**
+     * @return käyttöliittymässä valittu kierrosaika
+     */
+    public Kierrosaika getKierrosaikaKohdalla() {
+        return this.kierrosaikaKohdalla;
+    }
+    
+    
+    /**
+     * @param kierrosaika käyttöliittymässä valittu kierrosaika
+     * @return null jos virhe
+     */
+    public Kierrosaika setKierrosaikaKohdalla(Kierrosaika kierrosaika) {
+        kierrosaikaKohdalla = kierrosaika;
+        return null;
     }
     
     
