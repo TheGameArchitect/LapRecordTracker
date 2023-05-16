@@ -246,6 +246,7 @@ public class LapTrackerMainGUIController implements Initializable {
         int rataIndeksi = 1;
         int index = 0;
         for (int i = 0; i < laprecordtracker.getKilparatoja(); i++) {
+            if (laprecordtracker.getKilparatoja() < 0) return;
             Kilparata kilparata = laprecordtracker.annaKilparata(rataIndeksi);
             listKilparadat.add("" + kilparata.getKilparata(), kilparata);
             if (kilparata.getTunnusNro() == jnro) index = i;
@@ -261,7 +262,13 @@ public class LapTrackerMainGUIController implements Initializable {
      */
     private void haeKierrosaikaListaan(int jnro) {
         Kilparata valittuRata = listKilparadat.getSelectedObject();
-        int rataId = valittuRata.getTunnusNro();
+        int rataId = 0;
+        try {
+            rataId = valittuRata.getTunnusNro();
+        } catch (Exception e) {
+            Dialogs.showMessageDialog("Kilparatoja ei löydy");
+        }
+        
         listAutot.clear();
         int index = 0;
         for (int i = 0; i < laprecordtracker.getKierrosaikoja(); i++) {

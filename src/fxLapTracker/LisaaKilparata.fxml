@@ -37,7 +37,7 @@
                   <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                </padding>
             </Button>
-            <Label fx:id="labelVirhe" text="Label">
+            <Label fx:id="labelVirhe" text="">
                <FlowPane.margin>
                   <Insets left="80.0" />
                </FlowPane.margin>

@@ -34,8 +34,6 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<LapRe
     @FXML private TextField textSimu;
     @FXML private Label labelVirhe;
     
-    //private String oletusVastaus = null;
-
     @FXML
     private void buttonCancel() {
         laprecordtracker.setKierrosaikaKohdalla(null);
@@ -46,6 +44,10 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<LapRe
     private void buttonTallenna() {
         if (laprecordtracker.getKierrosaikaKohdalla() != null && laprecordtracker.getKierrosaikaKohdalla().getKierrosaika().trim().equals("")) {
             naytaVirhe("Kierrosaika ei saa olla tyhjä");
+            return;
+        }
+        if (chooserKilparata.getSelectionModel().getSelectedItem().getObject() == null) {
+            naytaVirhe("Kilparata pitää valita");
             return;
         }
         ModalController.closeStage(textAika);
@@ -114,13 +116,18 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<LapRe
             chooserKilparata.add(rata.getKilparata(), rata);
             rataIndeksi++;
         }
-        //chooserKilparata.setOnKeyReleased(e -> kasitteleMuutosKilparataan(chooserKilparata));
+        chooserKilparata.addSelectionListener(e -> kasitteleMuutosKilparataan(chooserKilparata));
     }
     
-    /*
+    
     private void kasitteleMuutosKilparataan(ComboBoxChooser<Kilparata> edit) {
-        
-    }*/
+        Kilparata rata = edit.getSelectionModel().getSelectedItem().getObject();
+        if (rata == null) return;
+        Kierrosaika aika = laprecordtracker.getKierrosaikaKohdalla();
+        aika.setRataId(rata.getTunnusNro());
+        laprecordtracker.setKierrosaikaKohdalla(aika);
+        //Dialogs.showMessageDialog(rata.getKilparata());
+    }
     
     
     /**
