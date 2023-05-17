@@ -44,7 +44,13 @@ public class LapTrackerMainGUIController implements Initializable {
 
     @FXML
     private void buttonPoistaAika() {
-        ModalController.showModal(PoistaAikaKyselyGUIController.class.getResource("PoistaAikaKysely.fxml"), "", null, "");
+        //ModalController.showModal(PoistaAikaKyselyGUIController.class.getResource("PoistaAikaKysely.fxml"), "", null, "");
+        poistaKierrosaika();
+    }
+    
+    @FXML
+    private void buttonPoistaRata() {
+        poistaKilparata();
     }
 
     @FXML
@@ -141,9 +147,11 @@ public class LapTrackerMainGUIController implements Initializable {
      
     @FXML
     private void textHaku() {
+        haku(0);
+        
         String hakuTeksti = textHaku.getText();
         if (hakuTeksti.isEmpty()) naytaVirhe(null);
-        else naytaVirhe(virheTeksti);
+        else naytaVirhe(null);
     }
 
 
@@ -237,6 +245,25 @@ public class LapTrackerMainGUIController implements Initializable {
         return true;
     }
     
+    
+    /**
+     * Haetaan käyttäjän haluamat kilparadat listaan
+     * @param jnro mikä kilparata valitaan aktiiviseksi
+     */
+    private void haku(int jnro) {
+        listKilparadat.clear();
+        String ehto = textHaku.getText().toLowerCase();
+        int index = 0;
+        for (int i = 0; i < laprecordtracker.getKilparatoja(); i++) {
+            Kilparata kilparata = laprecordtracker.annaKilparata(i+1);
+            if (!kilparata.getKilparata().toLowerCase().contains(ehto)) continue;
+            if (kilparata.getTunnusNro() == jnro) index = i;
+            listKilparadat.add("" + kilparata.getKilparata(), kilparata);
+        }
+        listKilparadat.setSelectedIndex(index);
+    }
+    
+    
     /**
      * Haetaan kilparadat oikeaan listaan
      * @param jnro mikä kilparata valitaan aktiiviseksi
@@ -305,6 +332,40 @@ public class LapTrackerMainGUIController implements Initializable {
         Peli peli = laprecordtracker.annaPeli(kierrosaika);
         if (peli == null) return;
         textSimulaattori.setText(peli.getPeli());
+    }
+    
+    
+    private void poistaKierrosaika() {
+        try {
+            laprecordtracker.setKierrosaikaKohdalla(listAutot.getSelectedObject());
+        } catch (Exception e) {
+            Dialogs.showMessageDialog("Kierrosaikaa ei ole valittuna");
+        }
+        Kierrosaika kierrosaika = laprecordtracker.getKierrosaikaKohdalla();
+        if (kierrosaika == null) return;
+        if (!Dialogs.showQuestionDialog("Poisto", "Poistetaanko kierrosaika: " + kierrosaika.getAuto(), "Kyllä", "Ei"))
+            return;
+        laprecordtracker.poista(kierrosaika);
+        int index = listAutot.getSelectedIndex();
+        haeKierrosaikaListaan(0);
+        listAutot.setSelectedIndex(index);
+    }
+    
+    
+    private void poistaKilparata() {
+        Kilparata rataKohdalla = new Kilparata();
+        try {
+            rataKohdalla = listKilparadat.getSelectedObject();
+        } catch (Exception e) {
+            Dialogs.showMessageDialog("Kilparataa ei ole valittuna");
+        }
+        if (rataKohdalla == null) return;
+        if (!Dialogs.showQuestionDialog("Poisto", "Poistetaanko kilparata: " + rataKohdalla.getKilparata(), "Kyllä", "Ei"))
+            return;
+        laprecordtracker.poistaRata(rataKohdalla);
+        int index = listKilparadat.getSelectedIndex();
+        haeRataListaan(0);
+        listKilparadat.setSelectedIndex(index);
     }
     
     

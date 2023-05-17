@@ -172,6 +172,21 @@ public class Kilparadat implements Iterable<Kilparata> {
     
     
     /**
+     * Poistetaan haluttu kilparata
+     * @param id poistettavan kilparadan tunnusnumero
+     * @return 1 jos onnistui
+     */
+    public int poista(int id) {
+        List<Kilparata> loydetyt = new ArrayList<Kilparata>();
+        for (Kilparata rata : alkiot) {
+            if (rata.getTunnusNro() == id) loydetyt.add(rata);
+        }
+        alkiot.remove(loydetyt.get(0));
+        return 1;
+    }
+    
+    
+    /**
      * Haetaan kaikki kierrosajan kilparadat.
      * @param tunnusnro kierrosajan tunnusnumero jolle kilparata haetaan
      * @return tietorakenne jossa viitteet löydettyyn kilparataan

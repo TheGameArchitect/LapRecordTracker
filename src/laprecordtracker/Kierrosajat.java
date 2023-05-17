@@ -121,6 +121,35 @@ public class Kierrosajat {
     
     
     /**
+     * Etsitään poistettava kierrosaika
+     * @param id poistettavan kierrosajan tunnusnumero
+     * @return kierrosajan järjestysnumero jos onnistuu, muuten -1
+     */
+    public int etsiId(int id) {
+        for (int i = 0; i < lkm; i++)
+            if (id == alkiot[i].getTunnusNro()) return i;
+        return -1;
+    }
+    
+    
+    /**
+     * Poistetaan haluttu kierrosaika
+     * @param id poistettavan kierrosajan tunnusnumero
+     * @return 1 jos onnistui, muuten 0
+     */
+    public int poista(int id) {
+        int ind = etsiId(id);
+        if (ind < 0) return 0;
+        lkm--;
+        for (int i = ind; i < lkm; i++)
+            alkiot[i] = alkiot[i+1];
+        alkiot[lkm] = null;
+        muutettu = true;
+        return 1;
+    }
+    
+    
+    /**
      * Palauttaa Kierrosaika-taulukon kierrosaikojen lukumäärän.
      * @return kierrosaikojen lukumäärä
      */

@@ -188,6 +188,29 @@ public class LapRecordTracker {
     
     
     /**
+     * @param kierrosaika poistettava kierrosaika
+     * @return 0 jos poistaminen onnistui
+     */
+    public int poista(Kierrosaika kierrosaika) {
+        if (kierrosaika == null) return 0;
+        int ret = kierrosajat.poista(kierrosaika.getTunnusNro());
+        return ret;
+    }
+    
+    
+    /**
+     * 
+     * @param kilparata poistettava kilparata
+     * @return 0 jos poistaminen onnistui
+     */
+    public int poistaRata(Kilparata kilparata) {
+        if (kilparata == null) return 0;
+        int ret = kilparadat.poista(kilparata.getTunnusNro());
+        return ret;
+    }
+    
+    
+    /**
      * Lukee laprecordtrackerin tiedot tiedostosta
      * @param nimi jota käytetään lukemisessa
      * @throws SailoException jos lukeminen epäonnistuu
