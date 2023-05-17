@@ -156,6 +156,16 @@ public class Peli {
     }
     
     
+
+    /**
+     * Laittaa pelin nimeksi halutun tekstin
+     * @param peliNimi pelille asetettava nimi
+     */
+    public void setNimi(String peliNimi) {
+        this.peli = peliNimi;
+    }
+    
+    
     /**
      * Apumetodi, jolla saadaan täytettyä testiarvot pelille.
      * TODO: poista kun kaikki toimii
@@ -186,5 +196,4 @@ public class Peli {
         acorsa.tulosta(System.out);
         automobilista.tulosta(System.out);
     }
-
 }

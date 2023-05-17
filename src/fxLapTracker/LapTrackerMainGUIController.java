@@ -57,7 +57,7 @@ public class LapTrackerMainGUIController implements Initializable {
     private void buttonUusiAika() {
         //ModalController.showModal(UusiAikaGUIController.class.getResource("UusiAika.fxml"), "Kierrosaika", null, "");
         uusiAika();
-        uusiPeli();
+        //uusiPeli();
     }
     
     @FXML
@@ -444,7 +444,7 @@ public class LapTrackerMainGUIController implements Initializable {
         haeKierrosaikaListaan(uusi.getTunnusNro());
     }
     
-    
+    /*
     private void uusiPeli() {
         Peli peli = new Peli();
         peli.rekisteroi();
@@ -453,7 +453,7 @@ public class LapTrackerMainGUIController implements Initializable {
         } catch (SailoException e) {
             Dialogs.showMessageDialog("Ongelmia uuden luomisessa " + e.getMessage());
         }
-    }
+    }*/
     
     
 

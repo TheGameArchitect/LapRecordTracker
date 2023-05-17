@@ -24,10 +24,11 @@ public class LapRecordTracker {
     /**
      * Lisätään uusi peli
      * @param peli lisättävä peli
+     * @param peliNimi pelin nimi
      * @throws SailoException jos lisääminen ei onnistu
      */
-    public void lisaa(Peli peli) throws SailoException {
-        peli.taytaPeliTiedot(getKilparatoja());
+    public void lisaa(Peli peli, String peliNimi) throws SailoException {
+        peli.setNimi(peliNimi);
         pelit.lisaa(peli);
     }
     
@@ -103,7 +104,7 @@ public class LapRecordTracker {
     public Peli annaPeli(Kierrosaika kierrosaika) {
         int tunnusNro = kierrosaika.getTunnusNro();
         tunnusNro -= 1;
-        return pelit.anna(tunnusNro); //TODO: indeksi on väärin jossain kohtaa sillä heittää IndexOutOfBoundsExc
+        return pelit.anna(tunnusNro);
     }
     
     
@@ -296,7 +297,7 @@ public class LapRecordTracker {
         try {
             laprecordtracker.lisaa(zonda);
             laprecordtracker.lisaa(zonda2);
-            laprecordtracker.lisaa(acorsa);
+            //laprecordtracker.lisaa(acorsa);
         } catch (SailoException e) {
             System.err.println(e.getMessage());
         }

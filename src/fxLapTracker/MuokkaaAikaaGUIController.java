@@ -9,6 +9,7 @@ import fi.jyu.mit.fxgui.ModalController;
 import fi.jyu.mit.fxgui.ModalControllerInterface;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -16,6 +17,8 @@ import javafx.stage.Stage;
 import laprecordtracker.Kierrosaika;
 import laprecordtracker.Kilparata;
 import laprecordtracker.LapRecordTracker;
+import laprecordtracker.Peli;
+import laprecordtracker.SailoException;
 
 /**
  * @author Matti Savolainen
@@ -33,6 +36,12 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<LapRe
     @FXML private TextField textRenkaat;
     @FXML private TextField textSimu;
     @FXML private Label labelVirhe;
+
+    @FXML
+    private Button buttonLisaaPeli() {
+        uusiPeli();
+        return null;
+    }
     
     @FXML
     private void buttonCancel() {
@@ -109,7 +118,7 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<LapRe
         textKeli.setOnKeyReleased(e -> kasitteleMuutosKierrosaikaan(4, textKeli));
         textAika.setOnKeyReleased(e -> kasitteleMuutosKierrosaikaan(5, textAika));
         textKommentit.setOnKeyReleased(e -> kasitteleMuutosKommentteihin(textKommentit));
-        //textSimu.setOnKeyReleased(e -> );
+        //textSimu.setOnKeyReleased(e -> kasitteleMuutosPeliin(textSimu));
         
         int rataIndeksi = 1;
         for (int i = 0; i < laprecordtracker.getKilparatoja(); i++) {
@@ -118,6 +127,17 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<LapRe
             rataIndeksi++;
         }
         chooserKilparata.addSelectionListener(e -> kasitteleMuutosKilparataan(chooserKilparata));
+    }
+    
+    
+    private void uusiPeli() {
+        Peli uusi = new Peli();
+        uusi.rekisteroi();
+        try {
+            laprecordtracker.lisaa(uusi, textSimu.getText());
+        } catch (SailoException e) {
+            Dialogs.showMessageDialog("Pelin lisääminen ei onnistunut " + e.getMessage());
+        }
     }
     
     

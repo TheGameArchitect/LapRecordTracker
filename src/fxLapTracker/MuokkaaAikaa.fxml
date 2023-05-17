@@ -95,13 +95,14 @@
                   <Insets right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="textSimu" promptText="Esim. Assetto Corsa" text="Assetto Corsa" GridPane.columnIndex="1" GridPane.rowIndex="6">
+            <TextField fx:id="textSimu" prefHeight="25.0" promptText="Esim. Assetto Corsa" text="Assetto Corsa" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <GridPane.margin>
-                  <Insets right="5.0" />
+                  <Insets right="115.0" />
                </GridPane.margin>
             </TextField>
             <ComboBoxChooser fx:id="chooserKilparata" rivit="Valitse rata" GridPane.columnIndex="1" />
             <TextArea fx:id="textKommentit" prefHeight="200.0" prefWidth="200.0" promptText="Erityisiä huomioita" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Button fx:id="buttonLisaaPeli" mnemonicParsing="false" onAction="#buttonLisaaPeli" text="Lisää simulaattori" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
          </children>
          <BorderPane.margin>
             <Insets />
