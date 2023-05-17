@@ -360,6 +360,10 @@ public class LapTrackerMainGUIController implements Initializable {
             Dialogs.showMessageDialog("Kilparataa ei ole valittuna");
         }
         if (rataKohdalla == null) return;
+        if (listAutot.getSelectedObject() != null) {
+            Dialogs.showMessageDialog("Poista ensin kaikki kierrosajat");
+            return;
+        }
         if (!Dialogs.showQuestionDialog("Poisto", "Poistetaanko kilparata: " + rataKohdalla.getKilparata(), "Kyllä", "Ei"))
             return;
         laprecordtracker.poistaRata(rataKohdalla);

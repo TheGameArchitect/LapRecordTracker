@@ -109,6 +109,7 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<LapRe
         textKeli.setOnKeyReleased(e -> kasitteleMuutosKierrosaikaan(4, textKeli));
         textAika.setOnKeyReleased(e -> kasitteleMuutosKierrosaikaan(5, textAika));
         textKommentit.setOnKeyReleased(e -> kasitteleMuutosKommentteihin(textKommentit));
+        //textSimu.setOnKeyReleased(e -> );
         
         int rataIndeksi = 1;
         for (int i = 0; i < laprecordtracker.getKilparatoja(); i++) {
