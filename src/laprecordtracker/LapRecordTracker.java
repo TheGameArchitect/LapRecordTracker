@@ -18,6 +18,7 @@ public class LapRecordTracker {
     private Kilparadat kilparadat = new Kilparadat();
     private Pelit pelit = new Pelit();
     
+    private Kilparata apuKilparata;
     private Kierrosaika kierrosaikaKohdalla;    
     private String hakemisto = "kierrosajat";
     
@@ -79,6 +80,24 @@ public class LapRecordTracker {
     
     
     /**
+     * @return apukilparata uuden tekemistä varten
+     */
+    public Kilparata getApuKilparata() {
+        return this.apuKilparata;
+    }
+    
+    
+    /**
+     * @param kilparata käyttäjän antamilla tiedoilla täytettä kilparata
+     * @return null jos virhe
+     */
+    public Kilparata setApuKilparata(Kilparata kilparata) {
+        apuKilparata = kilparata;
+        return null;
+    }
+    
+    
+    /**
      * @return käyttöliittymässä valittu kierrosaika
      */
     public Kierrosaika getKierrosaikaKohdalla() {
@@ -98,13 +117,11 @@ public class LapRecordTracker {
     
     /**
      * Antaa pelien i:n pelin
-     * @param kierrosaika monesko peli
+     * @param i monesko peli
      * @return peli paikasta i
      */
-    public Peli annaPeli(Kierrosaika kierrosaika) {
-        int tunnusNro = kierrosaika.getTunnusNro();
-        tunnusNro -= 1;
-        return pelit.anna(tunnusNro);
+    public Peli annaPeli(int i) {
+        return pelit.anna(i);
     }
     
     

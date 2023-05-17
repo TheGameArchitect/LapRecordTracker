@@ -118,7 +118,6 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<LapRe
         textKeli.setOnKeyReleased(e -> kasitteleMuutosKierrosaikaan(4, textKeli));
         textAika.setOnKeyReleased(e -> kasitteleMuutosKierrosaikaan(5, textAika));
         textKommentit.setOnKeyReleased(e -> kasitteleMuutosKommentteihin(textKommentit));
-        //textSimu.setOnKeyReleased(e -> kasitteleMuutosPeliin(textSimu));
         
         int rataIndeksi = 1;
         for (int i = 0; i < laprecordtracker.getKilparatoja(); i++) {
@@ -147,7 +146,6 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<LapRe
         Kierrosaika aika = laprecordtracker.getKierrosaikaKohdalla();
         aika.setRataId(rata.getTunnusNro());
         laprecordtracker.setKierrosaikaKohdalla(aika);
-        //Dialogs.showMessageDialog(rata.getKilparata());
     }
     
     
@@ -212,6 +210,7 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<LapRe
     
     
     /**
+     * TODO: muokkaa kommentit tms. kuntoon
      * Luodaan kierrosajan kysymisdialogi ja palautetaan sama tietue muutettuna tai null
      * @param modalityStage mille ollaan modaalisia, null = sovellukselle
      * @param oletus mitä dataa näytetään oletuksena

@@ -2,50 +2,72 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxLapTracker.LisaaKilparataGUIController">
-   <center>
-      <FlowPane prefWidth="250.0" BorderPane.alignment="CENTER">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxLapTracker.LisaaKilparataGUIController">
+   <bottom>
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <Label text="Radan nimi:">
-               <FlowPane.margin>
+            <Button fx:id="buttonTallenna" defaultButton="true" mnemonicParsing="false" onAction="#buttonTallenna" text="Tallenna" GridPane.halignment="LEFT" GridPane.rowIndex="3">
+               <padding>
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="buttonPeruuta" cancelButton="true" mnemonicParsing="false" onAction="#buttonPeruuta" text="Peruuta" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+               <padding>
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </Button>
+            <Label text="Radan nimi:" GridPane.halignment="RIGHT" />
+            <TextField fx:id="textKilparata" promptText="Esim. Nordschleife" GridPane.columnIndex="1" GridPane.halignment="LEFT">
+               <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </FlowPane.margin>
-            </Label>
-            <TextField fx:id="textKilparata" promptText="Esim. Nordschleife">
-               <FlowPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </FlowPane.margin>
+               </GridPane.margin>
             </TextField>
-            <Button fx:id="buttonTallenna" defaultButton="true" mnemonicParsing="false" onAction="#buttonTallenna" text="Tallenna">
-               <FlowPane.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </FlowPane.margin>
-               <padding>
-                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-               </padding>
-            </Button>
-            <Button fx:id="buttonPeruuta" cancelButton="true" mnemonicParsing="false" onAction="#buttonPeruuta" text="Peruuta">
-               <FlowPane.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </FlowPane.margin>
-               <padding>
-                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-               </padding>
-            </Button>
-            <Label fx:id="labelVirhe" text="">
-               <FlowPane.margin>
-                  <Insets left="80.0" />
-               </FlowPane.margin>
+            <Label fx:id="labelVirhe" text="virheteksti" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </Label>
+            <Label text="Valitse simulaattori listasta tai lisää uusi" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <TextField fx:id="textPeli" promptText="Esim. Assetto Corsa" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </TextField>
+            <Button fx:id="buttonLisaaPeli" mnemonicParsing="false" onAction="#buttonLisaaPeli" text="Lisää simulaattori" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </Button>
+            <ComboBox fx:id="chooserPeli" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="5.0" />
+               </GridPane.margin>
+            </ComboBox>
          </children>
-      </FlowPane>
-   </center>
+      </GridPane>
+   </bottom>
 </BorderPane>

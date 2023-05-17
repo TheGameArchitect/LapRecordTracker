@@ -275,6 +275,7 @@ public class LapTrackerMainGUIController implements Initializable {
         for (int i = 0; i < laprecordtracker.getKilparatoja(); i++) {
             if (laprecordtracker.getKilparatoja() < 0) return;
             Kilparata kilparata = laprecordtracker.annaKilparata(rataIndeksi);
+            if (kilparata == null) continue;
             listKilparadat.add("" + kilparata.getKilparata(), kilparata);
             if (kilparata.getTunnusNro() == jnro) index = i;
             rataIndeksi++;
@@ -329,7 +330,7 @@ public class LapTrackerMainGUIController implements Initializable {
     private void naytaSimulaattori(Kierrosaika kierrosaika) {
         textSimulaattori.clear();
         if (kierrosaika == null) return;
-        Peli peli = laprecordtracker.annaPeli(kierrosaika);
+        Peli peli = laprecordtracker.annaPeli(0); // TODO: tämä koko metodi kuntoon, tai poista jos ei tarvitse
         if (peli == null) return;
         textSimulaattori.setText(peli.getPeli());
     }
@@ -412,8 +413,10 @@ public class LapTrackerMainGUIController implements Initializable {
      */
     public void uusiKilparata() {
         Kilparata uusi = new Kilparata();
+        laprecordtracker.setApuKilparata(uusi);
         Kierrosaika aikaKohdalla = listAutot.getSelectedObject();
-        uusi = LisaaKilparataGUIController.kysyRata(null, uusi);
+        LisaaKilparataGUIController.kysyRata(null, laprecordtracker);
+        uusi = laprecordtracker.getApuKilparata();
         if (uusi == null) return;
         uusi.rekisteroi();
         laprecordtracker.lisaa(uusi);
