@@ -9,7 +9,9 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 /**
- * @author Matti Savolainen
+ * Tietorakenne kierrosaikojen säilömistä varten. 
+ * Hoitaa kierrosaikojen tallentamisen ja tiedostosta lukemisen.
+ * @author Matti Savolainen - savomaaa@student.jyu.fi
  * @version 23.3.2023
  *
  */
@@ -34,7 +36,6 @@ public class Kierrosajat {
      * Lisää uuden kierrosajan tietorakenteeseen. Ottaa kierrosajan omistukseensa.
      * @param kierrosaika lisättävän kierrosajan viite. 
      * @throws SailoException jos tietorakenne on täynnä
-     * TESTIT EI TOIMI NYT KOSKA SailoExceptionia EI TULE SILLÄ TAULUKON KOKOA KASVATETAAN, JOS SE KÄY PIENEKSI
      * @example
      * <pre name="test">
      * #THROWS SailoException
@@ -162,9 +163,9 @@ public class Kierrosajat {
      * Tallentaa kierrosajan tiedostoon.
      * Tiedoston muoto:
      * <pre>
-     * 1|1|6.37.745|Pagani Zonda R|Medium|Puolipilvinen|ABS|1|Epävakaa yli 200km/h vauhdissa|
-     * 2|2|1.58.534|Ferrari 458 GT3|Soft|Aurinkoinen|ABS|3||
-     * 3|3|1.33.424|Mitsubishi Lancer Evo|Wet|Kaatosade|ABS, TCS2|4||
+     * 1|Pagani Zonda R|04.36.375|Medium|Kuiva|TCS 2|Kommentti|1|
+     * 3|Volvo 940|00.32.423|Kumiset|Kaatosade|Ei|Kone keitti|1|
+     * 4|Renault Megane Scenic|02.34.342|Kumiset|Kyllä|Ei|Hirvi juoksi edestä|1|
      * <pre>
      * @param hakemisto tallennettavan tiedoston hakemisto
      * @throws SailoException jos tallennus epäonnistuu
@@ -214,13 +215,12 @@ public class Kierrosajat {
             muutettu = false;
         } catch (FileNotFoundException e) {
             throw new SailoException("Ei saa luettua tiedostoa " + nimi);
-        //} catch (IOException e) {
-        //    throw new SailoException("Ongelmia tiedoston kanssa: " + e.getMessage());
         }
     }
     
     
     /**
+     * Testiohjelma luokan testaamista varten.
      * @param args ei käytössä
      */
     public static void main(String[] args) {
@@ -248,7 +248,6 @@ public class Kierrosajat {
             kierrosajat.lisaa(zonda2);
             kierrosajat.lisaa(zonda3);
         } catch (SailoException e) {
-            // e.printStackTrace();
             System.err.println(e.getMessage());
         }
         

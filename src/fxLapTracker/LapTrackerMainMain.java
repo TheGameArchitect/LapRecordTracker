@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 
 
 /**
+ * Avaa pääikkunan näkymän ja lataa tarvittavat resurssit käyttöliittymän tyyliä varten
  * @author Matti Savolainen - savomaaa@student.jyu.fi
  * @version 17.2.2023
  * 

@@ -2,7 +2,8 @@ package kanta;
 import static kanta.SisaltaaTarkistaja.*;
 
 /**
- * @author Matti Savolainen
+ * Luokan avulla tarkistetaan käyttäjän antaman kierrosajan oikea muotoilu.
+ * @author Matti Savolainen - savomaaa@student.jyu.fi
  * @version 23.3.2023
  *
  */

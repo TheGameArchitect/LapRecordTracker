@@ -7,8 +7,10 @@ import java.io.File;
 import java.util.List;
 
 /**
+ * Tämä luokka kasaa kaikkien tietorakenteiden tiedot yhteen,
+ * jotta ne voidaan viedä käyttöliittymälle.
  * CRC sisällöt tähän
- * @author Matti Savolainen
+ * @author Matti Savolainen - savomaaa@student.jyu.fi
  * @version 24.3.2023
  *
  */
@@ -80,6 +82,7 @@ public class LapRecordTracker {
     
     
     /**
+     * Hakee apukilparata-olion muokkaamista varten
      * @return apukilparata uuden tekemistä varten
      */
     public Kilparata getApuKilparata() {
@@ -88,6 +91,7 @@ public class LapRecordTracker {
     
     
     /**
+     * Asettaa uuden kilparata-olion apuolioon muokaamista varten
      * @param kilparata käyttäjän antamilla tiedoilla täytettä kilparata
      * @return null jos virhe
      */
@@ -98,6 +102,7 @@ public class LapRecordTracker {
     
     
     /**
+     * Hakee käyttöliittymässä valitun kierrosajan
      * @return käyttöliittymässä valittu kierrosaika
      */
     public Kierrosaika getKierrosaikaKohdalla() {
@@ -106,6 +111,8 @@ public class LapRecordTracker {
     
     
     /**
+     * Asettaa käyttöliittymässä valitun kierrosaika-olion 
+     * apuolioon muokkaamista varten
      * @param kierrosaika käyttöliittymässä valittu kierrosaika
      * @return null jos virhe
      */
@@ -146,6 +153,7 @@ public class LapRecordTracker {
     
     
     /**
+     * Tätä ei toistaiseksi tarvita
      * Haetaan kierrosajan kilparata
      * @param kierrosaika kierrosaika jolle kilparata haetaan
      * @return tietorakenne jossa viitteet löydettyihin kilparatoihin
@@ -206,6 +214,7 @@ public class LapRecordTracker {
     
     
     /**
+     * Lähettää kierrosajan omaan luokkaansa poistettavaksi
      * @param kierrosaika poistettava kierrosaika
      * @return 0 jos poistaminen onnistui
      */
@@ -217,7 +226,7 @@ public class LapRecordTracker {
     
     
     /**
-     * 
+     * Lähettää kilparadan omaan luokkaansa poistettavaksi
      * @param kilparata poistettava kilparata
      * @return 0 jos poistaminen onnistui
      */
@@ -275,6 +284,7 @@ public class LapRecordTracker {
     
 
     /**
+     * Testiohjelma luokan testaamiseksi.
      * @param args ei kaytossa
      */
     public static void main(String[] args) {

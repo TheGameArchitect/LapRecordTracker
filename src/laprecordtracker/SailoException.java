@@ -5,11 +5,12 @@ package laprecordtracker;
 
 /**
  * Poikkeusluokka tietorakenteesta aiheutuville poikkeuksille.
- * @author Matti Savolainen
+ * @author Matti Savolainen - savomaaa@student.jyu.fi
  * @version 23.3.2023
  *
  */
 public class SailoException extends Exception {
+    
     private static final long serialVersionUID = 1L;
 
     /**

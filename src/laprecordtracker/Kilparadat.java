@@ -15,7 +15,9 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * @author Matti Savolainen
+ * Tietojärjestelmä kilparatojen säilömistä varten.
+ * Tallentaa tiedot tiedostoon ja osaa lukea ne sieltä.
+ * @author Matti Savolainen - savomaaa@student.jyu.fi
  * @version 24.3.2023
  *
  */
@@ -27,9 +29,7 @@ public class Kilparadat implements Iterable<Kilparata> {
     private final Collection<Kilparata> alkiot    = new ArrayList<Kilparata>();
     
     
-    /**
-     * Kilparatojen alustaminen
-     */
+    /** Kilparatojen alustaminen */
     public Kilparadat() {
         // toistaiseksi ei tarvitse tehdä mitään
     }
@@ -102,10 +102,8 @@ public class Kilparadat implements Iterable<Kilparata> {
      * Tallentaa kierrosajat tiedostoon.
      * Tiedoston muoto:
      * <pre>
-     * 1|Nordschleife
-     * 2|Imola
-     * 3|Silvestone GP
-     * 4|Spa Francorchamps
+     * 1|0|KymiRing
+     * 2|0|Suzuka
      * <pre>
      * @param hakemisto tallennettavan tiedoston hakemisto
      * @throws SailoException jos tallentaminen epäonnistuu

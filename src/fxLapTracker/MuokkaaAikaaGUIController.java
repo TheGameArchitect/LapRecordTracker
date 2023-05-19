@@ -21,6 +21,7 @@ import laprecordtracker.Peli;
 import laprecordtracker.SailoException;
 
 /**
+ * Hoitaa kierrosaika-olion muokkaamisen ja uuden tekemisen. 
  * @author Matti Savolainen - savomaaa@student.jyu.fi
  * @version 16.2.2023
  *
@@ -77,7 +78,6 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<LapRe
     @Override
     public LapRecordTracker getResult() {
         return laprecordtracker;
-        //return oletusVastaus;
     }
 
     @Override
@@ -97,7 +97,6 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<LapRe
     public void setDefault(LapRecordTracker oletus) {
         laprecordtracker = oletus;
         alusta();
-        //kierrosaikaKohdalla = oletus;
         naytaKierrosaika(edits, textKommentit, laprecordtracker.getKierrosaikaKohdalla());
         naytaKommentitJaAuto(laprecordtracker.getKierrosaikaKohdalla());
     }
@@ -106,7 +105,6 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<LapRe
     // ====================================================================================
     
     private LapRecordTracker laprecordtracker;
-    //private Kierrosaika valittuKierrosaika;
     private TextField[] edits;
     
     
@@ -210,7 +208,6 @@ public class MuokkaaAikaaGUIController implements ModalControllerInterface<LapRe
     
     
     /**
-     * TODO: muokkaa kommentit tms. kuntoon
      * Luodaan kierrosajan kysymisdialogi ja palautetaan sama tietue muutettuna tai null
      * @param modalityStage mille ollaan modaalisia, null = sovellukselle
      * @param oletus mitä dataa näytetään oletuksena

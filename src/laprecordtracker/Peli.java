@@ -10,7 +10,9 @@ import fi.jyu.mit.ohj2.Mjonot;
 import kanta.KierrosaikaTarkistus;
 
 /**
- * @author Matti Savolainen
+ * Peli-olion ominaisuudet määritellään tässä. 
+ * Luokka myös osaa tehdä tiedoista merkkijonon tallentamista varten.
+ * @author Matti Savolainen - savomaaa@student.jyu.fi
  * @version 13.4.2023
  *
  */
@@ -179,6 +181,7 @@ public class Peli {
     
     
     /**
+     * Testiohjelma luokan testaamiseksi.
      * @param args ei kaytossa
      */
     public static void main(String[] args) {

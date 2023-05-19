@@ -10,7 +10,9 @@ import fi.jyu.mit.ohj2.Mjonot;
 import kanta.KierrosaikaTarkistus;
 
 /**
- * @author Matti Savolainen
+ * Määrittää kilparata-olion tiedot.
+ * Osaa laittaa tiedot merkkijonoon tiedostoon tallentamista varten.
+ * @author Matti Savolainen - savomaaa@student.jyu.fi
  * @version 24.3.2023
  *
  */
@@ -189,6 +191,7 @@ public class Kilparata {
     
     
     /**
+     * Testiohjelma luokan testaamiseksi.
      * @param args ei käytössä
      */
     public static void main(String[] args) {

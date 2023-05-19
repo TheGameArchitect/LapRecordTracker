@@ -19,31 +19,19 @@ import laprecordtracker.Peli;
 import laprecordtracker.SailoException;
 
 /**
+ * Kysyy käyttäjältä uuden kilparadan nimen
  * @author Matti Savolainen - savomaaa@student.jyu.fi
  * @version 16.2.2023
  */
 public class LisaaKilparataGUIController implements ModalControllerInterface<LapRecordTracker>, Initializable {
 
-    @FXML
-    private Button buttonPeruuta;
-
-    @FXML
-    private Button buttonTallenna;
-
-    @FXML
-    private TextField textKilparata;
-    
-    @FXML
-    private Label labelVirhe;
-    
-    @FXML
-    private Button buttonLisaaPeli; // TODO: Tee metodi pelin lisäämiselle
-
-    @FXML
-    private ComboBox<Peli> chooserPeli;
-
-    @FXML
-    private TextField textPeli;
+    @FXML private Button buttonPeruuta;
+    @FXML private Button buttonTallenna;
+    @FXML private TextField textKilparata;
+    @FXML private Label labelVirhe;
+    @FXML private Button buttonLisaaPeli; // TODO: Tee metodi pelin lisäämiselle
+    @FXML private ComboBox<Peli> chooserPeli;
+    @FXML private TextField textPeli;
 
     @FXML
     void buttonLisaaPeli() {
@@ -53,7 +41,6 @@ public class LisaaKilparataGUIController implements ModalControllerInterface<Lap
     @FXML
     void buttonPeruuta() {
         laprecordtracker.setApuKilparata(null);
-        //oletusRata = null;
         ModalController.closeStage(textKilparata);
     }
 
@@ -105,7 +92,6 @@ public class LisaaKilparataGUIController implements ModalControllerInterface<Lap
         laprecordtracker = oletus;
         oletusRata = laprecordtracker.getApuKilparata();
         alusta();
-        //oletusRata = oletus;
         textKilparata.clear();
     }
 

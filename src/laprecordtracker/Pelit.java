@@ -12,7 +12,9 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 /**
- * @author Matti Savolainen
+ * Tietorakenne pelien säilömistä varten. 
+ * Hoitaa pelien tallentamisen ja tiedostosta lukemisen.
+ * @author Matti Savolainen - savomaaa@student.jyu.fi
  * @version 13.4.2023
  *
  */
@@ -24,9 +26,7 @@ public class Pelit {
     private Peli[] alkiot;
     private String               tiedostonNimi    = "";
     
-    /**
-     * Luodaan alustava taulukko
-     */
+    /** Luodaan alustava taulukko */
     public Pelit() {
         alkiot = new Peli[MAX_PELEJA];
     }
@@ -144,6 +144,7 @@ public class Pelit {
     
     
     /**
+     * Testiohjelma luokan testaamiseksi.
      * @param args ei kaytossa
      */
     public static void main(String[] args) {

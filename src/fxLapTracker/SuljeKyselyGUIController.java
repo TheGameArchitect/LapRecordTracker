@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
 /**
+ * Kysytään käyttäjältä, halutaanko sovellusta sulkea.
  * @author Matti Savolainen - savomaaa@student.jyu.fi
  * @version 16.2.2023
  *

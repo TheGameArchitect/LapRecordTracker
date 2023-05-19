@@ -5,7 +5,7 @@ package kanta;
 
 /**
  * Tarkistaja joka tarkistaa että jono sisältää vain valittuja merkkejä.
- * @author Matti Savolainen
+ * @author Matti Savolainen - savomaaa@student.jyu.fi
  * @version 12.5.2023
  *
  */
@@ -52,6 +52,8 @@ public class SisaltaaTarkistaja {
     
     
     /**
+     * Tarkistaa onko parametrina tulleessa merkkijonon
+     * sallittuja merkkejä
      * @param jono tutkittava jono
      * @return null jos vain valittuja merkkejä, muuten virheilmoitus
      * @example
@@ -72,8 +74,7 @@ public class SisaltaaTarkistaja {
      * @param args ei kaytossa
      */
     public static void main(String[] args) {
-    // TODO Auto-generated method stub
-    
+        //
     }
 
 }
