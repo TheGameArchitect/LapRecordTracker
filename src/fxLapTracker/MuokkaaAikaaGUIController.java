@@ -21,7 +21,10 @@ import laprecordtracker.Peli;
 import laprecordtracker.SailoException;
 
 /**
- * Hoitaa kierrosaika-olion muokkaamisen ja uuden tekemisen. 
+ * Hoitaa kierrosaika-olion muokkaamisen ja uuden tekemisen.
+ * 
+ * Uuden pelin (simulaattorin) luominen pitäisi otta pois
+ * tästä ikkunasta ja siirtää kilparadan luomiseen.
  * @author Matti Savolainen - savomaaa@student.jyu.fi
  * @version 16.2.2023
  *

@@ -239,7 +239,6 @@ public class Kilparadat implements Iterable<Kilparata> {
      * Etsitään kierrosajan ensimmäinen kilparata
      * @param tunnusnro käsiteltävä kierrosaika
      * @return kierrosajan ensimmäinen kilparata
-     * TODO: Testaa
      */
     public String annaKilparataNimi(int tunnusnro) {
         for (Kilparata rata : alkiot) {

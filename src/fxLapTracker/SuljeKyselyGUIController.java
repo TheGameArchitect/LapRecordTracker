@@ -52,7 +52,7 @@ public class SuljeKyselyGUIController implements ModalControllerInterface<String
 
         @Override
         public void initialize(URL arg0, ResourceBundle arg1) {
-            // TODO Auto-generated method stub
+            // 
             
         }
 }

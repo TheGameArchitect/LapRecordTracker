@@ -19,7 +19,12 @@ import laprecordtracker.Peli;
 import laprecordtracker.SailoException;
 
 /**
- * Kysyy käyttäjältä uuden kilparadan nimen
+ * Kysyy käyttäjältä uuden kilparadan nimen.
+ * 
+ * Tässä ikkunassa pitäisi kysyä käyttäjältä, mihin
+ * peliin (simulaattoriin) rata yhdistetään. Ikkunassa
+ * pitäisi olla myös mahdollisuus luoda uusi peli, jos niitä
+ * ei vielä ole olemassa.
  * @author Matti Savolainen - savomaaa@student.jyu.fi
  * @version 16.2.2023
  */

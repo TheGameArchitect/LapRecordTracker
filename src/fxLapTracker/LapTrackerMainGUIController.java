@@ -23,6 +23,16 @@ import javafx.scene.control.TextArea;
 
 /**
  * Luokka pääikkunan käyttöliittymän tapahtumien käsittelyä varten.
+ * 
+ * Kilparadan poistaminen voisi poistaa myös sen alla olevat kierrosajat.
+ * Pelien poistamiseen ei ole vielä mitään keinoa.
+ * Pelin valinta ei toimi vielä alasvetovalikosta.
+ * 
+ * Pelin (simulaattorin) luominen ei ole muutenkaan toteutettu vielä
+ * aivan oikealla tavalla. Niiden olisi tarkoitus olla yhteydessä
+ * kilparatoihin, sillä periaatteella, että yhden pelin alapuolella on
+ * useita kilparatoja, jotta ajettuja kierrosaikoja voisi lajitella
+ * pelin mukaan.
  * @author Matti Savolainen - savomaaa@student.jyu.fi
  * @version 17.2.2023
  *
