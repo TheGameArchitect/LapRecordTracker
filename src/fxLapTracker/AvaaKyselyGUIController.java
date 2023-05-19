@@ -12,7 +12,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
- * @author Matti Savolainen
+ * Kysytään käyttäjältä tallennettujen tietojen sijainti
+ * @author Matti Savolainen - savomaaa@student.jyu.fi
  * @version 14.4.2023
  *
  */

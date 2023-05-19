@@ -174,35 +174,35 @@
                   <RowConstraints minHeight="10.0" prefHeight="200.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TextField fx:id="textKeli" editable="false" text="Puolipilvinen" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <TextField fx:id="textKeli" editable="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                      <GridPane.margin>
                         <Insets right="10.0" />
                      </GridPane.margin></TextField>
-                  <TextField fx:id="textRenkaat" editable="false" text="Medium" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <TextField fx:id="textRenkaat" editable="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                      <GridPane.margin>
                         <Insets right="10.0" />
                      </GridPane.margin></TextField>
-                  <TextField fx:id="textAjoavut" editable="false" text="ABS" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <TextField fx:id="textAjoavut" editable="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                      <GridPane.margin>
                         <Insets right="10.0" />
                      </GridPane.margin></TextField>
-                  <TextField fx:id="textSimulaattori" editable="false" text="Assetto Corsa" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                  <TextField fx:id="textSimulaattori" editable="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                      <GridPane.margin>
                         <Insets right="10.0" />
                      </GridPane.margin></TextField>
-                  <TextArea fx:id="textKommentit" editable="false" prefHeight="129.0" prefWidth="229.0" text="Epävakaa yli 200km/h vauhdissa" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                  <TextArea fx:id="textKommentit" editable="false" prefHeight="129.0" prefWidth="229.0" text="" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <padding>
                         <Insets bottom="5.0" right="5.0" top="5.0" />
                      </padding>
@@ -236,7 +236,7 @@
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding></Label>
-                  <TextField fx:id="textKierrosaika" editable="false" text="6.37.745" GridPane.columnIndex="1">
+                  <TextField fx:id="textKierrosaika" editable="false" text="" GridPane.columnIndex="1">
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>

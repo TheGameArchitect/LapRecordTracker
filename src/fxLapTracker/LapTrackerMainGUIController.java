@@ -1,6 +1,5 @@
 package fxLapTracker;
 
-//import java.io.PrintStream;
 import java.net.URL;
 //import java.util.List;
 import java.util.ResourceBundle;
@@ -23,8 +22,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 
 /**
- * Luokka pääikkunan käyttöliittymän tapahtuminen käsittelyä varten.
- * @author Matti Savolainen
+ * Luokka pääikkunan käyttöliittymän tapahtumien käsittelyä varten.
+ * @author Matti Savolainen - savomaaa@student.jyu.fi
  * @version 17.2.2023
  *
  */
@@ -32,19 +31,16 @@ public class LapTrackerMainGUIController implements Initializable {
     
     @FXML
     private void buttonLisaaRata() {
-        //ModalController.showModal(LisaaKilparataGUIController.class.getResource("LisaaKilparata.fxml"), "Kilparata", null, "");
         uusiKilparata();
     }
 
     @FXML
     private void buttonMuokAika() {
-        //ModalController.showModal(MuokkaaAikaaGUIController.class.getResource("MuokkaaAikaa.fxml"), "Kierrosaika", null, "");
         muokkaa();
     }
 
     @FXML
     private void buttonPoistaAika() {
-        //ModalController.showModal(PoistaAikaKyselyGUIController.class.getResource("PoistaAikaKysely.fxml"), "", null, "");
         poistaKierrosaika();
     }
     
@@ -55,9 +51,7 @@ public class LapTrackerMainGUIController implements Initializable {
 
     @FXML
     private void buttonUusiAika() {
-        //ModalController.showModal(UusiAikaGUIController.class.getResource("UusiAika.fxml"), "Kierrosaika", null, "");
         uusiAika();
-        //uusiPeli();
     }
     
     @FXML
@@ -99,7 +93,6 @@ public class LapTrackerMainGUIController implements Initializable {
     private void menuSulje() {
         tallenna();
         ModalController.showModal(SuljeKyselyGUIController.class.getResource("SuljeKysely.fxml"), "", null, "");
-        //Platform.exit();
     }
     
     @FXML
@@ -107,31 +100,19 @@ public class LapTrackerMainGUIController implements Initializable {
         ModalController.showModal(TietojaSovelluksestaGUIController.class.getResource("TietojaSovelluksesta.fxml"), "", null, "");
     }
 
-    @FXML
-    private TextField textAjoavut;
-    @FXML
-    private TextField textKeli;
-    @FXML
-    private TextField textKierrosaika;
-    @FXML
-    private TextField textHaku;
-    @FXML
-    private TextArea textKommentit;
-    @FXML
-    private TextField textRenkaat;
-    @FXML
-    private TextField textSimulaattori;
+    @FXML private TextField textAjoavut;
+    @FXML private TextField textKeli;
+    @FXML private TextField textKierrosaika;
+    @FXML private TextField textHaku;
+    @FXML private TextArea textKommentit;
+    @FXML private TextField textRenkaat;
+    @FXML private TextField textSimulaattori;
     
-    @FXML
-    private ListChooser<Kierrosaika> listAutot;
-    @FXML
-    private ListChooser<Kilparata> listKilparadat;
-    @FXML
-    private GridPane panelKierrosaika;
-    @FXML
-    private Menu menuApua;
-    @FXML
-    private Menu menuTiedost;
+    @FXML private ListChooser<Kierrosaika> listAutot;
+    @FXML private ListChooser<Kilparata> listKilparadat;
+    @FXML private GridPane panelKierrosaika;
+    @FXML private Menu menuApua;
+    @FXML private Menu menuTiedost;
     
 
     @Override
@@ -139,19 +120,11 @@ public class LapTrackerMainGUIController implements Initializable {
         alusta();
     }
     
-    @FXML
-    private Label labelVirhe;
-    
-    @FXML
-    private String virheTeksti = "Haku ei toimi vielä!";
+    @FXML private Label labelVirhe;
      
     @FXML
     private void textHaku() {
         haku(0);
-        
-        String hakuTeksti = textHaku.getText();
-        if (hakuTeksti.isEmpty()) naytaVirhe(null);
-        else naytaVirhe(null);
     }
 
 
@@ -176,21 +149,6 @@ public class LapTrackerMainGUIController implements Initializable {
     
     private void setTitle(String title) {
         ModalController.getStage(textHaku).setTitle(title);
-    }
-    
-    
-    /**
-     * Kertoo käyttäjällä, jos annettu hakutermi ei ole oikeanlainen
-     * @param virhe Käyttäjän kirjoittama teksti
-     */
-    private void naytaVirhe(String virhe) {
-        if (virhe == null || virhe.isEmpty()) {
-            labelVirhe.setText("");
-            labelVirhe.getStyleClass().removeAll("virhe");
-            return;
-        }
-        labelVirhe.setText(virhe);
-        labelVirhe.getStyleClass().add("virhe");
     }
     
     
@@ -377,8 +335,6 @@ public class LapTrackerMainGUIController implements Initializable {
     private void muokkaa() {
         laprecordtracker.setKierrosaikaKohdalla(listAutot.getSelectedObject());
         Kierrosaika valittuAika = laprecordtracker.getKierrosaikaKohdalla();
-        //LapRecordTracker muokattuTracker = new LapRecordTracker();
-        //muokattuTracker = laprecordtracker;
         if (valittuAika == null) return;
         try {
             valittuAika = valittuAika.clone();
@@ -408,29 +364,21 @@ public class LapTrackerMainGUIController implements Initializable {
     }
     
     
-    /**
-     * Tekee uuden tyhjän kilparadan editointia varten
-     */
+    /** Tekee uuden tyhjän kilparadan editointia varten */
     public void uusiKilparata() {
         Kilparata uusi = new Kilparata();
         laprecordtracker.setApuKilparata(uusi);
-        Kierrosaika aikaKohdalla = listAutot.getSelectedObject();
         LisaaKilparataGUIController.kysyRata(null, laprecordtracker);
+        if (laprecordtracker.getApuKilparata() == null) return;
         uusi = laprecordtracker.getApuKilparata();
-        if (uusi == null) return;
         uusi.rekisteroi();
         laprecordtracker.lisaa(uusi);
-        if (aikaKohdalla != null) {
-            try {
-                aikaKohdalla.setRataId(uusi.getTunnusNro());
-            } catch (Exception e) {
-                Dialogs.showMessageDialog("Kierrosaikoja ei ole valittuna" + e);
-            }
-        }
+        
         haeRataListaan(uusi.getTunnusNro());
     }
     
     
+    /** Tekee uuden tyhjän kierrosajan editointia varten */
     private void uusiAika() {
         Kierrosaika uusi = new Kierrosaika();
         laprecordtracker.setKierrosaikaKohdalla(uusi);
@@ -446,33 +394,4 @@ public class LapTrackerMainGUIController implements Initializable {
         naytaSimulaattori(uusi);
         haeKierrosaikaListaan(uusi.getTunnusNro());
     }
-    
-    /*
-    private void uusiPeli() {
-        Peli peli = new Peli();
-        peli.rekisteroi();
-        try {
-            laprecordtracker.lisaa(peli);
-        } catch (SailoException e) {
-            Dialogs.showMessageDialog("Ongelmia uuden luomisessa " + e.getMessage());
-        }
-    }*/
-    
-    
-
-    /**
-     * Tulostaa kierrosajan tiedot
-     * @param os tietovirta johon tulostetaan
-     * @param kierrosaika tulostettava kierrosaika
-     */
-    /**
-    private void tulosta(PrintStream os, final Kierrosaika kierrosaika) {
-        os.println("---------------------------------------------");
-        kierrosaika.tulosta(os);
-        os.println("---------------------------------------------");
-        List<Kilparata> kilparadat = laprecordtracker.annaKilparadat(kierrosaika);
-        for (Kilparata kil : kilparadat)
-            kil.tulosta(os);
-        os.println("---------------------------------------------");
-    }**/
 }

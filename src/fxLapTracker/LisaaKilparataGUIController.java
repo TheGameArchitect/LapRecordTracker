@@ -19,7 +19,7 @@ import laprecordtracker.Peli;
 import laprecordtracker.SailoException;
 
 /**
- * @author Matti Savolainen
+ * @author Matti Savolainen - savomaaa@student.jyu.fi
  * @version 16.2.2023
  */
 public class LisaaKilparataGUIController implements ModalControllerInterface<LapRecordTracker>, Initializable {
@@ -52,7 +52,8 @@ public class LisaaKilparataGUIController implements ModalControllerInterface<Lap
 
     @FXML
     void buttonPeruuta() {
-        oletusRata = null;
+        laprecordtracker.setApuKilparata(null);
+        //oletusRata = null;
         ModalController.closeStage(textKilparata);
     }
 

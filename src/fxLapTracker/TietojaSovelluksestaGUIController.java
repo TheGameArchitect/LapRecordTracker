@@ -11,7 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
 /**
- * @author Matruusi
+ * @author Matti Savolainen - savomaaa@student.jyu.fi
  * @version 16.2.2023
  *
  */

@@ -9,7 +9,7 @@ import javafx.fxml.FXMLLoader;
 
 
 /**
- * @author Matti Savolainen
+ * @author Matti Savolainen - savomaaa@student.jyu.fi
  * @version 17.2.2023
  * 
  */
@@ -26,10 +26,10 @@ public class LapTrackerMainMain extends Application {
             primaryStage.setScene(scene);
             primaryStage.setTitle("LapRecordTracker");
             
-            
+            /* TODO: Lisää Kilparadat-luokkaan "muutettu"-muuttuja, jotta tämä toimisi oikein
             primaryStage.setOnCloseRequest((event) -> {
                 if (!laptrackermainCtrl.voikoSulkea()) event.consume();
-            });
+            });*/
             
             LapRecordTracker laprecordtracker = new LapRecordTracker();
             laptrackermainCtrl.setLapRecordTracker(laprecordtracker);

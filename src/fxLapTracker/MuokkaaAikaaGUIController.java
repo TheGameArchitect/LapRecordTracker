@@ -21,7 +21,7 @@ import laprecordtracker.Peli;
 import laprecordtracker.SailoException;
 
 /**
- * @author Matti Savolainen
+ * @author Matti Savolainen - savomaaa@student.jyu.fi
  * @version 16.2.2023
  *
  */
